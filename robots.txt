@@ -1,0 +1,7 @@
+User-agent: * 
+Disallow: /caches
+Disallow: /configs
+Disallow: /data
+Disallow: /source
+Disallow: /templates
+Disallow: /uploadfiles

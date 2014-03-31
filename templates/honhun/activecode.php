@@ -1,0 +1,153 @@
+<?php
+$pagetitle="激活码管理";
+include admin_template("header");
+?>
+<script type="text/javascript"> 
+<!--
+	$(function(){
+		$("input[name='checkall']").click(function() {
+			if(this.checked) {
+                $("input[name='checkall']").attr("checked",true);
+				$("input[name='ids[]']").attr("checked",true);
+            } else {
+				$("input[name='checkall']").attr("checked",false);
+                $("input[name='ids[]']").attr("checked",false);
+            }
+		});
+		
+		//排序
+		$("#order a").click(function(){
+			var orderby = $(this).attr("orderby");
+			var order = $(this).attr("order");
+			$("#order a span").html("");
+			$("#orderby_value").val(orderby);
+			$("#order_value").val(order);
+			if(order == "asc") {
+				$(this).find("span").html("↑");
+				$(this).attr("order","desc");
+				
+			} else {
+				$(this).find("span").html("↓");
+				$(this).attr("order","asc");
+			}
+			$("#searchform").submit();
+		});
+	})
+//-->
+</script>
+
+<div class="pageMain">
+<div class="pageTitle">
+<div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
+<a href="<?php echo get_uri("activecode","add");?>">添加</a>
+</div>
+<div class="pageContent">
+  <form action="<?php echo get_uri();?>" method="get" id="searchform">
+	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
+	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
+	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
+	  <input name="orderby_value" id="orderby_value" type="hidden" value=""  />	  
+	  <input name="order_value" id="order_value" type="hidden" value="" />	  
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	  <tr>
+		
+		<td align="right" >
+		所属景区: <input name="scenename" type="text" size="12" value="<?=$scenename?>" />
+		激活码: <input name="activecode" type="text" size="12" value="<?=$activecode?>" />
+		生成时间:
+		从 <input name="startdate" id="startdate" type="text" size="20" value="<?=$startdate?>" class="Wdate" onClick="WdatePicker()" />
+		到 <input name="enddate" id="enddate" type="text" size="20" value="<?=$enddate?>" class="Wdate" onClick="WdatePicker()" /> 
+		每页数据:<input name="pagesize" type="text" size="3" value="<?=$pagesize?>" />
+		<input type="submit" name="Submit" value="<?=lang("action","search")?>" />
+		
+		</td>
+	  </tr>
+	 </table>
+  </form>
+	
+	 <form action="<?php echo get_uri("activecode","batch","admin");?>" method="post">
+	 <table width="100%">
+		<tr id="order">
+		  <th width="20"><input type="checkbox" name="checkall" id="checkall" /></th>
+		  <th width="100">
+		  <a href="javascript:void(0);" orderby="cardnum" order="<?php echo $_GET['order_value'] == 'asc' ? 'desc' : 'asc';?>">会员号
+		  <span>
+		  <?php 	  
+		  if($_GET['orderby_value']=='cardnum') echo $_GET['order_value'] == 'asc' ? '↑' : '↓';
+		  ?>
+		  </span>
+		  </a>
+		  </th>
+		  <th width="40">
+		  <a href="javascript:void(0);" orderby="activecode" order="<?php echo $_GET['order_value'] == 'asc' ? 'desc' : 'asc';?>">激活码
+		  <span>
+		  <?php 	  
+		  if($_GET['orderby_value']=='activecode') echo $_GET['order_value'] == 'asc' ? '↑' : '↓';
+		  ?>
+		  </span>
+		  </a>
+		  </th>
+		  <th width="100">所属景区</th>
+		  <th width="40"><a href="javascript:void(0);" orderby="usednum" order="<?php echo $_GET['order_value'] == 'asc' ? 'desc' : 'asc';?>">使用次数
+		  <span>
+		  <?php 	  
+		  if($_GET['orderby_value']=='usednum') echo $_GET['order_value'] == 'asc' ? '↑' : '↓';
+		  ?>
+		  </span></a></th>
+		  <th width="100">批号</th>
+		  <th width="80">生成时间</th>		  
+		</tr>
+		<?php if(is_array($list)) { 
+			foreach ($list as $value) {
+		?>
+		<tr>
+		  <td align="center">
+		  <input type="checkbox" name="ids[]" value="<?=$value['id']?>" />
+		  </td>
+		  <td align="center">
+		  <?=$value['cardnum']?>
+		  </td>
+		  <td align="center">
+		  <?=$value['activecode']?>
+		  </td>
+		  <td align="center"><?=$value['scenename']?></td>
+		  <td align="center"><?=$value['usednum']?></td>
+		  <td align="center">
+		  <?=$batlist[$value['batchid']]?>
+		  
+		  [<a href="<?php echo get_uri("activecode","delbatch","admin");?>&batchid=<?=$value['batchid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');" >删除此批</a>]
+		  
+		  </td>
+		  <td align="center"><?=date("Y-m-d H:i",$value['dateline'])?></td>
+		</tr>
+		<?php }} ?>
+		<tr>
+			<td align="center">
+				<input type="checkbox" name="checkall" id="checkall" />
+			</td>
+			<td colspan=5 align="left">				
+				<select name="op" id="op">
+					<option value="del">删除</option>
+				</select>
+				<input type="submit" onclick="return confirm('确定删除吗?')" value="批量操作" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan=6 align="center">
+				<div class="page">
+					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+				</div>
+			<?php
+				$endTime = mtime();
+				$totaltime = sprintf("%.3f",($endTime - START_TIME));
+				echo lang("page","thispage").lang("common","excute").lang("common","time").($totaltime).lang("common","second");
+			?>
+			</td>
+		</tr>
+	</table>
+	</form>
+</div>
+</div>
+<?php
+include admin_template("footer");
+?>
