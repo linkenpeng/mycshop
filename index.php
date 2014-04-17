@@ -2,7 +2,7 @@
 /**
  * index.php 系统 入口
  *
- * @copyright (C) 2011 Fawuyou
+ * @copyright (C) 2011
  * @author Myron
  */
 //网站根目录

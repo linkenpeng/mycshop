@@ -9,6 +9,13 @@ function __autoload($class_name) {
 		require_once ROOT_PATH .DS . "source" . DS . 'model' . DS . $class_name . '.php';
 	}
 }*/
+
+//时间函数
+function mtime() {
+	list($usec,$sec) = explode(" ",microtime());
+	return ((float) $usec+(float) $sec);
+}
+
 //SQL ADDSLASHES
 function saddslashes($string) {
     if (is_array($string)) {
@@ -22,13 +29,7 @@ function saddslashes($string) {
 }
 //获得用户IP
 function get_ip() {
-    if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
-        $user_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } elseif ($_SERVER['HTTP_CLIENT_IP']) {
-        $user_ip = $_SERVER['HTTP_CLIENT_IP'];
-    } else {
-        $user_ip = $_SERVER['REMOTE_ADDR'];
-    }
+    $user_ip = $_SERVER['REMOTE_ADDR'];
     $user_ip = preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/',$user_ip) ? $user_ip : 'Unknown';
     return $user_ip;
 }

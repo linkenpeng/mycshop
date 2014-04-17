@@ -2,12 +2,12 @@
 if (!defined('SYS_IN')) {
     exit('Access Denied');
 }
-$_CTCONFIG = array(
+return  array(
     'site_name'=>'河北红色旅游景区景点智能信息服务系统',
     'timezone'=>'Asia/Shanghai',
     'timeoffset'=>'8',
     'lang'=>'zh-cn', //网站语言包
-	'province'=>'河北省', //默认省份
+	'province'=>'广东省', //默认省份
     'city'=>'广州市', //默认城市
     'template'=>'default', //默认模板
 	'admin_template'=>'honhun', //默认后台模板

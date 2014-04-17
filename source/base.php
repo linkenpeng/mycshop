@@ -1,68 +1,81 @@
 <?php
-//记录程序启动时间
-define('START_TIME',mtime());
-//session_start ();
 define('SYS_IN',true);
 define('DS','/');
+
 //定义路由路径名称
 define('ROUTE','index.php');
 define('M','mod');
 define('C','c');
 define('A','a');
+
 //框架路径
 define('FRAME_PATH',str_replace("\\","/",dirname(__FILE__)));
+
 //加载配置信息
-include ROOT_PATH.'/configs/config.sys.php';
-//加载自定义配置信息
-include ROOT_PATH.'/configs/config.customize.php';
+$_G = Base::load_config("sys"); //系统配置
+$_CTCONFIG = Base::load_config("customize"); //自定义配置信息
+
 //加载公共函数
 Base::load_sys_func("global");
+
+//设置时区
+date_default_timezone_set($_CTCONFIG['timezone']);
+$_G['timestamp'] = time();
+define('START_TIME',mtime()); //记录程序启动时间
+
 //定义站点名称
 define('SITE_NAME',$_CTCONFIG['site_name']);
+//定义站点url
+define('SITE_URL',getsiteurl());
+
 //定义默认省份
 define('DEFAULT_PROVINCE',$_CTCONFIG['province']);
+
+//附件路径
+define('UPLOAD_PATH',ROOT_PATH.'/uploadfiles');
+define('UPLOAD_URI',SITE_URL.'/uploadfiles');
 //允许上传的文件类型
 define('UPLOAD_IMAGE_FILE_TYPES',$_CTCONFIG['upload_image_file_types']);
-define('UPLOAD_AUDIO_FILE_TYPES',$_CTCONFIG['upload_image_audio_types']);
-define('UPLOAD_VIDEO_FILE_TYPES',$_CTCONFIG['upload_image_video_types']);
+define('UPLOAD_AUDIO_FILE_TYPES',$_CTCONFIG['upload_audio_file_types']);
+define('UPLOAD_VIDEO_FILE_TYPES',$_CTCONFIG['upload_video_file_types']);
+
 //定义地图key
 define('MAPKEY',$_CTCONFIG['mapkey']);
 //定义站点字符集
 define('CHARSET',$_G['charset']);
 //输出页面字符集
 header('Content-type: text/html; charset='.CHARSET);
-//设置时区
-date_default_timezone_set($_CTCONFIG['timezone']);
-//定义站点url
-define('SITE_URL',getsiteurl());
+
 //定义后台模板url
 define('ADMIN_TEMPLATE_URL',SITE_URL.'/templates/'.$_CTCONFIG['admin_template']);
 //定义前台模板url
 define('TEMPLATE_URL',SITE_URL.'/templates/'.$_CTCONFIG['template']);
+
 //定义站点gzip
 define('GZIP',$_G['gzip']);
-//附件路径
-define('UPLOAD_PATH',ROOT_PATH.'/uploadfiles');
-define('UPLOAD_URI',SITE_URL.'/uploadfiles');
 //来源
 define('HTTP_REFERER',isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '');
-//定义管理员身份
-define('ADMIN_USER_TYPE',1);
+
 //GPC过滤
 $magic_quote = get_magic_quotes_gpc();
 if (empty($magic_quote)) {
     $_GET = saddslashes($_GET);
     $_POST = saddslashes($_POST);
-    $_SESSION = saddslashes($_SESSION);
     $_COOKIE = saddslashes($_COOKIE);
     $_REQUEST = saddslashes($_REQUEST);
 }
+
 //连接数据库
 Base::load_sys_class("mysql",'',0);
 $db = mysql::getInstance();
+
 //开启session
 $session = Base::load_model("session_model");
 $session->my_session_start();
+
+//定义管理员身份
+define('ADMIN_USER_TYPE',1);
+
 //获取用户组对应的菜单id
 $usergroupdb = Base::load_model("usergroup_model");
 $menuids = $usergroupdb->get_permission();
@@ -72,10 +85,10 @@ $menudb->check_permission($menuids);
 //获得用户组分配的主菜单
 $check_modules = array('admin'); // 需要登录的模块
 $topmenus = $menudb->get_top_menus($menuids, $check_modules);
+
 /**
  * 
  * 基础类，用来载入一些公共函数，类，配置参数
- * @author Myron
  */
 class Base {
     /**
@@ -151,11 +164,11 @@ class Base {
     }
     /**
      * 加载配置文件
-     * @param string $config 文件名
+     * @param string $file 文件名
      */
-    public static function load_config($config, $key = '') {
+    public static function load_config($file, $key = '') {
         static $configs = array();
-        $path = ROOT_PATH.DS.'configs'.DS.'config.'.$config.'.php';
+        $path = ROOT_PATH.DS.'configs'.DS.'config.'.$file.'.php';       
         if (file_exists($path)) {
             $configs[$file] = include $path;
         }
@@ -168,9 +181,5 @@ class Base {
         }
     }
 }
-//时间函数 
-function mtime() {
-    list($usec,$sec) = explode(" ",microtime());
-    return ((float) $usec+(float) $sec);
-}
+
 ?>

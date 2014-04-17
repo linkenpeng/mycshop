@@ -96,7 +96,6 @@ class user_model extends model {
 		$logininfo['usertype'] = "";
         if (!empty($username)&&!empty($password)) {
             $password_form = password($password);
-            //不在sql语句中判断password,防sql注入,user_typeid=1代表是管理员身份
             $where = " where username='$username' ";
             if (!empty($usertype)) {
                 $where .= " and usertype='$usertype' ";
