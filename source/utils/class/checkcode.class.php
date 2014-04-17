@@ -1,17 +1,19 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 /**
- * checkcode.class.php 数据模型基类
+ * 验证码生成
+ * @author Myron
+ *
  */
 class checkcode {
     function __construct() {
-        session_start();
+    	
     }
     function showcode($w = 50, $h = 25) {
         $str = rands(4); //随机生成的字符串 
         $width = empty($w) ? 50 : $w; //验证码图片的宽度 
         $height = empty($h) ? 25 : $h; //验证码图片的高度 
-        @header("Content-Type:image/png");
+        header("Content-Type:image/png");
         $_SESSION["checkcode"] = $str;
         $im = imagecreate($width,$height);
         //背景色 
@@ -26,7 +28,6 @@ class checkcode {
             imagesetpixel($im,mt_rand(0,$width),mt_rand(0,$height),$pix);
         }
         imagestring($im,5,7,5,$str,$font);
-        //imagerectangle ( $im, 0, 0, $width - 1, $height - 1, $font );
         imagepng($im);
         imagedestroy($im);
         $_SESSION["checkcode"] = $str;

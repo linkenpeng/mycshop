@@ -155,8 +155,8 @@ div
 -->
 </style>
 <div id="main">
-	<div id="header">河北红色旅游景区景点管理系统</div>
-	<div id="title">User Login</div>
+	<div id="header"><?php echo SITE_NAME;?></div>
+	<div id="title">管理员登录</div>
 	<div id="content">
 			<div id="content_left"><img src="<?php echo ADMIN_TEMPLATE_URL;?>/images/splash.jpg" width="179" height="229" /></div>
 			<div id="content_right">
@@ -187,7 +187,7 @@ div
 		</tr>
 		<tr>
 		<td></td>
-		<td><input type="submit" value="Login" class="button"/></td>
+		<td><input type="submit" value="登录" class="button"/></td>
 		</tr>
 		</tbody>
 		</table>
