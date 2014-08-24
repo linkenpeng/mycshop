@@ -65,7 +65,7 @@ function ShowMsg($msg, $gourl, $onlymsg = 0, $limittime = 0) {
         if(pgo==0){ location='$gourl'; pgo=1; }
       }\r\n";
         $rmsg = $func;
-        $rmsg .= "document.write(\"<br/><div style='width:400px;padding-top:4px;height:24;font-size:10pt;border-left:1px solid E3E9F1;border-top:1px solid E3E9F1;border-right:1px solid E3E9F1;background-color:#1065ac;color:#ffffff;padding:5px 0 ;line-height:24px;font-weight:bold;'>".$_G['site_name'].lang("common","sysnote")."：</div>\");\r\n";
+        $rmsg .= "document.write(\"<br/><div style='width:400px;padding-top:4px;height:24;font-size:10pt;border-left:1px solid E3E9F1;border-top:1px solid E3E9F1;border-right:1px solid E3E9F1;background-color:#1065ac;color:#ffffff;padding:5px 0 ;line-height:24px;font-weight:bold;'>".SITE_NAME.lang("common","sysnote")."：</div>\");\r\n";
         $rmsg .= "document.write(\"<div style='width:400px;height:100;font-size:10pt;border:1px solid E3E9F1;background-color:#f9fcf3'><br/><br/>\");\r\n";
         $rmsg .= "document.write(\"".str_replace("\"","“",$msg)."\");\r\n";
         $rmsg .= "document.write(\"";
@@ -88,18 +88,13 @@ function ShowMsg($msg, $gourl, $onlymsg = 0, $limittime = 0) {
 
 //产生随机数
 function rands($length = 6, $type = 3) {
-    $hash = '';
-    switch($type) {
-        case 2:
-            $chars = 'abcdefghijklmnpqrstuvwxyz';
-            break;
-        case 3:
-            $chars = '123456789abcdefghijklmnpqrstuvwxyz';
-            break;
-        default:
-            $chars = '0123456789';
-            break;
-    }
+    $hash = '';	
+	$randseq = array(
+		1 => '0123456789',
+		2 => 'abcdefghijklmnpqrstuvwxyz',
+		3 => '123456789abcdefghijklmnpqrstuvwxyz'
+	);
+	$chars = array_key_exists($type, $randseq) ? $randseq[$type] : $randseq[3];
     $max = strlen($chars)-1;
     mt_srand((double) microtime()*1000000);
     for ($i = 0; $i<$length; $i++) {
@@ -220,7 +215,6 @@ function swritefile($filename, $writetext, $openmod = 'w') {
         fclose($fp);
         return true;
     } else {
-        //runlog ( 'error', "File: $filename write error." );
         return false;
     }
 }
@@ -452,4 +446,30 @@ function debugEx($var,$isdump = false) {
 	}
 	echo '</pre>';
 }
-?>
+
+function getSession($key,$defaultValue='') {
+	$value = isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
+	return $value;
+}
+
+function getCookie($key,$defaultValue='') {
+	$value = isset($_COOKIE[$key]) ? $_COOKIE[$key] : $defaultValue;
+	return $value;
+}
+
+function getParam($name,$defaultValue='')
+{
+	return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : $defaultValue);
+}
+
+function getQuery($name,$defaultValue='')
+{
+	return isset($_GET[$name]) ? $_GET[$name] : $defaultValue;
+}
+
+function getPost($name,$defaultValue='')
+{
+	return isset($_POST[$name]) ? $_POST[$name] : $defaultValue;
+}
+
+

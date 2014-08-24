@@ -4,6 +4,7 @@ class login {
     function __construct() {
 
     }
+	
     function init() {
         if (!empty($_SESSION['admin_uid'])&&($_SESSION['admin_usertype']==ADMIN_USER_TYPE)) {
             header('location:'.get_uri("index","init"));
@@ -11,26 +12,30 @@ class login {
             include admin_template('login');
         }
     }
+	
     /*
 	 * 显示验证码
 	 */
     function showcode() {
         Base::load_sys_class("checkcode")->showcode();
     }
+	
     /*
 	 * 验证后台管理员登录
 	 */
     function check_user_login() {
-        $username = trim($_POST['username']);
-        $password = trim($_POST['password']);
-        $usertype = trim($_POST['usertype']);
-        $checkcode = trim($_POST['checkcode']);
-        $cookietime = intval($_POST['cookietime']);
+        $username = trim(getPost('username'));
+        $password = trim(getPost('password'));
+        $usertype = trim(getPost('usertype'));
+        $checkcode = trim(getPost('checkcode'));
+        $cookietime = intval(getPost('cookietime'));
+		
         $session = Base::load_model("session_model");
-        $session->my_session_start();
-        if ($checkcode!=$_SESSION['checkcode']) {
+        
+		if ($checkcode!=$_SESSION['checkcode']) {
             ShowMsg(lang('message','checkcode_is_not_right'),"-1");
         }
+		
         $userdb = Base::load_model("user_model");
         $logininfo = $userdb->check_user_exist($username,$password);
         switch($logininfo['uid']) {
@@ -80,7 +85,6 @@ class login {
 	 */
     function admin_logout() {
         $session = Base::load_model("session_model");
-        $session->my_session_start();
         $session->delete_session($_SESSION['admin_uid']);
         $session->clearcookie('auth');
         ShowMsg(lang('message','logout_success'),get_uri("login","init"));
@@ -90,7 +94,6 @@ class login {
 	 */
     function logout() {
         $session = Base::load_model("session_model");
-        $session->my_session_start();
         $session->delete_session($_SESSION['uid']);
         $session->clearcookie('auth');
         ShowMsg(lang('message','logout_success'),get_uri("login","init"));

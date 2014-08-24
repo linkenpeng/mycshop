@@ -126,11 +126,15 @@ class menu_model extends model {
      * @return array $menus
      */
 	function check_permission($menuids="", $check_modules = array()) {
-		if(!in_array($_GET[M], $check_modules)) return false;
+		$m = !empty($_GET[M]) ? $_GET[M] : '';
+		$c = !empty($_GET[C]) ? $_GET[C] : '';
+		$a = !empty($_GET[A]) ? $_GET[A] : '';
+		
+		if(!in_array($m, $check_modules)) return false;
 		
 		if(!empty($menuids)) {
 			$menuids = explode(",",$menuids);
-			$where = "WHERE model='".$_GET[M]."' AND ctrl='".$_GET[C]."' AND act='".$_GET[A]."' ";			
+			$where = "WHERE model='".$m."' AND ctrl='".$c."' AND act='".$a."' ";			
             $sql = "select * from ".tname($this->table)." $where limit 0,1";
             $value = $this->db->get_one($sql);			
 			if(!in_array($value['menuid'],$menuids)) {

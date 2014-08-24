@@ -308,4 +308,3 @@ class page {
         die('Error in file <b>'.__FILE__.'</b> ,Function <b>'.$function.'()</b> :'.$errormsg);
     }
 }
-?>

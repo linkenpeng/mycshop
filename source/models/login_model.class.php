@@ -10,7 +10,6 @@ class login_model extends model {
 	 */
     function is_login() {
         $session = Base::load_model("session_model");
-        $session->my_session_start();
         $cookie = $session->sgetcookie('auth');
         if (!empty($cookie)) {
             list($uid,$password,$usertype) = explode("|",$cookie);
@@ -61,11 +60,10 @@ class login_model extends model {
             } else {
                 ShowMsg(lang('message','cookie_error'),get_uri("login"));
             }
-        } else {
-            //没有cookie的时候，还是要用到session变量
-            $uid = $_SESSION['admin_uid'];
-			$usertype = $_SESSION['admin_usertype'];
-            $password = $_SESSION['admin_password'];
+        } else { //没有cookie的时候，还是要用到session变量            
+            $uid = getSession('admin_uid');
+			$usertype = getSession('admin_usertype');
+            $password = getSession('admin_password');
             //验证session表是否存在登录用户
             if (!empty($uid)&&!empty($password)) {
                 $user_info = $this->db->get_one("select uid,username,password,usertype from ".tname("user")." where uid='$uid' and password='$password' ");
