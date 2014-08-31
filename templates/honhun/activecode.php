@@ -70,28 +70,28 @@ include admin_template("header");
 		<tr id="order">
 		  <th width="20"><input type="checkbox" name="checkall" id="checkall" /></th>
 		  <th width="100">
-		  <a href="javascript:void(0);" orderby="cardnum" order="<?php echo $_GET['order_value'] == 'asc' ? 'desc' : 'asc';?>">会员号
+		  <a href="javascript:void(0);" orderby="cardnum" order="<?php echo $order == 'asc' ? 'desc' : 'asc';?>">会员号
 		  <span>
 		  <?php 	  
-		  if($_GET['orderby_value']=='cardnum') echo $_GET['order_value'] == 'asc' ? '↑' : '↓';
+		  if($orderby=='cardnum') echo $order == 'asc' ? '↑' : '↓';
 		  ?>
 		  </span>
 		  </a>
 		  </th>
 		  <th width="40">
-		  <a href="javascript:void(0);" orderby="activecode" order="<?php echo $_GET['order_value'] == 'asc' ? 'desc' : 'asc';?>">激活码
+		  <a href="javascript:void(0);" orderby="activecode" order="<?php echo $order == 'asc' ? 'desc' : 'asc';?>">激活码
 		  <span>
 		  <?php 	  
-		  if($_GET['orderby_value']=='activecode') echo $_GET['order_value'] == 'asc' ? '↑' : '↓';
+		  if($orderby=='activecode') echo $order == 'asc' ? '↑' : '↓';
 		  ?>
 		  </span>
 		  </a>
 		  </th>
 		  <th width="100">所属景区</th>
-		  <th width="40"><a href="javascript:void(0);" orderby="usednum" order="<?php echo $_GET['order_value'] == 'asc' ? 'desc' : 'asc';?>">使用次数
+		  <th width="40"><a href="javascript:void(0);" orderby="usednum" order="<?php echo $order == 'asc' ? 'desc' : 'asc';?>">使用次数
 		  <span>
 		  <?php 	  
-		  if($_GET['orderby_value']=='usednum') echo $_GET['order_value'] == 'asc' ? '↑' : '↓';
+		  if($orderby=='usednum') echo $order == 'asc' ? '↑' : '↓';
 		  ?>
 		  </span></a></th>
 		  <th width="100">批号</th>
@@ -113,7 +113,7 @@ include admin_template("header");
 		  <td align="center"><?=$value['scenename']?></td>
 		  <td align="center"><?=$value['usednum']?></td>
 		  <td align="center">
-		  <?=$batlist[$value['batchid']]?>
+		  <?php echo isset($batlist[$value['batchid']]) ? : ''; ?>
 		  
 		  [<a href="<?php echo get_uri("activecode","delbatch","admin");?>&batchid=<?=$value['batchid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');" >删除此批</a>]
 		  

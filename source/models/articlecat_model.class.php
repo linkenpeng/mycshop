@@ -167,6 +167,7 @@ class articlecat_model extends model {
 		if(!empty($noid)) {
 			unset($articlecat_list[$noid]);
 		}
+		$options = '';
 		foreach ($articlecat_list as $value) {
 			$depthsymbol = '';
 			for($i = 0; $i < $value['depth']; $i++) {

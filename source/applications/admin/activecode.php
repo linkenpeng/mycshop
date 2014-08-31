@@ -11,8 +11,8 @@ class activecode {
         $where = " WHERE 1 ";
 		$activecode = empty($_GET['activecode']) ? "" : trim($_GET['activecode']);
 		$scenename = empty($_GET['scenename']) ? "" : trim($_GET['scenename']);
-		$startdate = $_GET['startdate'];
-		$enddate = $_GET['enddate'];
+		$startdate = empty($_GET['startdate']) ? "" : $_GET['startdate'];
+		$enddate = empty($_GET['enddate']) ? "" : $_GET['enddate'];
 		$orderby = empty($_GET['orderby_value']) ? "id" : trim($_GET['orderby_value']);
 		$order = empty($_GET['order_value']) ? "desc" : trim($_GET['order_value']);
 		
@@ -45,6 +45,7 @@ class activecode {
 		
 		$batchdb = Base::load_model("batchcode_model");
 		$batchlist = $batchdb->get_list('batchid,batchname');
+		$batlist = array();
 		foreach ($batchlist as $val) {
 			$batlist[$val['batchid']] = $val['batchname'];
 		}
