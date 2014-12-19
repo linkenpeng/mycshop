@@ -66,8 +66,8 @@ if (empty($magic_quote)) {
 }
 
 //连接数据库
-Base::load_sys_class("mysql",'',0);
-$db = mysql::getInstance();
+Base::load_sys_class("Mysql",'',0);
+$db = Mysql::getInstance();
 
 //开启session
 $session = Base::load_model("session_model");
