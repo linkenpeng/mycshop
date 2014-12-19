@@ -79,7 +79,7 @@ class model {
      * @param int $offset
      * @param string $field
      * @param stirng $where
-     * @param string $accountby
+     * @param string $oderbye
      * reunt @param array $list
      */
     function get_list($num = 10, $offset, $field = '', $where = '', $oderbye = '') {
