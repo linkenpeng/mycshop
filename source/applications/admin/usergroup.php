@@ -124,6 +124,7 @@ class usergroup {
 				$permissions = explode(",",$value['permission']);
 			}
 			//获取菜单信息
+			$where = '';
 			$menudb = Base::load_model("menu_model");
 			$list = $menudb->get_list(1000,0," * ",$where,"sort_order,ctrl ASC,menuid ASC ");
 			$list = $menudb->make_tree_list($list);

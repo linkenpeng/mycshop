@@ -2,29 +2,18 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class activecode_model extends model {
-    private $table = "activecode";
+    protected $_table = 'activecode';
+    protected $_primarykey = 'id';
+    
     function __construct() {
         parent::__construct();
     }
     
-    /**
-     * 
-     * 插入一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function insert($data) {
-        $flag = false;
-        if ($this->db->insert(tname($this->table),$data)) {
-            $flag = true;
-        }
-        return $flag;
-    }
     
     /**
      * 
      * 删除一条信息
-     * @param array $data
+     * @param array $ids
      * return Boolean $flag
      */
     function delete($ids) {
@@ -32,11 +21,11 @@ class activecode_model extends model {
 		if(empty($ids)) return $flag; 
 		$where = " WHERE 1 ";		
 		if(is_array($ids)) {
-			$where .= " AND id IN (".implode(',',$ids).")";
+			$where .= " AND ".$this->_primarykey." IN (".implode(',',$ids).")";
 		} else {
-			$where .= " AND id=".$ids;
+			$where .= " AND ".$this->_primarykey."=".$ids;
 		}
-        $sql = "UPDATE ".tname($this->table)." SET status=9 ".$where;
+        $sql = "UPDATE ".tname($this->_table)." SET status=9 ".$where;
         if ($this->db->query($sql)) {
             $flag = true;
         }
@@ -45,7 +34,7 @@ class activecode_model extends model {
 	
     function delete_batch($batchid) {
         $flag = false;
-        $sql = "UPDATE ".tname($this->table)." SET status=9 WHERE batchid=".$batchid;
+        $sql = "UPDATE ".tname($this->_table)." SET status=9 WHERE batchid=".$batchid;
         if ($this->db->query($sql)) {
             $flag = true;
         }
@@ -69,7 +58,7 @@ class activecode_model extends model {
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
 		$limit = empty($num) ? "" : " LIMIT $offset,$num";	
 		
-        $sql = "SELECT ".$field." FROM ".tname($this->table)." 
+        $sql = "SELECT ".$field." FROM ".tname($this->_table)." 
 				a LEFT JOIN ".tname("scene")." s ON 
 				a.sceneid=s.sceneid 
 				".$where.$oderbye.$limit;
@@ -85,7 +74,7 @@ class activecode_model extends model {
      */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->table)." 
+        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." 
 				a LEFT JOIN ".tname("scene")." s ON 
 				a.sceneid=s.sceneid 
 				".$where;
@@ -101,7 +90,7 @@ class activecode_model extends model {
     function get_sceneid($activecode = "") {
         if(!empty($activecode)) {
 			$where = " WHERE activecode='".$activecode."'";
-			$sql = "SELECT sceneid FROM ".tname($this->table).$where;
+			$sql = "SELECT sceneid FROM ".tname($this->_table).$where;
 			$value = $this->db->get_one($sql);
 			return $value['sceneid'];
 		} else {
@@ -111,7 +100,7 @@ class activecode_model extends model {
 	
 	//更新验证码使用次数
 	function update_usednum($activecode) {
-		$sql = "UPDATE ".tname($this->table)." SET usednum=usednum+1 WHERE activecode='$activecode'";
+		$sql = "UPDATE ".tname($this->_table)." SET usednum=usednum+1 WHERE activecode='$activecode'";
 		$this->db->query($sql);
 	}
 }

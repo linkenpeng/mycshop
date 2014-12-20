@@ -2,21 +2,11 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class batchcode_model extends model {
-    private $table = "batchcode";
+    protected $_table = 'batchcode';
+    protected $_primarykey = 'batchid';
+    
     function __construct() {
         parent::__construct();
-    }
-    
-    /**
-     * 
-     * 插入一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function insert($data) {
-        $flag = false;
-        $flag = $this->db->insert(tname($this->table),$data);
-        return $flag;
     }
 	
 	/**
@@ -35,7 +25,7 @@ class batchcode_model extends model {
         $where = empty($where) ? ' WHERE 1 AND status!=9 ' : $where;
         $oderbye = ' ORDER BY '.$oderbye;
 		$limit = empty($num) ? "" : " LIMIT $offset,$num";		
-        $sql = "SELECT ".$field." FROM ".tname($this->table).$where.$oderbye.$limit;
+        $sql = "SELECT ".$field." FROM ".tname($this->_table).$where.$oderbye.$limit;
         $list = $this->db->get_list($sql);
         return $list;
     }
@@ -48,7 +38,7 @@ class batchcode_model extends model {
      */
     function delete($batchid) {
         $flag = false;
-        $sql = "UPDATE ".tname($this->table)." set status=9 WHERE batchid=".$batchid;
+        $sql = "UPDATE ".tname($this->_table)." set status=9 WHERE batchid=".$batchid;
         if ($this->db->query($sql)) {
             $flag = true;
         }
@@ -56,7 +46,7 @@ class batchcode_model extends model {
     }    
 	
 	function isExistsBatchnum($batchnum) {
-		$sql = "select COUNT(*) as c from ".tname($this->table)." WHERE batchnum='$batchnum'";
+		$sql = "select COUNT(*) as c from ".tname($this->_table)." WHERE batchnum='$batchnum'";
 		$value = $this->db->get_one($sql);
         return ($value['c'] > 0);
 	}

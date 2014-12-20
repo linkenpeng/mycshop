@@ -2,11 +2,13 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class session_model extends model {
-    private $table = "session";
+    protected $_table = 'session';
+    protected $_primarykey = 'sid';    
     var $max_life_time = 600; // SESSION 过期时间
     var $ip = '';
     var $time = 0;
     var $session_id;
+    
     function __construct() {
         global $_G,$_CTCONFIG;
         parent::__construct();
@@ -27,7 +29,7 @@ class session_model extends model {
         $this->session_id = $this->gen_session_id();
         if (!empty($uid)) {
             //删除过期的用户session
-            $this->db->query("DELETE FROM ".tname($this->table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
+            $this->db->query("DELETE FROM ".tname($this->_table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
             //添加新的session 
             $setarr['sid'] = $this->session_id;
             $setarr['uid'] = $uid;
@@ -36,13 +38,13 @@ class session_model extends model {
             $setarr['usertype'] = $usertype;
             $setarr['lastactivity'] = $this->time;
             $setarr['ip'] = $this->ip;
-            $this->db->insert(tname($this->table),$setarr);
+            $this->db->insert(tname($this->_table),$setarr);
         }
     }
     
     function delete_session($uid) {
     	if (!empty($uid)) {
-    		$this->db->query("DELETE FROM ".tname($this->table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
+    		$this->db->query("DELETE FROM ".tname($this->_table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
     		session_destroy();
     	}
     }

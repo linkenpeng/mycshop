@@ -73,6 +73,7 @@ class user {
      * 2011-5-27 上午11:57:59
      */
     public function add() {
+    	$value = array();
         if (!empty($_POST['action'])) {
             if (empty($_POST['username']) || empty($_POST['password'])) {
                 ShowMsg("用户名和密码不能为空!",-1);
@@ -98,6 +99,8 @@ class user {
         }
         $show_validator = 1;
 		$show_zone = 1;
+		
+		$where = '';
 		$usergroupdb = Base::load_model("usergroup_model");
 		$ugroup_list = $usergroupdb->get_list(100,0," ugid,name ",$where,"uid ASC ");
         include admin_template('userform');
@@ -135,6 +138,8 @@ class user {
                 ShowMsg(lang('message','update_failure'),-1);
             }
         }
+        
+        $where = '';
 		$usergroupdb = Base::load_model("usergroup_model");
 		$ugroup_list = $usergroupdb->get_list(100,0," ugid,name ",$where,"uid ASC ");
 		$show_zone = 1;

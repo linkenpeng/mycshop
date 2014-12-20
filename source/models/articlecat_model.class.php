@@ -2,88 +2,11 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class articlecat_model extends model {
-    private $table = "article_category";
+    protected $_table = 'article_category';
+    protected $_primarykey = 'catid';
+    
     function __construct() {
         parent::__construct();
-    }
-    /**
-     * 
-     * 获取一条信息
-     * @param int $catid
-     */
-    function get_one($catid = "") {
-        if(!empty($catid)) {
-			$where = "where catid=".$catid;
-			$sql = "select * from ".tname($this->table)." $where limit 0,1";
-			$value = $this->db->get_one($sql);
-			return $value;
-		} else {
-			return '';
-		}
-    }
-    /**
-     * 
-     * 插入一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function insert($data) {
-        $flag = false;
-        if ($this->db->insert(tname($this->table),$data)) {
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 修改一条信息
-     * 
-     * @param array $data
-     * @param string $where
-     * @author Myron
-     * 2011-5-27 上午10:18:10
-     */
-    function update($data, $where) {
-        $flag = false;
-        if (!empty($data)&&!empty($where)) {
-            $this->db->update(tname($this->table),$data,$where);
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 
-     * 删除一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function delete($catid) {
-        $flag = false;
-        $sql = "DELETE FROM ".tname($this->table)." WHERE catid=".$catid;
-        if ($this->db->query($sql)) {
-            $flag = true;
-        }
-        return $flag;
-    }
-	
-    /**
-     * 获取一组信息
-     * @param int $num
-     * @param int $offset
-     * @param string $field
-     * @param stirng $where
-     * @param string $orderby
-     * reunt @param array $list
-     */
-    function get_list($num = 10, $offset, $field = '', $where = '', $oderbye = ' dateline DESC') {
-        $num = intval($num);
-        $offset = (empty($offset)||$offset<0) ? 0 : intval($offset);
-        $field = empty($field) ? ' * ' : $field;
-        $where = empty($where) ? ' WHERE 1 ' : $where;
-        $oderbye = ' ORDER BY '.$oderbye;
-		$limit = empty($num) ? "" : " LIMIT $offset,$num";		
-        $sql = "SELECT ".$field." FROM ".tname($this->table).$where.$oderbye.$limit;
-        $list = $this->db->get_list($sql);
-        return $list;
     }
 	
 	/**
@@ -125,21 +48,23 @@ class articlecat_model extends model {
      * @return array $list
      */	
 	public function sort_tree($sourcelist, &$tolist, $depth = 0) {
-		foreach ($sourcelist as $k => $value) {
-			$tolist[$k]['catid'] = $value['catid'];
-			$tolist[$k]['cattype'] = $value['cattype'];
-			$tolist[$k]['sceneid'] = $value['sceneid'];
-			$tolist[$k]['upid'] = $value['upid'];
-			$tolist[$k]['name'] = $value['name'];
-			$tolist[$k]['image'] = $value['image'];
-			$tolist[$k]['description'] = $value['description'];
-			$tolist[$k]['ordernum'] = $value['ordernum'];
-			$tolist[$k]['dateline'] = $value['dateline'];
-			$tolist[$k]['depth'] = $depth;
-			if(!empty($value['subs'])) {
-				$this->sort_tree($value['subs'], $tolist, $depth + 1);
+		if(!empty($sourcelist)) {
+			foreach ($sourcelist as $k => $value) {
+				$tolist[$k]['catid'] = $value['catid'];
+				$tolist[$k]['cattype'] = $value['cattype'];
+				$tolist[$k]['sceneid'] = $value['sceneid'];
+				$tolist[$k]['upid'] = $value['upid'];
+				$tolist[$k]['name'] = $value['name'];
+				$tolist[$k]['image'] = $value['image'];
+				$tolist[$k]['description'] = $value['description'];
+				$tolist[$k]['ordernum'] = $value['ordernum'];
+				$tolist[$k]['dateline'] = $value['dateline'];
+				$tolist[$k]['depth'] = $depth;
+				if(!empty($value['subs'])) {
+					$this->sort_tree($value['subs'], $tolist, $depth + 1);
+				}
 			}
-		}
+		}		
 	}
 	
 	/**
@@ -181,17 +106,5 @@ class articlecat_model extends model {
 		}
 		return $options;
 	}
-	
-    /**
-     * 获取总数
-     * @param stirng $where
-     * return @param int $count
-     */
-    function get_count($where = '') {
-        $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->table).$where;
-        $value = $this->db->get_one($sql);
-        return $value['c'];
-    }
 }
 ?>

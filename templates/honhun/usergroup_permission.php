@@ -36,7 +36,7 @@ include admin_template("header");
     <tr>
       <td colspan="2"><h3>[<?=$value['name']?>] 权限设置</h3></td>
     </tr>
-    <?php if(is_array($list)) { 
+    <?php if(!empty($list)) { 
 			foreach ($list as $value) {
 	?>
 	<tr>
@@ -44,7 +44,7 @@ include admin_template("header");
 			<input type="checkbox" name="menuid[]" <?php if(in_array($value['menuid'],$permissions)) echo "checked";?> value="<?=$value['menuid']?>" /><?=$value['name']?>
 	  </td>
       <td>
-		<?php if(is_array($value['subs'])) {
+		<?php if(!empty($value['subs'])) {
 			foreach ($value['subs'] as $val2) {
 		?>
 			<input type="checkbox" name="menuid[]" <?php if(in_array($val2['menuid'],$permissions)) echo "checked";?> value="<?=$val2['menuid']?>" /><?=$val2['name']?>

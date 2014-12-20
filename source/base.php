@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 define('SYS_IN',true);
 define('DS','/');
 

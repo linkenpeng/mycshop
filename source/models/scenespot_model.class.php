@@ -2,8 +2,10 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class scenespot_model extends model {
-    private $table = "scenespot";
+    protected $_table = 'scenespot';
+    protected $_primarykey = 'scenespotid';    
 	const numlength = 6;
+	
     function __construct() {
         parent::__construct();
     }
@@ -16,7 +18,7 @@ class scenespot_model extends model {
         if(!empty($scenespotid)) {
 			$where = "where sp.scenespotid=".$scenespotid;
 			$field = empty($field)?"sp.*":$field;
-			$sql = "select $field,s.scenename from ".tname($this->table)." sp
+			$sql = "select $field,s.scenename from ".tname($this->_table)." sp
 					LEFT JOIN ".tname("scene")." s ON 
 					sp.sceneid=s.sceneid 
 					$where limit 0,1";
@@ -36,7 +38,7 @@ class scenespot_model extends model {
 			
 			$field = empty($field) ? "sp.*" : $field;
 			
-			$sql = "select $field,s.scenename from ".tname($this->table)." sp
+			$sql = "select $field,s.scenename from ".tname($this->_table)." sp
 					LEFT JOIN ".tname("scene")." s ON 
 					sp.sceneid=s.sceneid 
 					$where limit 0,1";
@@ -46,51 +48,8 @@ class scenespot_model extends model {
 		} else {
 			return '';
 		}
-    }
+    }    
     
-    /**
-     * 
-     * 插入一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function insert($data) {
-        $flag = false;
-        if ($this->db->insert(tname($this->table),$data)) {
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 修改一条信息
-     * 
-     * @param array $data
-     * @param string $where
-     * @author Myron
-     * 2011-5-27 上午10:18:10
-     */
-    function update($data, $where) {
-        $flag = false;
-        if (!empty($data)&&!empty($where)) {
-            $this->db->update(tname($this->table),$data,$where);
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 
-     * 删除一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function delete($scenespotid) {
-        $flag = false;
-        $sql = "DELETE FROM ".tname($this->table)." WHERE scenespotid=".$scenespotid;
-        if ($this->db->query($sql)) {
-            $flag = true;
-        }
-        return $flag;
-    }
     /**
      * 获取一组信息
      * @param int $num
@@ -107,7 +66,7 @@ class scenespot_model extends model {
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
 		$limit = empty($num) ? '' : " LIMIT $offset, $num ";
-        $sql = "SELECT ".$field." FROM ".tname($this->table)." 
+        $sql = "SELECT ".$field." FROM ".tname($this->_table)." 
 				sp LEFT JOIN ".tname("scene")." s ON 
 				sp.sceneid=s.sceneid 
 				".$where.$oderbye.$limit;
@@ -130,7 +89,7 @@ class scenespot_model extends model {
         $field = empty($field) ? ' * ' : $field;
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
-        $sql = "SELECT ".$field." FROM ".tname($this->table).$where.$oderbye." LIMIT $offset,$num ";
+        $sql = "SELECT ".$field." FROM ".tname($this->_table).$where.$oderbye." LIMIT $offset,$num ";
         //echo $sql;
         $list = $this->db->get_list($sql);
         return $list;
@@ -142,7 +101,7 @@ class scenespot_model extends model {
      */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->table)." 
+        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." 
 				sp LEFT JOIN ".tname("scene")." s ON 
 				sp.sceneid=s.sceneid 
 				".$where;
@@ -170,7 +129,7 @@ class scenespot_model extends model {
      */
 	function get_max_infocards() {
 		$where = " where 1";
-		$sql = "SELECT infocards FROM ".tname($this->table)." $where ORDER BY infocards DESC LIMIT 0,1";
+		$sql = "SELECT infocards FROM ".tname($this->_table)." $where ORDER BY infocards DESC LIMIT 0,1";
 		$value = $this->db->get_one($sql);		
 		return $value['infocards'];
 	}

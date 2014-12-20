@@ -2,88 +2,13 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class menu_model extends model {
-    private $table = "menu";
+    protected $_table = 'menu';
+    protected $_primarykey = 'menuid';
+    
     function __construct() {
         parent::__construct();
     }
-    /**
-     * 
-     * 获取一条信息
-     * @param int $menuid
-     */
-    function get_one($menuid = "") {
-        if (!empty($menuid)) {
-            $where = "where menuid=".$menuid;
-            $sql = "select * from ".tname($this->table)." $where limit 0,1";
-            $value = $this->db->get_one($sql);
-            return $value;
-        } else {
-            return '';
-        }
-    }
-    /**
-     * 
-     * 插入一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function insert($data) {
-        $flag = false;
-        if ($this->db->insert(tname($this->table),$data)) {
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 修改一条信息
-     * 
-     * @param array $data
-     * @param string $where
-     * @author Myron
-     * 2011-5-27 上午10:18:10
-     */
-    function update($data, $where) {
-        $flag = false;
-        if (!empty($data)&&!empty($where)) {
-            $this->db->update(tname($this->table),$data,$where);
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 
-     * 删除一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function delete($menuid) {
-        $flag = false;
-        $sql = "DELETE FROM ".tname($this->table)." WHERE menuid=".$menuid;
-        if ($this->db->query($sql)) {
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 获取一组信息
-     * @param int $num
-     * @param int $offset
-     * @param string $field
-     * @param stirng $where
-     * @param string $orderby
-     * reunt @param array $list
-     */
-    function get_list($num = 10, $offset, $field = '', $where = '', $oderbye = '') {
-        $num = empty($num) ? 10 : intval($num);
-        $offset = (empty($offset)||$offset<0) ? 0 : intval($offset);
-        $field = empty($field) ? ' * ' : $field;
-        $where = empty($where) ? ' WHERE 1 ' : $where;
-        $oderbye = empty($oderbye) ? ' ORDER BY dateline DESC ' : ' ORDER BY '.$oderbye;
-        $sql = "SELECT ".$field." FROM ".tname($this->table).$where.$oderbye." LIMIT $offset,$num ";
-        //echo $sql;
-        $list = $this->db->get_list($sql);
-        return $list;
-    }
+    
     /**
      * 将数组呈树状排列
      * @param array $datas
@@ -135,24 +60,13 @@ class menu_model extends model {
 		if(!empty($menuids)) {
 			$menuids = explode(",",$menuids);
 			$where = "WHERE model='".$m."' AND ctrl='".$c."' AND act='".$a."' ";			
-            $sql = "select * from ".tname($this->table)." $where limit 0,1";
+            $sql = "select * from ".tname($this->_table)." $where limit 0,1";
             $value = $this->db->get_one($sql);			
 			if(!in_array($value['menuid'],$menuids)) {
 				ShowMsg(lang('message','no_permission'),-1);
 			}
 		}
 	}
-    /**
-     * 获取总数
-     * @param stirng $where
-     * return @param int $count
-     */
-    function get_count($where = '') {
-        $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->table).$where;
-        $value = $this->db->get_one($sql);
-        return $value['c'];
-    }
 	
 	/**
      * 更新排序
@@ -160,7 +74,7 @@ class menu_model extends model {
      */
     function update_sortorder($id, $order) {
         if (!empty($id)) {
-            $sql = "UPDATE ".tname($this->table)." SET sort_order='$order' WHERE menuid='$id' ";
+            $sql = "UPDATE ".tname($this->_table)." SET sort_order='$order' WHERE menuid='$id' ";
             $this->db->query($sql);
         }
     }

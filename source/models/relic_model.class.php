@@ -2,7 +2,9 @@
 defined('SYS_IN') or exit('Access Denied.');
 Base::load_sys_class('model');
 class relic_model extends model {
-    private $table = "relic";
+    protected $_table = 'relic';
+    protected $_primarykey = 'relicid';
+    
 	const numlength = 9;
 	
     function __construct() {
@@ -17,7 +19,7 @@ class relic_model extends model {
         if(!empty($relicid)) {
 			$where = "where rel.relicid=".$relicid;
 			$field = empty($field) ? 'rel.*,s.scenespotname' : $field;			
-			$sql = "select $field from ".tname($this->table)." rel
+			$sql = "select $field from ".tname($this->_table)." rel
 					LEFT JOIN ".tname("scenespot")." s ON 
 					rel.scenespotid=s.scenespotid 
 					$where limit 0,1";
@@ -36,7 +38,7 @@ class relic_model extends model {
 				$where .= " AND rel.relicnum=".$param['relicnum'];
 			}
 			$field = empty($field) ? 'rel.*,s.scenespotname' : $field;			
-			$sql = "select $field from ".tname($this->table)." rel
+			$sql = "select $field from ".tname($this->_table)." rel
 					LEFT JOIN ".tname("scenespot")." s ON 
 					rel.scenespotid=s.scenespotid 
 					$where limit 0,1";
@@ -49,49 +51,7 @@ class relic_model extends model {
 		}
     }
     
-    /**
-     * 
-     * 插入一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function insert($data) {
-        $flag = false;
-        if ($this->db->insert(tname($this->table),$data)) {
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 修改一条信息
-     * 
-     * @param array $data
-     * @param string $where
-     * @author Myron
-     * 2011-5-27 上午10:18:10
-     */
-    function update($data, $where) {
-        $flag = false;
-        if (!empty($data)&&!empty($where)) {
-            $this->db->update(tname($this->table),$data,$where);
-            $flag = true;
-        }
-        return $flag;
-    }
-    /**
-     * 
-     * 删除一条信息
-     * @param array $data
-     * return Boolean $flag
-     */
-    function delete($relicid) {
-        $flag = false;
-        $sql = "DELETE FROM ".tname($this->table)." WHERE relicid=".$relicid;
-        if ($this->db->query($sql)) {
-            $flag = true;
-        }
-        return $flag;
-    }
+    
     /**
      * 获取一组信息
      * @param int $num
@@ -107,11 +67,11 @@ class relic_model extends model {
         $field = empty($field) ? ' * ' : $field;
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
-        $sql = "SELECT ".$field." FROM ".tname($this->table)." 
+        $sql = "SELECT ".$field." FROM ".tname($this->_table)." 
 				rel LEFT JOIN ".tname("scenespot")." s ON 
 				rel.scenespotid=s.scenespotid 
 				".$where.$oderbye." LIMIT $offset,$num ";
-        //echo $sql;
+        
         $list = $this->db->get_list($sql);
         return $list;
     }
@@ -122,7 +82,7 @@ class relic_model extends model {
      */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->table)." 
+        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." 
 				rel LEFT JOIN ".tname("scenespot")." s ON 
 				rel.scenespotid=s.scenespotid 
 				".$where;
@@ -150,7 +110,7 @@ class relic_model extends model {
      */
 	function get_max_relicnum() {
 		$where = " where 1";
-		$sql = "SELECT relicnum FROM ".tname($this->table)." $where ORDER BY relicnum DESC LIMIT 0,1";
+		$sql = "SELECT relicnum FROM ".tname($this->_table)." $where ORDER BY relicnum DESC LIMIT 0,1";
 		$value = $this->db->get_one($sql);		
 		return $value['relicnum'];
 	}

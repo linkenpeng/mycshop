@@ -35,7 +35,7 @@ include admin_template("header");
 				<a href="<?php echo get_uri("menu","add","admin");?>&parentid=<?=$value['menuid']?>" >添加子菜单</a>
 		  </td>
 		</tr>
-		<?php if(is_array($value['subs'])) {
+		<?php if(!empty($value['subs'])) {
 				foreach ($value['subs'] as $val2) {
 		?>
 				<tr>
