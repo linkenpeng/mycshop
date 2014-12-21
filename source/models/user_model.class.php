@@ -58,7 +58,7 @@ class user_model extends model {
 	 */
     function get_user_info($uid) {
         if (!empty($uid)) {
-            return $this->get_count($uid);
+            return $this->get_one($uid);
         }
     }
     /*

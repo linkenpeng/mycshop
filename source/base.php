@@ -12,6 +12,12 @@ define('A','a');
 //框架路径
 define('FRAME_PATH',str_replace("\\","/",dirname(__FILE__)));
 
+//autoload
+define('MPATH',ROOT_PATH.'/source/models/');
+define('CPATH',ROOT_PATH.'/source/applications/admin/');
+define('LPATH',ROOT_PATH.'/source/utils/class/');
+new Loader();
+
 //加载配置信息
 $_G = Base::load_config("sys"); //系统配置
 $_CTCONFIG = Base::load_config("customize"); //自定义配置信息
@@ -183,4 +189,72 @@ class Base {
     }
 }
 
-?>
+class Loader
+{
+	private static $_autoloadPath = array();
+	
+	public static function setAutoPath($paths) {
+		self::$_autoloadPath = $paths;
+	}
+	
+	public static function autoLoad() {
+		foreach(self::$_autoloadPath as $val) {
+			set_include_path($val['path']);
+			spl_autoload_extensions($val['ext']);
+			spl_autoload();
+		}
+	}
+	
+	public function __construct()
+	{
+		$this->modelDirectoryPath       = MPATH;
+		$this->controllerDirectoryPath  = CPATH;
+		$this->libraryDirectoryPath     = LPATH;
+		 
+		spl_autoload_register(array($this,'load_controller'));
+		spl_autoload_register(array($this,'load_model'));
+		spl_autoload_register(array($this,'load_library'));
+	}
+	
+	public function load_controller($controller)
+	{
+		if ($controller) {
+			set_include_path($this->controllerDirectoryPath);
+			spl_autoload_extensions('.php');
+			spl_autoload($controller);
+		}
+	}
+	 
+
+	/**
+	 * Autoload Model class
+	 *
+	 * @param  string $class
+	 * @return object
+	 */
+
+	public function load_model($model)
+	{
+		if ($model) {
+			set_include_path($this->modelDirectoryPath);
+			spl_autoload_extensions('.class.php');
+			spl_autoload($model);
+		}
+	}
+	 
+	/**
+	 * Autoload Library class
+	 *
+	 * @param  string $class
+	 * @return object
+	 */
+
+	public function load_library($library)
+	{
+		if ($library) {
+			set_include_path($this->libraryDirectoryPath);
+			spl_autoload_extensions('.class.php');
+			spl_autoload($library);
+		}
+	}
+}

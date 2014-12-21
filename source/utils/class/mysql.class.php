@@ -185,7 +185,6 @@ class Mysql {
         echo "<br><br><b>MySQL Server Error</b>:<br>$sqlerror  ( $sqlerrno )";
         echo "<br><br><b>You Can Get Help In</b>:<br><a target=_blank href=".$website."/><b>".$website."</b></a>";
         echo "</td></tr></table>";
-        exit();
     }
     
     public static function getInstance() {
