@@ -11,7 +11,7 @@ include admin_template("header");
 		$.formValidator.initConfig({formid:"dataForm",autotip:true,onerror:function(){}});
 		$("#username").formValidator({onshow:"请输入用户名",onfocus:"请输入用户名",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"至少1个字符"});
 		$("#realname").formValidator({onshow:"请输入用户姓名",onfocus:"请输入用户姓名",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"至少1个字符"});
-		showallzone(document.getElementById('zone'), 'province', 'city', 'country', '<?=$value[province]?>', '<?=$value[city]?>', '<?=$value[country]?>');
+		showallzone(document.getElementById('zone'), 'province', 'city', 'country', '<?php echo $value[province]; ?>', '<?php echo $value[city]; ?>', '<?php echo $value[country]; ?>');
 	})
 //-->
 </script>
@@ -19,12 +19,12 @@ include admin_template("header");
 <div class="pageTitle">当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
 <form action="<?php echo get_uri();?>" method="post" id="dataForm">
-    <input type="hidden" name="uid" value="<?=$value['uid']?>" />
+    <input type="hidden" name="uid" value="<?php echo $value['uid']; ?>" />
     <input type="hidden" name="action" value="1" />
   <table width="100%">
 	<tr>
       <td width="20%">用户名</td>
-      <td width="80%"><input type="text" name="username" id="username" value="<?=$value['username']?>" <?php if(!empty($value['username'])){?>readonly<?php }?> size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="username" id="username" value="<?php echo $value['username']; ?>" <?php if(!empty($value['username'])){?>readonly<?php }?> size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">用户密码</td>
@@ -32,7 +32,7 @@ include admin_template("header");
     </tr>
 	<tr>
       <td width="20%">用户姓名</td>
-      <td width="80%"><input type="text" name="realname" id="realname" value="<?=$value['realname']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="realname" id="realname" value="<?php echo $value['realname']; ?>" size="50" /> (*)</td>
     </tr>
     <tr>
       <td width="20%">用户类型</td>
@@ -52,7 +52,7 @@ include admin_template("header");
     </tr>
 	<tr>
       <td width="20%">地址</td>
-      <td width="80%"><input type="text" name="address" id="address" value="<?=$value['address']?>" size="50" /></td>
+      <td width="80%"><input type="text" name="address" id="address" value="<?php echo $value['address']; ?>" size="50" /></td>
     </tr>
 	<tr>
       <td width="20%">创建时间</td>
@@ -60,7 +60,7 @@ include admin_template("header");
     </tr>
     <tr>
       <td width="20%">备注</td>
-      <td width="80%"><textarea name="content" id="content"" cols="60" rows="6"><?=$value['content']?></textarea></td>
+      <td width="80%"><textarea name="content" id="content"" cols="60" rows="6"><?php echo $value['content']; ?></textarea></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

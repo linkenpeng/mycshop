@@ -14,8 +14,8 @@ if(!defined('SYS_IN')) {
 			global $topmenus;
 			foreach ($topmenus as $k=>$v) { ?>
 				<li <?php if($_GET[C]==$v['ctrl']) {?> class="active"<?php }?>>
-				<img src="<?php echo ADMIN_TEMPLATE_URL?>/images/icon-<?=$v['ctrl']?>.gif" /> 
-				<a href="<?php echo get_uri($v['ctrl'],$v['act']);?>" ><?=$v['name']?></a>
+				<img src="<?php echo ADMIN_TEMPLATE_URL?>/images/icon-<?php echo $v['ctrl']; ?>.gif" /> 
+				<a href="<?php echo get_uri($v['ctrl'],$v['act']);?>" ><?php echo $v['name']; ?></a>
 				</li>
 			<?php } ?>			
 		</ul>

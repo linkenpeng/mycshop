@@ -18,11 +18,11 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo get_uri();?>" method="post" id="dataForm">
-    <input type="hidden" name="accountid" value="<?=$value['accountid']?>" />
+    <input type="hidden" name="accountid" value="<?php echo $value['accountid']; ?>" />
     <input type="hidden" name="action" value="1" />
     <tr>
       <td width="20%">账目名</td>
-      <td width="80%"><input type="text" name="accountname" id="accountname" value="<?=$value['accountname']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="accountname" id="accountname" value="<?php echo $value['accountname']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">>账目类别</td>
@@ -36,7 +36,7 @@ include admin_template("header");
     </tr>
     <tr>
       <td width="20%">备注</td>
-      <td width="80%"><textarea name="description" id="description"" cols="60" rows="6"><?=$value['description']?></textarea></td>
+      <td width="80%"><textarea name="description" id="description"" cols="60" rows="6"><?php echo $value['description']; ?></textarea></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

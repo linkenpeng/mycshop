@@ -14,7 +14,7 @@ include admin_template("header");
 		<?php if(is_array($scene_list)) { 
 			foreach ($scene_list as $value) {
 		?>
-		<li><?=$value['scenename']?></li>
+		<li><?php echo $value['scenename']; ?></li>
 		<?php }} ?>
 	</ul>
 </div>
@@ -25,7 +25,7 @@ include admin_template("header");
 				<?php if(is_array($scenespot_list)) { 
 					foreach ($scenespot_list as $value) {
 				?>
-				<li><font color="#CCCCCC">[<?=$value['scenespotname']?>]</font> <?=$value['scenespotname']?></li>
+				<li><font color="#CCCCCC">[<?php echo $value['scenespotname']; ?>]</font> <?php echo $value['scenespotname']; ?></li>
 				<?php }} ?>
 			</ul>
 </div>
@@ -38,7 +38,7 @@ include admin_template("header");
 				?>
 				<li>
 				<font color="#CCCCCC">[<?php echo date("Y-m-d",$value['dateline']);?>]</font>
-				<?=$value['commented_title']?></li>
+				<?php echo $value['commented_title']; ?></li>
 				<?php }} ?>
 			</ul>
 </div>
@@ -51,7 +51,7 @@ include admin_template("header");
 				?>
 				<li>
 				<font color="#CCCCCC">[<?php echo date("Y-m-d",$value['dateline']);?>]</font>
-				<?=$value['signined_title']?>
+				<?php echo $value['signined_title']; ?>
 				</li>
 				<?php }} ?>
 			</ul>

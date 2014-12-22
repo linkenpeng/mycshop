@@ -20,22 +20,22 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
 	<tr>
-      <td align="center"><h3><?=$value['title']?></h3></td>
+      <td align="center"><h3><?php echo $value['title']; ?></h3></td>
     </tr>
 	<tr>
       <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
     </tr>
     <tr>
-      <td><?=$value['content']?></td>
+      <td><?php echo $value['content']; ?></td>
     </tr>
     <!--
 	<tr>
-      <td><?=$value['sendto']?></td>
+      <td><?php echo $value['sendto']; ?></td>
     </tr>
 	-->
 	<?php if($value['attachment_name']) { ?>
 	<tr>
-      <td>附件： <a href="<?=UPLOAD_URI.'/'.$value['attachment']?>" target="_blank">
+      <td>附件： <a href="<?php echo UPLOAD_URI.'/'.$value['attachment']; ?>" target="_blank">
 		    <?php echo $value['attachment_name'];?>
 		  </a></td>
     </tr>
@@ -50,10 +50,10 @@ include admin_template("header");
 		?>
 	<tr>
       <td>
-	  <div><?=$replyvalue['content']?></div>
-	  <?=$replyvalue['username']?> <?php echo date("Y-m-d H:i:s",$replyvalue['dateline']);?>
+	  <div><?php echo $replyvalue['content']; ?></div>
+	  <?php echo $replyvalue['username']; ?> <?php echo date("Y-m-d H:i:s",$replyvalue['dateline']);?>
 	  <?php if(($replyvalue['uid']==$_SESSION['admin_uid'])||($_SESSION['admin_uid']==1)) { ?>
-	  <a href="<?php echo get_uri("talkreply","delete","admin");?>&talkreplyid=<?=$replyvalue['talkreplyid']?>&talkid=<?=$replyvalue['talkid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');"><?=lang("action","delete")?></a>
+	  <a href="<?php echo get_uri("talkreply","delete","admin");?>&talkreplyid=<?php echo $replyvalue['talkreplyid']; ?>&talkid=<?php echo $replyvalue['talkid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
 	  <?php } ?>
 	  </td>
     </tr>
@@ -61,7 +61,7 @@ include admin_template("header");
     <tr>
       <td>
 			<form action="<?php echo get_uri("talkreply","add");?>" method="post" id="dataForm">
-			<input type="hidden" name="talkid" value="<?=$value['talkid']?>" />
+			<input type="hidden" name="talkid" value="<?php echo $value['talkid']; ?>" />
 			<input type="hidden" name="action" value="1" />
 			<table border="0" width="100%">
 			<tr>

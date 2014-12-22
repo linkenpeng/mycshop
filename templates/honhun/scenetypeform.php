@@ -20,30 +20,30 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
-    <input type="hidden" name="typeid" value="<?=$value['typeid']?>" />
+    <input type="hidden" name="typeid" value="<?php echo $value['typeid']; ?>" />
     <input type="hidden" name="action" value="1" />
-	<input type="hidden" name="oldimage" value="<?=$value['image']?>" />
+	<input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
     <tr>
       <td width="20%">分类名称</td>
-      <td width="80%"><input type="text" name="name" id="name" value="<?=$value['name']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="name" id="name" value="<?php echo $value['name']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">English Name</td>
-      <td width="80%"><input type="text" name="enname" id="enname" value="<?=$value['enname']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="enname" id="enname" value="<?php echo $value['enname']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">分类缩略图</td>
       <td width="80%">
               <?php if ($value['image']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['image']?>" target="_blank">
-    		  		<img src="<?=UPLOAD_URI.'/thumb/'.$value['image']?>" width="100" height="100"  /> 
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['image']; ?>" target="_blank">
+    		  		<img src="<?php echo UPLOAD_URI.'/thumb/'.$value['image']; ?>" width="100" height="100"  /> 
     		  </a>
     		  <?php } ?>
       <input type="file" name="image" id="image"  /></td>
     </tr>
     <tr>
       <td width="20%">分类说明</td>
-      <td width="80%"><textarea name="description" id="description"" cols="60" rows="6"><?=$value['description']?></textarea></td>
+      <td width="80%"><textarea name="description" id="description"" cols="60" rows="6"><?php echo $value['description']; ?></textarea></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

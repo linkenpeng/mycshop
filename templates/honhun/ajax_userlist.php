@@ -9,10 +9,10 @@
 		?>
 		<tr>
 		  <td>
-		  <input type="checkbox" name="uids" value="<?=$value['uid']?>" />
-		  <?=$value['username']?>(<?=$value['uid']?>)
+		  <input type="checkbox" name="uids" value="<?php echo $value['uid']; ?>" />
+		  <?php echo $value['username']; ?>(<?php echo $value['uid']; ?>)
 		  </td>
-		  <td><?=$ugroup_list[$value['usertype']]?></td>
+		  <td><?php echo $ugroup_list[$value['usertype']]; ?></td>
 		  <td><?php echo $value['realname'];?></td>
 		</tr>
 		<?php }} ?>

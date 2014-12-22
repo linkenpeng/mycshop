@@ -116,12 +116,12 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
-    <input type="hidden" name="noteid" value="<?=$value['noteid']?>" />
+    <input type="hidden" name="noteid" value="<?php echo $value['noteid']; ?>" />
     <input type="hidden" name="action" value="1" />
-    <input type="hidden" name="oldattachment" value="<?=$value['attachment']?>" />
+    <input type="hidden" name="oldattachment" value="<?php echo $value['attachment']; ?>" />
 	<tr>
       <td width="20%">标题</td>
-      <td width="80%"><input type="text" name="title" id="title" value="<?=$value['title']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="title" id="title" value="<?php echo $value['title']; ?>" size="50" /> (*)</td>
     </tr>
     <tr>
       <td width="20%">分类名称</td>
@@ -135,7 +135,7 @@ include admin_template("header");
     </tr>
     <tr>
       <td width="20%">主要内容</td>
-      <td width="80%"><textarea name="content" id="content"" cols="60" rows="10"><?=$value['content']?></textarea></td>
+      <td width="80%"><textarea name="content" id="content"" cols="60" rows="10"><?php echo $value['content']; ?></textarea></td>
     </tr>
     <tr>
       <td width="20%">上传附件</td>
@@ -143,7 +143,7 @@ include admin_template("header");
     </tr>
 	<tr>
       <td width="20%">发送对象</td>
-      <td width="80%"><textarea name="sendto" id="sendto"" cols="60" rows="6"><?=$value['sendto']?></textarea></td>
+      <td width="80%"><textarea name="sendto" id="sendto"" cols="60" rows="6"><?php echo $value['sendto']; ?></textarea></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

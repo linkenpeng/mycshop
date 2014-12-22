@@ -17,8 +17,8 @@ include admin_template("header");
 	  <tr>
 		
 		<td align="right" >
-		品牌:<input name="brand" type="text" size="12" value="<?=$brand?>" />
-		<input type="submit" name="Submit" value="<?=lang("action","search")?>" /></td>
+		品牌:<input name="brand" type="text" size="12" value="<?php echo $brand?>" />
+		<input type="submit" name="Submit" value="<?php echo lang("action","search")?>" /></td>
 	  </tr>
 	 </table>
   </form>
@@ -38,21 +38,21 @@ include admin_template("header");
 			foreach ($list as $value) {
 		?>
 		<tr>
-		  <td><?=$value['mac']?></td>
-		  <td><?=$value['brand']?></td>
-		  <td><?=$value['model']?></td>
-		  <td align="center"><?=$value['android_version']?></td>
-		  <td align="center"><?=$value['screen_height']?>*<?=$value['screen_width']?></td>
-		  <td align="center"><?=$value['loginnum']?></td>
-		  <td><?=$value['createtime']?></td>
-		  <td><?=$value['lasttime']?></td>
-		  <td><?=$value['lastip']?></td>
+		  <td><?php echo $value['mac']; ?></td>
+		  <td><?php echo $value['brand']; ?></td>
+		  <td><?php echo $value['model']; ?></td>
+		  <td align="center"><?php echo $value['android_version']; ?></td>
+		  <td align="center"><?php echo $value['screen_height']; ?>*<?php echo $value['screen_width']; ?></td>
+		  <td align="center"><?php echo $value['loginnum']; ?></td>
+		  <td><?php echo $value['createtime']; ?></td>
+		  <td><?php echo $value['lasttime']; ?></td>
+		  <td><?php echo $value['lastip']; ?></td>
 		</tr>
 		<?php }} ?>
 		<tr>
 			<td colspan=9 align="center">
 				<div class="page">
-					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
 				$endTime = mtime();

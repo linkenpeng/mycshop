@@ -9,7 +9,7 @@ if(!defined('SYS_IN')) {
 	</span>
 	<img src="<?php echo ADMIN_TEMPLATE_URL?>/images/Announce.gif" />
 	<span style="width:500px;">
-	<marquee onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="1" scrolldelay="4" align="left" width="500">欢迎使用<?=SITE_NAME?>！</marquee>
+	<marquee onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="1" scrolldelay="4" align="left" width="500">欢迎使用<?php echo SITE_NAME?>！</marquee>
 	</span>
 	
 </div>

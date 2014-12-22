@@ -16,7 +16,7 @@ include admin_template("header");
 		  <th width="100">信息类型</th>
 		  <th>添加时间</th>
 		  <th width="60">排序号</th>
-		  <th width="150"><?=lang("action","operation")?> </th>
+		  <th width="150"><?php echo lang("action","operation")?> </th>
 		</tr>
 		<?php if(is_array($list)) { 
 			foreach ($list as $value) {
@@ -25,16 +25,16 @@ include admin_template("header");
 		  <td align="left">
 		  
 		  <?php if($value['depth'] <= 0) { ?>
-				<img src="<?=SITE_URL.'/statics/images/tree/t3.gif'?>" /> 
+				<img src="<?php echo SITE_URL.'/statics/images/tree/t3.gif'?>" /> 
 		  <?php } else { ?>
 				<?php for ($i = 0; $i < $value['depth']; $i++) { ?>
-				<img src="<?=SITE_URL.'/statics/images/tree/t0.gif'?>" /> 	
+				<img src="<?php echo SITE_URL.'/statics/images/tree/t0.gif'?>" /> 	
 				<?php } ?>
-				<img src="<?=SITE_URL.'/statics/images/tree/t2.gif'?>" /> 
+				<img src="<?php echo SITE_URL.'/statics/images/tree/t2.gif'?>" /> 
 		  <?php }?>
 		  
-		  <a href="<?php echo get_uri("article","init","admin");?>&catid=<?=$value['catid']?>" >
-		  <?=$value['name']?>
+		  <a href="<?php echo get_uri("article","init","admin");?>&catid=<?php echo $value['catid']; ?>" >
+		  <?php echo $value['name']; ?>
 		  </a>
 		  </td>
 		  <td align="center">
@@ -54,18 +54,18 @@ include admin_template("header");
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center"><?php echo $value['ordernum'];?></td>
 		  <td align="center">
-				<a href="<?php echo get_uri("articlecat","add","admin");?>&upid=<?=$value['catid']?>" >添加子类</a>
+				<a href="<?php echo get_uri("articlecat","add","admin");?>&upid=<?php echo $value['catid']; ?>" >添加子类</a>
 				
-				<a href="<?php echo get_uri("articlecat","edit","admin");?>&catid=<?=$value['catid']?>&upid=<?=$value['upid']?>" ><?=lang("action","edit")?></a>
+				<a href="<?php echo get_uri("articlecat","edit","admin");?>&catid=<?php echo $value['catid']; ?>&upid=<?php echo $value['upid']; ?>" ><?php echo lang("action","edit")?></a>
 				
-				<a href="<?php echo get_uri("articlecat","delete","admin");?>&catid=<?=$value['catid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');"><?=lang("action","delete")?></a>
+				<a href="<?php echo get_uri("articlecat","delete","admin");?>&catid=<?php echo $value['catid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
 		<tr>
 			<td colspan=8 align="center">
 				<div class="page">
-					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
 				$endTime = mtime();

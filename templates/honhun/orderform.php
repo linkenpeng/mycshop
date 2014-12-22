@@ -19,15 +19,15 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo get_uri();?>" method="post" id="dataForm">
-    <input type="hidden" name="orderid" value="<?=$value['orderid']?>" />
+    <input type="hidden" name="orderid" value="<?php echo $value['orderid']; ?>" />
     <input type="hidden" name="action" value="1" />
     <tr>
       <td width="20%">订单名</td>
-      <td width="80%"><input type="text" name="ordername" id="ordername" value="<?=$value['ordername']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="ordername" id="ordername" value="<?php echo $value['ordername']; ?>" size="50" /> (*)</td>
     </tr>
     <tr>
       <td width="20%">备注</td>
-      <td width="80%"><textarea name="description" id="description"" cols="60" rows="6"><?=$value['description']?></textarea></td>
+      <td width="80%"><textarea name="description" id="description"" cols="60" rows="6"><?php echo $value['description']; ?></textarea></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

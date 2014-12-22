@@ -20,9 +20,9 @@ include admin_template("header");
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
 <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
-    <input type="hidden" name="aid" value="<?=$value['aid']?>" />
+    <input type="hidden" name="aid" value="<?php echo $value['aid']; ?>" />
 	<input type="hidden" name="action" value="1" />
-    <input type="hidden" name="oldimage" value="<?=$value['image']?>" />
+    <input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
   <table width="100%">
 	
 	<tr>
@@ -43,17 +43,17 @@ include admin_template("header");
 	
 	<tr>
       <td width="20%">批号名称</td>
-      <td width="80%"><input type="text" name="batchname" id="batchname" value="<?=$value['batchname']?>" size="30" /> (*)</td>
+      <td width="80%"><input type="text" name="batchname" id="batchname" value="<?php echo $value['batchname']; ?>" size="30" /> (*)</td>
     </tr>
 	
 	<tr>
       <td width="20%">批号</td>
-      <td width="80%"><input type="text" name="batchnum" id="batchnum" value="<?=$value['batchnum']?>" size="30" /> 3位数字，如：001(*)</td>
+      <td width="80%"><input type="text" name="batchnum" id="batchnum" value="<?php echo $value['batchnum']; ?>" size="30" /> 3位数字，如：001(*)</td>
     </tr>
 	
 	<tr>
       <td width="20%">生成数量</td>
-      <td width="80%"><input type="text" name="number" id="number" value="<?=$value['number']?>" size="10" /> (*)</td>
+      <td width="80%"><input type="text" name="number" id="number" value="<?php echo $value['number']; ?>" size="10" /> (*)</td>
     </tr>
 	
 	<tr>

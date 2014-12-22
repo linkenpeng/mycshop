@@ -7,9 +7,9 @@ if(!defined('SYS_IN')) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?=$pagetitle?></title>
-<meta content="<?=$pagetitle?>" name="keywords">
-<meta content="<?=$pagetitle?>" name="description">
+<title><?php echo $pagetitle?></title>
+<meta content="<?php echo $pagetitle?>" name="keywords">
+<meta content="<?php echo $pagetitle?>" name="description">
 <link href="<?php echo ADMIN_TEMPLATE_URL?>/css/style.css" rel="stylesheet" type="text/css" />
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/jquery.min.js" type="text/javascript"></script>
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/cookie.js" type="text/javascript"></script>

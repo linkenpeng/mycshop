@@ -34,13 +34,13 @@ include admin_template("header");
 <div class="pageTitle">当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
 <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
-    <input type="hidden" name="productid" value="<?=$value['productid']?>" />
+    <input type="hidden" name="productid" value="<?php echo $value['productid']; ?>" />
     <input type="hidden" name="action" value="1" />
-    <input type="hidden" name="oldimage" value="<?=$value['image']?>" />
+    <input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
   <table width="100%">
 	<tr>
       <td width="20%">产品型号</td>
-      <td width="80%"><input type="text" name="model" id="model" value="<?=$value['model']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="model" id="model" value="<?php echo $value['model']; ?>" size="50" /> (*)</td>
     </tr>
     <tr>
       <td width="20%">产品类别</td>
@@ -56,20 +56,20 @@ include admin_template("header");
       <td width="20%">产品缩略图</td>
       <td width="80%">
               <?php if ($value['image']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['image']?>" target="_blank">
-    		  		<img src="<?=UPLOAD_URI.'/thumb/'.$value['image']?>" width="100" height="100"  /> 
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['image']; ?>" target="_blank">
+    		  		<img src="<?php echo UPLOAD_URI.'/thumb/'.$value['image']; ?>" width="100" height="100"  /> 
     		  </a>
     		  <?php } ?>
       <input type="file" name="image" id="image"  /></td>
     </tr>
 	<tr>
       <td width="20%">面料颜色</td>
-      <td width="80%"><input type="text" name="mcolor" id="mcolor" value="<?=$value['mcolor']?>" size="50" /></td>
+      <td width="80%"><input type="text" name="mcolor" id="mcolor" value="<?php echo $value['mcolor']; ?>" size="50" /></td>
     </tr>
     
 	<tr>
       <td width="20%">面料型号</td>
-      <td width="80%"><input type="text" name="mstyle" id="mstyle" value="<?=$value['mstyle']?>" size="50" /></td>
+      <td width="80%"><input type="text" name="mstyle" id="mstyle" value="<?php echo $value['mstyle']; ?>" size="50" /></td>
     </tr>
 	<tr>
       <td width="20%">包装方法</td>
@@ -101,7 +101,7 @@ include admin_template("header");
     </tr>
     <tr>
       <td width="20%">产品描述</td>
-      <td width="80%"><textarea name="description" id="description"" cols="60" rows="10"><?=$value['description']?></textarea></td>
+      <td width="80%"><textarea name="description" id="description"" cols="60" rows="10"><?php echo $value['description']; ?></textarea></td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

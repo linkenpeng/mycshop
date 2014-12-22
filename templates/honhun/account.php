@@ -15,26 +15,26 @@ include admin_template("header");
 		  <th width="80">账目类别</th>
 		  <th width="150">备注</th>
 		  <th>添加时间</th>
-		  <th width="100"><?=lang("action","operation")?> </th>
+		  <th width="100"><?php echo lang("action","operation")?> </th>
 		</tr>
 		<?php if(is_array($list)) { 
 			foreach ($list as $value) {
 		?>
 		<tr>
-		  <td align="center"><?=$value['accountname']?></td>
-		  <td align="center"><?=$accounttype_list[$value['actypeid']]?></td>
-		  <td align="center"><?=$value['description']?></td>
+		  <td align="center"><?php echo $value['accountname']; ?></td>
+		  <td align="center"><?php echo $accounttype_list[$value['actypeid']]; ?></td>
+		  <td align="center"><?php echo $value['description']; ?></td>
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center">
-				<a href="<?php echo get_uri("account","edit","admin");?>&accountid=<?=$value['accountid']?>" ><?=lang("action","edit")?></a>
-				<a href="<?php echo get_uri("account","delete","admin");?>&accountid=<?=$value['accountid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');"><?=lang("action","delete")?></a>
+				<a href="<?php echo get_uri("account","edit","admin");?>&accountid=<?php echo $value['accountid']; ?>" ><?php echo lang("action","edit")?></a>
+				<a href="<?php echo get_uri("account","delete","admin");?>&accountid=<?php echo $value['accountid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
 		<tr>
 			<td colspan=8 align="center">
 				<div class="page">
-					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
 				$endTime = mtime();

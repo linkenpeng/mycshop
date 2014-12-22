@@ -14,7 +14,7 @@ include admin_template("header");
 				<?php if(is_array($undeal_order_list)) { 
 					foreach ($undeal_order_list as $value) {
 				?>
-				<li><?=$value['ordername']?></li>
+				<li><?php echo $value['ordername']; ?></li>
 				<?php }} ?>
 			</ul>
 	  </td>
@@ -24,7 +24,7 @@ include admin_template("header");
 				<?php if(is_array($my_order_list)) { 
 					foreach ($my_order_list as $value) {
 				?>
-				<li><?=$value['ordername']?></li>
+				<li><?php echo $value['ordername']; ?></li>
 				<?php }} ?>
 			</ul>
 	  </td>

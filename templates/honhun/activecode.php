@@ -52,13 +52,13 @@ include admin_template("header");
 	  <tr>
 		
 		<td align="right" >
-		所属景区: <input name="scenename" type="text" size="12" value="<?=$scenename?>" />
-		激活码: <input name="activecode" type="text" size="12" value="<?=$activecode?>" />
+		所属景区: <input name="scenename" type="text" size="12" value="<?php echo $scenename?>" />
+		激活码: <input name="activecode" type="text" size="12" value="<?php echo $activecode?>" />
 		生成时间:
-		从 <input name="startdate" id="startdate" type="text" size="20" value="<?=$startdate?>" class="Wdate" onClick="WdatePicker()" />
-		到 <input name="enddate" id="enddate" type="text" size="20" value="<?=$enddate?>" class="Wdate" onClick="WdatePicker()" /> 
-		每页数据:<input name="pagesize" type="text" size="3" value="<?=$pagesize?>" />
-		<input type="submit" name="Submit" value="<?=lang("action","search")?>" />
+		从 <input name="startdate" id="startdate" type="text" size="20" value="<?php echo $startdate?>" class="Wdate" onClick="WdatePicker()" />
+		到 <input name="enddate" id="enddate" type="text" size="20" value="<?php echo $enddate?>" class="Wdate" onClick="WdatePicker()" /> 
+		每页数据:<input name="pagesize" type="text" size="3" value="<?php echo $pagesize?>" />
+		<input type="submit" name="Submit" value="<?php echo lang("action","search")?>" />
 		
 		</td>
 	  </tr>
@@ -102,23 +102,23 @@ include admin_template("header");
 		?>
 		<tr>
 		  <td align="center">
-		  <input type="checkbox" name="ids[]" value="<?=$value['id']?>" />
+		  <input type="checkbox" name="ids[]" value="<?php echo $value['id']; ?>" />
 		  </td>
 		  <td align="center">
-		  <?=$value['cardnum']?>
+		  <?php echo $value['cardnum']; ?>
 		  </td>
 		  <td align="center">
-		  <?=$value['activecode']?>
+		  <?php echo $value['activecode']; ?>
 		  </td>
-		  <td align="center"><?=$value['scenename']?></td>
-		  <td align="center"><?=$value['usednum']?></td>
+		  <td align="center"><?php echo $value['scenename']; ?></td>
+		  <td align="center"><?php echo $value['usednum']; ?></td>
 		  <td align="center">
 		  <?php echo isset($batlist[$value['batchid']]) ? : ''; ?>
 		  
-		  [<a href="<?php echo get_uri("activecode","delbatch","admin");?>&batchid=<?=$value['batchid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');" >删除此批</a>]
+		  [<a href="<?php echo get_uri("activecode","delbatch","admin");?>&batchid=<?php echo $value['batchid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');" >删除此批</a>]
 		  
 		  </td>
-		  <td align="center"><?=date("Y-m-d H:i",$value['dateline'])?></td>
+		  <td align="center"><?php echo date("Y-m-d H:i",$value['dateline'])?></td>
 		</tr>
 		<?php }} ?>
 		<tr>
@@ -135,7 +135,7 @@ include admin_template("header");
 		<tr>
 			<td colspan=6 align="center">
 				<div class="page">
-					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
 				$endTime = mtime();

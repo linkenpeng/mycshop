@@ -32,7 +32,7 @@ include admin_template("header");
 		});
 		*/
 		
-		showallzone(document.getElementById('zone'), 'province', 'city', 'country', '<?=$value[province]?>', '<?=$value[city]?>', '<?=$value[country]?>');
+		showallzone(document.getElementById('zone'), 'province', 'city', 'country', '<?php echo $value[province]; ?>', '<?php echo $value[city]; ?>', '<?php echo $value[country]; ?>');
 	});
 //-->
 </script>
@@ -41,26 +41,26 @@ include admin_template("header");
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
 <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
-    <input type="hidden" name="sceneid" value="<?=$value['sceneid']?>" />
+    <input type="hidden" name="sceneid" value="<?php echo $value['sceneid']; ?>" />
     <input type="hidden" name="action" value="1" />
-    <input type="hidden" name="oldimage" value="<?=$value['image']?>" />
-	<input type="hidden" name="old_description_cn_audio" value="<?=$value['description_cn_audio']?>" />
-	<input type="hidden" name="old_description_en_audio" value="<?=$value['description_en_audio']?>" />
-	<input type="hidden" name="old_note_cn_audio" value="<?=$value['note_cn_audio']?>" />
-	<input type="hidden" name="old_note_en_audio" value="<?=$value['note_en_audio']?>" />
+    <input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
+	<input type="hidden" name="old_description_cn_audio" value="<?php echo $value['description_cn_audio']; ?>" />
+	<input type="hidden" name="old_description_en_audio" value="<?php echo $value['description_en_audio']; ?>" />
+	<input type="hidden" name="old_note_cn_audio" value="<?php echo $value['note_cn_audio']; ?>" />
+	<input type="hidden" name="old_note_en_audio" value="<?php echo $value['note_en_audio']; ?>" />
 	
   <table width="100%">
 	<tr>
       <td width="20%">景区名称</td>
-      <td width="80%"><input type="text" name="scenename" id="scenename" value="<?=$value['scenename']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="scenename" id="scenename" value="<?php echo $value['scenename']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">Scene English Name</td>
-      <td width="80%"><input type="text" name="scene_enname" id="scene_enname" value="<?=$value['scene_enname']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="scene_enname" id="scene_enname" value="<?php echo $value['scene_enname']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">景区编号</td>
-      <td width="80%"><input type="text" name="scenenum" id="scenenum" value="<?=$value['scenenum']?>" size="20" /> (如：001) *</td>
+      <td width="80%"><input type="text" name="scenenum" id="scenenum" value="<?php echo $value['scenenum']; ?>" size="20" /> (如：001) *</td>
     </tr>
     <tr>
       <td width="20%">景区类别</td>
@@ -85,8 +85,8 @@ include admin_template("header");
       <td width="20%">景区缩略图</td>
       <td width="80%">
               <?php if ($value['image']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['image']?>" target="_blank">
-    		  		<img src="<?=UPLOAD_URI.'/thumb/'.$value['image']?>" width="100" height="100"  /> 
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['image']; ?>" target="_blank">
+    		  		<img src="<?php echo UPLOAD_URI.'/thumb/'.$value['image']; ?>" width="100" height="100"  /> 
     		  </a>
     		  <?php } ?>
       <input type="file" name="image" id="image"  /></td>
@@ -110,22 +110,22 @@ include admin_template("header");
 	<tr>
       <td width="20%">地址</td>
       <td width="80%">
-	  <input type="text" name="address" id="address" value="<?=$value['address']?>" size="50" />
+	  <input type="text" name="address" id="address" value="<?php echo $value['address']; ?>" size="50" />
 	  <input type="button" value="获取地图位置"  />
 	  <div id="mapObj" class="view" style="width:600px;height:300px;display:none;"></div> 
 	  </td>
     </tr>
     <tr>
       <td width="20%">景区简介</td>
-      <td width="80%"><textarea name="description" id="description"" cols="100" rows="20"><?=$value['description']?></textarea></td>
+      <td width="80%"><textarea name="description" id="description"" cols="100" rows="20"><?php echo $value['description']; ?></textarea></td>
     </tr>
 	
 	<tr>
       <td width="20%">简介中文mp3</td>
       <td width="80%">
               <?php if ($value['description_cn_audio']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['description_cn_audio']?>" target="_blank">
-    		  		<?=$value['description_cn_audio']?>
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['description_cn_audio']; ?>" target="_blank">
+    		  		<?php echo $value['description_cn_audio']; ?>
     		  </a>
     		  <?php } ?>
       <input type="file" name="description_cn_audio" id="description_cn_audio"  /></td>
@@ -135,8 +135,8 @@ include admin_template("header");
       <td width="20%">简介English mp3</td>
       <td width="80%">
               <?php if ($value['description_en_audio']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['description_en_audio']?>" target="_blank">
-    		  		<?=$value['description_en_audio']?>
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['description_en_audio']; ?>" target="_blank">
+    		  		<?php echo $value['description_en_audio']; ?>
     		  </a>
     		  <?php } ?>
       <input type="file" name="description_en_audio" id="description_en_audio"  /></td>
@@ -144,15 +144,15 @@ include admin_template("header");
 	
 	<tr>
       <td width="20%">温馨提示</td>
-      <td width="80%"><textarea name="note" id="note"" cols="100" rows="20"><?=$value['note']?></textarea></td>
+      <td width="80%"><textarea name="note" id="note"" cols="100" rows="20"><?php echo $value['note']; ?></textarea></td>
     </tr>
 	
 	<tr>
       <td width="20%">温馨提示中文mp3</td>
       <td width="80%">
               <?php if ($value['note_cn_audio']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['note_cn_audio']?>" target="_blank">
-    		  		<?=$value['note_cn_audio']?>
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['note_cn_audio']; ?>" target="_blank">
+    		  		<?php echo $value['note_cn_audio']; ?>
     		  </a>
     		  <?php } ?>
       <input type="file" name="note_cn_audio" id="note_cn_audio"  /></td>
@@ -162,8 +162,8 @@ include admin_template("header");
       <td width="20%">温馨提示English mp3</td>
       <td width="80%">
               <?php if ($value['note_en_audio']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['note_en_audio']?>" target="_blank">
-    		  		<?=$value['note_en_audio']?>
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['note_en_audio']; ?>" target="_blank">
+    		  		<?php echo $value['note_en_audio']; ?>
     		  </a>
     		  <?php } ?>
       <input type="file" name="note_en_audio" id="note_en_audio"  /></td>

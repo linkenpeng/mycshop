@@ -15,36 +15,36 @@ include admin_template("header");
 		  <th width="150">模型</th>
 		  <th width="100">控制器</th>
 		  <th>动作</th>
-		  <th><?=lang("action","operation")?> </th>
+		  <th><?php echo lang("action","operation")?> </th>
 		</tr>
 		<?php if(is_array($list)) { 
 			foreach ($list as $value) {
 		?>
 		<tr class="td_hignlight">
-		  <td align="center"><?=$value['menuid']?>/<?=$value['parentid']?></td>
-		  <td><?=$value['name']?></td>
-		  <td align="center"><?=$value['model']?></td>
-		  <td align="center"><?=$value['ctrl']?></td>
-		  <td align="center"><?=$value['act']?></td>
+		  <td align="center"><?php echo $value['menuid']; ?>/<?php echo $value['parentid']; ?></td>
+		  <td><?php echo $value['name']; ?></td>
+		  <td align="center"><?php echo $value['model']; ?></td>
+		  <td align="center"><?php echo $value['ctrl']; ?></td>
+		  <td align="center"><?php echo $value['act']; ?></td>
 		  <td align="center">
-				<a href="<?php echo get_uri("menu","edit","admin");?>&menuid=<?=$value['menuid']?>" ><?=lang("action","edit")?></a>
-				<a href="<?php echo get_uri("menu","delete","admin");?>&menuid=<?=$value['menuid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');"><?=lang("action","delete")?></a>
-				<a href="<?php echo get_uri("menu","add","admin");?>&parentid=<?=$value['menuid']?>" >添加子菜单</a>
+				<a href="<?php echo get_uri("menu","edit","admin");?>&menuid=<?php echo $value['menuid']; ?>" ><?php echo lang("action","edit")?></a>
+				<a href="<?php echo get_uri("menu","delete","admin");?>&menuid=<?php echo $value['menuid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
+				<a href="<?php echo get_uri("menu","add","admin");?>&parentid=<?php echo $value['menuid']; ?>" >添加子菜单</a>
 		  </td>
 		</tr>
 		<?php if(is_array($value['subs'])) {
 				foreach ($value['subs'] as $val2) {
 		?>
 				<tr>
-				  <td align="center"><?=$val2['menuid']?>/<?=$val2['parentid']?></td>
-				  <td>----<?=$val2['name']?></td>
-				  <td align="center"><?=$val2['model']?></td>
-				  <td align="center"><?=$val2['ctrl']?></td>
-				  <td align="center"><?=$val2['act']?></td>
+				  <td align="center"><?php echo $val2['menuid']; ?>/<?php echo $val2['parentid']; ?></td>
+				  <td>----<?php echo $val2['name']; ?></td>
+				  <td align="center"><?php echo $val2['model']; ?></td>
+				  <td align="center"><?php echo $val2['ctrl']; ?></td>
+				  <td align="center"><?php echo $val2['act']; ?></td>
 				  <td align="center">
-						<a href="<?php echo get_uri("menu","edit","admin");?>&menuid=<?=$val2['menuid']?>" ><?=lang("action","edit")?></a>
-						<a href="<?php echo get_uri("menu","delete","admin");?>&menuid=<?=$val2['menuid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');"><?=lang("action","delete")?></a>
-						<a href="<?php echo get_uri("menu","add","admin");?>&parentid=<?=$val2['menuid']?>" >添加子菜单</a>
+						<a href="<?php echo get_uri("menu","edit","admin");?>&menuid=<?php echo $val2['menuid']; ?>" ><?php echo lang("action","edit")?></a>
+						<a href="<?php echo get_uri("menu","delete","admin");?>&menuid=<?php echo $val2['menuid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
+						<a href="<?php echo get_uri("menu","add","admin");?>&parentid=<?php echo $val2['menuid']; ?>" >添加子菜单</a>
 				  </td>
 				</tr>
 		<?php 	} 
@@ -53,7 +53,7 @@ include admin_template("header");
 		<tr>
 			<td colspan=8 align="center">
 				<div class="page">
-					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
 				$endTime = mtime();

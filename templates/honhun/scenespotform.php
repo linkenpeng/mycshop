@@ -20,29 +20,29 @@ include admin_template("header");
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
 <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
-    <input type="hidden" name="scenespotid" value="<?=$value['scenespotid']?>" />
-	<input type="hidden" name="sceneid" value="<?=$value['sceneid']?>" />
+    <input type="hidden" name="scenespotid" value="<?php echo $value['scenespotid']; ?>" />
+	<input type="hidden" name="sceneid" value="<?php echo $value['sceneid']; ?>" />
     <input type="hidden" name="action" value="1" />
-    <input type="hidden" name="oldimage" value="<?=$value['image']?>" />
-	<input type="hidden" name="old_cn_audio" value="<?=$value['cn_audio']?>" />
-	<input type="hidden" name="old_en_audio" value="<?=$value['en_audio']?>" />
+    <input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
+	<input type="hidden" name="old_cn_audio" value="<?php echo $value['cn_audio']; ?>" />
+	<input type="hidden" name="old_en_audio" value="<?php echo $value['en_audio']; ?>" />
   <table width="100%">
 	
 	<tr>
       <td width="20%">所属景区</td>
       <td width="80%">
-		<h3><?=$value['scenename']?></h3>
+		<h3><?php echo $value['scenename']; ?></h3>
 	  </td>
     </tr>
 	
 	<tr>
       <td width="20%">景点名称</td>
-      <td width="80%"><input type="text" name="scenespotname" id="scenespotname" value="<?=$value['scenespotname']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="scenespotname" id="scenespotname" value="<?php echo $value['scenespotname']; ?>" size="50" /> (*)</td>
     </tr>
 	
 	<tr>
       <td width="20%">Scene Spot English Name</td>
-      <td width="80%"><input type="text" name="scenespot_enname" id="scenespot_enname" value="<?=$value['scenespot_enname']?>" size="50" /></td>
+      <td width="80%"><input type="text" name="scenespot_enname" id="scenespot_enname" value="<?php echo $value['scenespot_enname']; ?>" size="50" /></td>
     </tr>
 	
 	<tr>
@@ -59,7 +59,7 @@ include admin_template("header");
 	
 	<tr>
       <td width="20%">景点编号</td>
-      <td width="80%"><input type="text" name="infocards" id="infocards" value="<?=$value['infocards']?>" size="30" /></td>
+      <td width="80%"><input type="text" name="infocards" id="infocards" value="<?php echo $value['infocards']; ?>" size="30" /></td>
     </tr>
     
 
@@ -67,8 +67,8 @@ include admin_template("header");
       <td width="20%">景点缩略图</td>
       <td width="80%">
               <?php if ($value['image']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['image']?>" target="_blank">
-    		  		<img src="<?=UPLOAD_URI.'/thumb/'.$value['image']?>" width="100" height="100"  /> 
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['image']; ?>" target="_blank">
+    		  		<img src="<?php echo UPLOAD_URI.'/thumb/'.$value['image']; ?>" width="100" height="100"  /> 
     		  </a>
     		  <?php } ?>
       <input type="file" name="image" id="image"  /></td>
@@ -76,15 +76,15 @@ include admin_template("header");
 	
     <tr>
       <td width="20%">景点描述</td>
-      <td width="80%"><textarea name="description" id="description"" cols="100" rows="30"><?=$value['description']?></textarea></td>
+      <td width="80%"><textarea name="description" id="description"" cols="100" rows="30"><?php echo $value['description']; ?></textarea></td>
     </tr>
 	
 	<tr>
       <td width="20%">中文播报mp3</td>
       <td width="80%">
               <?php if ($value['cn_audio']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['cn_audio']?>" target="_blank">
-    		  		<?=$value['cn_audio']?>
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['cn_audio']; ?>" target="_blank">
+    		  		<?php echo $value['cn_audio']; ?>
     		  </a>
     		  <?php } ?>
       <input type="file" name="cn_audio" id="cn_audio"  /></td>
@@ -94,8 +94,8 @@ include admin_template("header");
       <td width="20%">English Play mp3</td>
       <td width="80%">
               <?php if ($value['en_audio']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['en_audio']?>" target="_blank">
-    		  		<?=$value['en_audio']?>
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['en_audio']; ?>" target="_blank">
+    		  		<?php echo $value['en_audio']; ?>
     		  </a>
     		  <?php } ?>
       <input type="file" name="en_audio" id="en_audio"  /></td>

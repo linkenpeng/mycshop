@@ -10,10 +10,10 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo ROUTE;?>?<?php echo M;?>=admin&<?php echo C;?>=user&<?php echo A;?>=save_admin_pass" method="post" name="articleForm" id="articleForm">
-    <input type="hidden" name="uid" value="<?=$user_info['uid']?>" />
+    <input type="hidden" name="uid" value="<?php echo $user_info['uid']; ?>" />
     <tr>
       <td width="20%">用户名</td>
-      <td width="80%"><input type="text" name="username" id="username" readonly value="<?=$user_info['username']?>" size="50" /></td>
+      <td width="80%"><input type="text" name="username" id="username" readonly value="<?php echo $user_info['username']; ?>" size="50" /></td>
     </tr>
 	 <tr>
       <td width="20%">输入旧密码</td>

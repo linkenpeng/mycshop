@@ -22,30 +22,30 @@ include admin_template("header");
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo get_uri();?>" method="post" id="dataForm">
-    <input type="hidden" name="menuid" value="<?=$value['menuid']?>" />
+    <input type="hidden" name="menuid" value="<?php echo $value['menuid']; ?>" />
     <input type="hidden" name="action" value="1" />
-	<input type="hidden" name="parentid" value="<?=$value['parentid']?>" />
+	<input type="hidden" name="parentid" value="<?php echo $value['parentid']; ?>" />
 	<?php if ($value['parent_name']) {?>
 	<tr>
       <td width="20%">父菜单名称</td>
-      <td width="80%"><?=$value['parent_name']?></td>
+      <td width="80%"><?php echo $value['parent_name']; ?></td>
     </tr>
 	<?php } ?>
     <tr>
       <td width="20%">菜单名称</td>
-      <td width="80%"><input type="text" name="name" id="name" value="<?=$value['name']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="name" id="name" value="<?php echo $value['name']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">模型</td>
-      <td width="80%"><input type="text" name="model" id="model" value="<?=$value['model']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="model" id="model" value="<?php echo $value['model']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">控制器</td>
-      <td width="80%"><input type="text" name="ctrl" id="ctrl" value="<?=$value['ctrl']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="ctrl" id="ctrl" value="<?php echo $value['ctrl']; ?>" size="50" /> (*)</td>
     </tr>
 	<tr>
       <td width="20%">动作</td>
-      <td width="80%"><input type="text" name="act" id="act" value="<?=$value['act']?>" size="50" /> (*)</td>
+      <td width="80%"><input type="text" name="act" id="act" value="<?php echo $value['act']; ?>" size="50" /> (*)</td>
     </tr>
     <tr>
       <td width="100%" colspan="2" align="center"><input type="submit" value="提交" class="button" /></td>

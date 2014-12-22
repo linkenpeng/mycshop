@@ -43,10 +43,10 @@ include admin_template("header");
 				<option value="<?php echo $k;?>" <?php if($level==$k) { ?> selected="selected" <?php } ?>><?php echo $v;?></option>
 				<?php }} ?>
 			 </select>		
-		景区名称:<input name="scenename" type="text" size="12" value="<?=$scenename?>" />
-		景点编号:<input name="infocards" type="text" size="12" value="<?=$infocards?>" />
-		景点名称:<input name="scenespotname" type="text" size="12" value="<?=$scenespotname?>" />
-		<input type="submit" name="Submit" value="<?=lang("action","search")?>" /></td>
+		景区名称:<input name="scenename" type="text" size="12" value="<?php echo $scenename?>" />
+		景点编号:<input name="infocards" type="text" size="12" value="<?php echo $infocards?>" />
+		景点名称:<input name="scenespotname" type="text" size="12" value="<?php echo $scenespotname?>" />
+		<input type="submit" name="Submit" value="<?php echo lang("action","search")?>" /></td>
 	  </tr>
 	 </table>
   </form>
@@ -60,35 +60,35 @@ include admin_template("header");
 		  <th width="80">景区类别</th>
 		  <th width="80">游玩主题</th>
 		  <th width="80">景区级别</th>
-		  <th width="100"><?=lang("action","operation")?> </th>
+		  <th width="100"><?php echo lang("action","operation")?> </th>
 		</tr>
 		<?php if(is_array($list)) { 
 			foreach ($list as $value) {
 		?>
 		<tr>
-		  <td align="center"><?=$value['scenespotid']?></td>
+		  <td align="center"><?php echo $value['scenespotid']; ?></td>
 		  <td align="center">
-		  <?=$value['scenespotname']?> <br />
-		  <?php echo $value['scenespot_enname']?>
+		  <?php echo $value['scenespotname']; ?> <br />
+		  <?php echo $value['scenespot_enname']; ?>
 		  </td>
-		  <td align="center"><?=$value['infocards']?></td>
+		  <td align="center"><?php echo $value['infocards']; ?></td>
 		  <td align="center">
     		  <?php if ($value['image']) {?>
-    		  <a href="<?=UPLOAD_URI.'/'.$value['image']?>" target="_blank">
-    		  		<img src="<?=UPLOAD_URI.'/thumb/'.$value['image']?>" width="100" height="100"  /> 
+    		  <a href="<?php echo UPLOAD_URI.'/'.$value['image']; ?>" target="_blank">
+    		  		<img src="<?php echo UPLOAD_URI.'/thumb/'.$value['image']; ?>" width="100" height="100"  /> 
     		  </a>
     		  <?php } ?>
 		  </td>
 		  <td align="center">
-		  <?=$value['scenename']?> <br />
+		  <?php echo $value['scenename']; ?> <br />
 		  [<a href="<?php echo get_uri("scenespot","add","admin","sceneid=".$value['sceneid']);?>">添加景点</a>]
 		  </td>
-		  <td align="center"><?=$scenetype_list[$value['typeid']]?></td>
-		  <td align="center"><?=$traveltopic_list[$value['traveltopicid']]?></td>
-		  <td align="center"><?=$value['level']?>A</td>
+		  <td align="center"><?php echo $scenetype_list[$value['typeid']]; ?></td>
+		  <td align="center"><?php echo $traveltopic_list[$value['traveltopicid']]; ?></td>
+		  <td align="center"><?php echo $value['level']; ?>A</td>
 		  <td align="center">
-				<a href="<?php echo get_uri("scenespot","edit","admin");?>&scenespotid=<?=$value['scenespotid']?>" ><?=lang("action","edit")?></a>
-				<a href="<?php echo get_uri("scenespot","delete","admin");?>&scenespotid=<?=$value['scenespotid']?>" onclick="return confirm('<?=lang("action","isdelete")?>?');"><?=lang("action","delete")?></a>
+				<a href="<?php echo get_uri("scenespot","edit","admin");?>&scenespotid=<?php echo $value['scenespotid']; ?>" ><?php echo lang("action","edit")?></a>
+				<a href="<?php echo get_uri("scenespot","delete","admin");?>&scenespotid=<?php echo $value['scenespotid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
 				 <br />
 				[<a href="<?php echo get_uri("relic","add","admin","scenespotid=".$value['scenespotid']);?>">添加文物</a>]
 		  </td>
@@ -97,7 +97,7 @@ include admin_template("header");
 		<tr>
 			<td colspan=9 align="center">
 				<div class="page">
-					<?=lang("page","total")?><b><?=$count?></b><?=lang("page","item")?> <b><?=$nowpage?>/<?=$p->totalpage?></b><?=lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
 				$endTime = mtime();
