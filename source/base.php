@@ -212,7 +212,7 @@ class AutoLoader
 	public function getClassPath($class) {
 		foreach(self::$_autoloadPaths as $val) {
 			$classPath = $val['path'].$class.$val['extension'];
-			if(file_exists($classPath)) return $classPath;
+			if(is_readable($classPath)) return $classPath;
 		}
 		return false;
 	}	
