@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-Base::load_sys_class('model');
+
 class usergroup_model extends model {
     protected $_table = 'usergroup';
     protected $_primarykey = 'ugid';

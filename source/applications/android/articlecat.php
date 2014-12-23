@@ -23,7 +23,7 @@ class articlecat {
             $where .= " and `sceneid`=".$sceneid;
         }
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->articlecatdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "100" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

@@ -1,10 +1,9 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class note {
+class note extends controller {
     private $notedb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->notedb = Base::load_model("note_model");
     }
     function init() {
@@ -26,7 +25,7 @@ class note {
             $where .= " and dateline<".(strtotime($enddate)+24*3600-1);
         }
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->notedb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

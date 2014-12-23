@@ -1,10 +1,9 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class activecode {
+class activecode extends controller {
     private $activecodedb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->activecodedb = Base::load_model("activecode_model");
     }
     function init() {
@@ -30,7 +29,7 @@ class activecode {
 			$where .= " and a.`dateline`<='".strtotime($enddate)."' ";
 		}
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->activecodedb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "50" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

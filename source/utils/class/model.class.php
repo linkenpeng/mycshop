@@ -17,21 +17,6 @@ class model {
     
     /**
      *
-     * 获取一条信息
-     * @param int $accountid
-     */
-    function get_one($primarykey = "") {
-    	if(!empty($primarykey)) {
-    		$where = "where ".$this->_primarykey."=".$primarykey;
-    		$sql = "select * from ".tname($this->_table)." $where limit 1";
-    		$value = $this->db->get_one($sql);
-    		return $value;
-    	} else {
-    		return '';
-    	}
-    }
-    /**
-     *
      * 插入一条信息
      * @param array $data
      * return Boolean $flag
@@ -43,6 +28,7 @@ class model {
     	}
     	return $flag;
     }
+    
     /**
      * 修改一条信息
      *
@@ -59,6 +45,7 @@ class model {
     	}
     	return $flag;
     }
+    
     /**
      *
      * 删除一条信息
@@ -73,6 +60,23 @@ class model {
     	}
     	return $flag;
     }
+    
+    /**
+     *
+     * 获取一条信息
+     * @param int $accountid
+     */
+    function get_one($primarykey = "") {
+    	if(!empty($primarykey)) {
+    		$where = "where ".$this->_primarykey."=".$primarykey;
+    		$sql = "select * from ".tname($this->_table)." $where limit 1";
+    		$value = $this->db->get_one($sql);
+    		return $value;
+    	} else {
+    		return '';
+    	}
+    }
+    
     /**
      * 获取一组信息
      * @param int $num
@@ -92,6 +96,7 @@ class model {
     	$list = $this->db->get_list($sql);
     	return $list;
     }
+    
     /**
      * 获取总数
      * @param stirng $where

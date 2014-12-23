@@ -1,16 +1,15 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class notetype {
+class notetype extends controller {
     private $notetypedb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->notetypedb = Base::load_model("notetype_model");
     }
     function init() {
         $where = " WHERE 1 ";
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->notetypedb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

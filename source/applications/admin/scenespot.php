@@ -1,10 +1,9 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class scenespot {
+class scenespot extends controller {
     private $scenespotdb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->scenespotdb = Base::load_model("scenespot_model");
     }
     function init() {
@@ -36,7 +35,7 @@ class scenespot {
             $where .= " and sp.`infocards`='".$infocards."' ";
         }
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->scenespotdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

@@ -1,19 +1,18 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class articlecat {
+class articlecat extends controller {
     private $articlecatdb;
 	const pagesize = 100;
 	public $cattypes = array(1=>'资讯',2=>'商家');
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->articlecatdb = Base::load_model("articlecat_model");
     }
 	
     function init() {
         $where = " WHERE 1 ";
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->articlecatdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? self::pagesize : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

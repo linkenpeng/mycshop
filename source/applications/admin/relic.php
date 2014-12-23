@@ -1,10 +1,9 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class relic {
+class relic extends controller {
     private $relicdb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->relicdb = Base::load_model("relic_model");
     }
     function init() {
@@ -24,7 +23,7 @@ class relic {
             $where .= " and rel.`relicnum`='".$relicnum."' ";
         }
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->relicdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-Base::load_sys_class('model');
+
 class device_model extends model {
     protected $_table = 'deviceinfo';
     protected $_primarykey = 'deviceid';

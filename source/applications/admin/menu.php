@@ -1,16 +1,15 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class menu {
+class menu extends controller {
     private $menudb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->menudb = Base::load_model("menu_model");
     }
     function init() {
         $where = " WHERE 1 ";
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->menudb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "100" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

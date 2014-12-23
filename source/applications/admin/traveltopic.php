@@ -1,16 +1,14 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class traveltopic {
+class traveltopic extends controller {
     private $traveltopicdb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->traveltopicdb = Base::load_model("traveltopic_model");
     }
     function init() {
         $where = " WHERE 1 ";
-        //分页       
-        Base::load_sys_class("page",'',0);
+        //分页               
         $count = $this->traveltopicdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

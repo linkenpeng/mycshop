@@ -1,10 +1,9 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class scene {
+class scene extends controller {
     private $scenedb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->scenedb = Base::load_model("scene_model");
     }
     function init() {
@@ -43,7 +42,7 @@ class scene {
             $where .= " and `country`='".$country."' ";
         }
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->scenedb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

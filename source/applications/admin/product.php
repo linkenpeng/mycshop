@@ -1,10 +1,9 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class product {
+class product extends controller {
     private $productdb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+        parent::__construct();
         $this->productdb = Base::load_model("product_model");
     }
     function init() {
@@ -23,7 +22,7 @@ class product {
             $where .= " and `barcode` like '%".$barcode."%' ";
         }
         //分页       
-        Base::load_sys_class("page",'',0);
+        
         $count = $this->productdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;

@@ -1,16 +1,15 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class account {
+class account extends controller {
     private $accountdb;
     function __construct() {
-        //判断是否登录
-        Base::load_model("login_model")->is_login();
+    	parent::__construct();
         $this->accountdb = Base::load_model("account_model");
     }
+    
     function init() {
         $where = " WHERE 1 ";
-        //分页       
-        Base::load_sys_class("page",'',0);
+        //分页               
         $count = $this->accountdb->get_count($where);
         $pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
         $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -29,21 +28,16 @@ class account {
         }
 		include admin_template('account');
     }
-    /**
-     * 添加
-     * 
-     * @author Myron
-     * 2011-5-27 上午11:57:59
-     */
+    
     public function add() {
         if (!empty($_POST['action'])) {
             if (empty($_POST['accountname'])) {
-                ShowMsg("订单名称不能为空!",-1);
+                ShowMsg("名称不能为空!",-1);
             }
             $_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
             $data = array(
                 'uid'=>$_SESSION['admin_uid'],
-                'username'=>$title['admin_username'],
+                'username'=>$_SESSION['admin_username'],
 				'actypeid'=>$_POST['actypeid'],
                 'accountname'=>$_POST['accountname'],
                 'description'=>$_POST['description'],
@@ -61,12 +55,7 @@ class account {
         $show_validator = 1;
         include admin_template('accountform');
     }
-    /**
-     * 修改
-     * 
-     * @author Myron
-     * 2011-5-27 上午09:36:34
-     */
+    
     public function edit() {
         $accountid = $_GET['accountid'];
         if (!empty($accountid)) {
@@ -90,12 +79,7 @@ class account {
         $show_validator = 1;
         include admin_template('accountform');
     }
-    /**
-     * 删除
-     * 
-     * @author Myron
-     * 2011-5-27 上午09:36:34
-     */
+    
     public function delete() {
         $accountid = $_GET['accountid'];
         if (!empty($accountid)) {

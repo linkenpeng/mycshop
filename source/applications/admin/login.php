@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class login {
+class login extends controller {
     function __construct() {
 
     }

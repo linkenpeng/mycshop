@@ -13,10 +13,12 @@ define('A','a');
 define('FRAME_PATH',str_replace("\\","/",dirname(__FILE__)));
 
 //autoload
-define('MPATH',ROOT_PATH.'/source/models/');
-define('CPATH',ROOT_PATH.'/source/applications/admin/');
-define('LPATH',ROOT_PATH.'/source/utils/class/');
-new Loader();
+$autoLoadPaths = array(
+	'model' 	 => array('path' => ROOT_PATH.'/source/models/', 'extension' => '.class.php'),
+	'controller' => array('path' => ROOT_PATH.'/source/applications/admin/', 'extension' => '.php'),
+	'library' 	 => array('path' => ROOT_PATH.'/source/utils/class/', 'extension' => '.class.php'),
+);
+new AutoLoader($autoLoadPaths);
 
 //加载配置信息
 $_G = Base::load_config("sys"); //系统配置
@@ -189,72 +191,30 @@ class Base {
     }
 }
 
-class Loader
+class AutoLoader
 {
-	private static $_autoloadPath = array();
+	protected static $_autoloadPaths = array();
 	
-	public static function setAutoPath($paths) {
-		self::$_autoloadPath = $paths;
-	}
-	
-	public static function autoLoad() {
-		foreach(self::$_autoloadPath as $val) {
-			set_include_path($val['path']);
-			spl_autoload_extensions($val['ext']);
-			spl_autoload();
-		}
+	public function __construct($autoPaths)
+	{
+		self::$_autoloadPaths = $autoPaths;
+		spl_autoload_register(array($this, 'autoLoad'));
 	}
 	
-	public function __construct()
-	{
-		$this->modelDirectoryPath       = MPATH;
-		$this->controllerDirectoryPath  = CPATH;
-		$this->libraryDirectoryPath     = LPATH;
-		 
-		spl_autoload_register(array($this,'load_controller'));
-		spl_autoload_register(array($this,'load_model'));
-		spl_autoload_register(array($this,'load_library'));
+	public function autoLoad($class) {
+		$classPath = $this->getClassPath($class);
+		if (false !== $classPath) {
+			return include $classPath;
+		}
+		return false;
 	}
 	
-	public function load_controller($controller)
-	{
-		if ($controller) {
-			set_include_path($this->controllerDirectoryPath);
-			spl_autoload_extensions('.php');
-			spl_autoload($controller);
+	public function getClassPath($class) {
+		foreach(self::$_autoloadPaths as $val) {
+			$classPath = $val['path'].$class.$val['extension'];
+			if(file_exists($classPath)) return $classPath;
 		}
-	}
-	 
-
-	/**
-	 * Autoload Model class
-	 *
-	 * @param  string $class
-	 * @return object
-	 */
-
-	public function load_model($model)
-	{
-		if ($model) {
-			set_include_path($this->modelDirectoryPath);
-			spl_autoload_extensions('.class.php');
-			spl_autoload($model);
-		}
-	}
-	 
-	/**
-	 * Autoload Library class
-	 *
-	 * @param  string $class
-	 * @return object
-	 */
-
-	public function load_library($library)
-	{
-		if ($library) {
-			set_include_path($this->libraryDirectoryPath);
-			spl_autoload_extensions('.class.php');
-			spl_autoload($library);
-		}
-	}
+		return false;
+	}	
+	
 }

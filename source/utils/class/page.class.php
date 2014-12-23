@@ -1,4 +1,4 @@
-<?
+<?php
 defined('SYS_IN') or exit('Access Denied.');
 /**
  * filename: pages.class.php
