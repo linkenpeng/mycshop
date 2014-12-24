@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 /**
- * application.class.php 控制器基类
+ * application.class.php 路由控制类
  *
  */
 class application {
@@ -16,7 +16,7 @@ class application {
         $this->init();
     }
     /**
-     * 调用件事
+     * 调用方法
      */
     private function init() {
         $controller = $this->load_controller();

@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class Mysql {
+class mysql {
     var $querynum = 0;
     private static $_instance = NULL;
     function __construct() {

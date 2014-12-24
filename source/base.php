@@ -70,8 +70,8 @@ if (empty($magic_quote)) {
 }
 
 //连接数据库
-Base::load_sys_class("Mysql",'',0);
-$db = Mysql::getInstance();
+Base::load_sys_class("mysql",'',0);
+$db = mysql::getInstance();
 
 //开启session
 $session = Base::load_model("session_model");
@@ -205,6 +205,7 @@ class AutoLoader
 	}
 	
 	public function getClassPath($class) {
+		$class = strtolower($class);
 		foreach(self::$_autoloadPaths as $val) {
 			$classPath = $val['path'].$class.$val['extension'];
 			if(is_readable($classPath)) return $classPath;
