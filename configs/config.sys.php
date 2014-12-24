@@ -8,6 +8,11 @@ return array(
     'gzip'=>1,
     'cookiepre'=>'mycshop_', //设置cookie前缀
     'cookiepath'=>'/', //设置cookie路径
-    'cookiedomain'=>'.mycshop.com' //设置cookie域名
+    'cookiedomain'=>'.mycshop.com', //设置cookie域名
+    'autoload' => array(
+		'model' 	 => array('path' => ROOT_PATH.'/source/models/', 'extension' => '.class.php'),
+		'controller' => array('path' => ROOT_PATH.'/source/applications/admin/', 'extension' => '.php'),
+		'library' 	 => array('path' => ROOT_PATH.'/source/utils/class/', 'extension' => '.class.php'),
+	),
 );
 ?>

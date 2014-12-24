@@ -12,17 +12,12 @@ define('A','a');
 //框架路径
 define('FRAME_PATH',str_replace("\\","/",dirname(__FILE__)));
 
-//autoload
-$autoLoadPaths = array(
-	'model' 	 => array('path' => ROOT_PATH.'/source/models/', 'extension' => '.class.php'),
-	'controller' => array('path' => ROOT_PATH.'/source/applications/admin/', 'extension' => '.php'),
-	'library' 	 => array('path' => ROOT_PATH.'/source/utils/class/', 'extension' => '.class.php'),
-);
-new AutoLoader($autoLoadPaths);
-
 //加载配置信息
 $_G = Base::load_config("sys"); //系统配置
 $_CTCONFIG = Base::load_config("customize"); //自定义配置信息
+
+//autoload
+new AutoLoader($_G['autoload']);
 
 //加载公共函数
 Base::load_sys_func("global");
