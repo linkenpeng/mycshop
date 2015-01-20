@@ -55,6 +55,7 @@ class spidertest {
     	$rows = array();
     	
     	phpQuery::newDocumentFile('http://data.eastmoney.com/zjlx/'.$stockno.'.html');
+		$stockName = mb_convert_encoding(pq(".tit a")->html(), 'utf-8', 'gb2312');
     	$trList = pq("#content_zjlxtable table tbody tr");
     	foreach($trList as $tr) {
     		$row = array();
@@ -76,6 +77,7 @@ class spidertest {
     	}
     	
     	//output
+		echo '<b>'.$stockName.'</b><br/><br/>'; 
     	$all = 0;
     	foreach($total as $val) {
     		$color = $val['data'] > 0 ? '#F00' : '#090';
