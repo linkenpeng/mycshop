@@ -14,7 +14,7 @@ class session_model extends model {
         parent::__construct();
         $this->ip = get_ip();
         $this->max_life_time = ($_CTCONFIG['onlinetime']<600) ? "600" : $_CTCONFIG['onlinetime'];
-        $this->time = $_G['timestamp'];
+        $this->time = $_G['system']['timestamp'];
     }
     
     function my_session_start() {
@@ -59,12 +59,12 @@ class session_model extends model {
     
     function ssetcookie($cookiename, $value, $life = 0) {
         global $_G;
-        setcookie($_G['cookiepre'].$cookiename,$value,$life ? ($_G['timestamp']+$life) : 0,$_G['cookiepath'],$_G['cookiedomain'],$_SERVER['SERVER_PORT']==443 ? 1 : 0);
+        setcookie($_G['system']['cookiepre'].$cookiename,$value,$life ? ($_G['system']['timestamp']+$life) : 0,$_G['system']['cookiepath'],$_G['system']['cookiedomain'],$_SERVER['SERVER_PORT']==443 ? 1 : 0);
     }
     
     function sgetcookie($cookiename) {
     	global $_G;
-    	return isset($_COOKIE[$_G['cookiepre'].$cookiename]) ? $_COOKIE[$_G['cookiepre'].$cookiename] : '';
+    	return isset($_COOKIE[$_G['system']['cookiepre'].$cookiename]) ? $_COOKIE[$_G['system']['cookiepre'].$cookiename] : '';
     }
 }
 ?>

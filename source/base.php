@@ -25,7 +25,7 @@ Base::load_sys_func("common");
 
 // 设置时区
 date_default_timezone_set($_CTCONFIG['timezone']);
-$_G['timestamp'] = time();
+$_G['system']['timestamp'] = time();
 define('START_TIME', mtime()); // 记录程序启动时间
                                
 // 定义站点名称
@@ -84,8 +84,7 @@ $menuids = $usergroupdb->get_permission();
 $menudb = Base::load_model("menu_model");
 $menudb->check_permission($menuids);
 // 获得用户组分配的主菜单
-$check_modules = array(
-	'admin' 
+$check_modules = array('admin' 
 ); // 需要登录的模块
 $topmenus = $menudb->get_top_menus($menuids, $check_modules);
 
@@ -109,7 +108,7 @@ class Base {
 
 	private static function _load_class($classname, $path = '', $initialize) {
 		static $classes = array();
-		$path = empty($path) ? 'utils' . DS . 'class' : $path;
+		$path = empty($path) ? 'system' . DS . 'class' : $path;
 		$key = md5($classname);
 		if (file_exists(FRAME_PATH . DS . $path . DS . $classname . '.php')) {
 			include_once FRAME_PATH . DS . $path . DS . $classname . '.php';
@@ -125,7 +124,7 @@ class Base {
 	}
 
 	private static function _load_func($func, $path = '') {
-		$path = empty($path) ? 'utils' . DS . 'function' : $path;
+		$path = empty($path) ? 'system' . DS . 'function' : $path;
 		$path .= DS . $func . '.php';
 		if (file_exists(FRAME_PATH . DS . $path)) {
 			include FRAME_PATH . DS . $path;
@@ -141,10 +140,7 @@ class AutoLoader {
 
 	public function __construct($autoPaths) {
 		self::$_autoloadPaths = $autoPaths;
-		spl_autoload_register(array(
-			$this,
-			'autoLoad' 
-		));
+		spl_autoload_register(array($this,'autoLoad'));
 	}
 
 	public function autoLoad($class) {

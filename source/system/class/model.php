@@ -55,7 +55,7 @@ class model {
 			$value = $this->db->get_one($sql);
 			return $value;
 		} else {
-			return '';
+			return array();
 		}
 	}
 

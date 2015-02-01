@@ -21,7 +21,7 @@ class template {
         if (!empty($templatedir)) {
             $this->tpls['template'] = $templatedir;
         } else {
-            $this->tpls['template'] = $_G['template'];
+            $this->tpls['template'] = $_G['system']['template'];
         }
         $tplfile = ROOT_PATH.DS.$tpl.'.htm';
         $objfile = ROOT_PATH.DS.'caches'.DS.'tpl_cache'.DS.$this->tpls['template'].DS.str_replace('/','_',$tpl).'.php';
@@ -79,7 +79,7 @@ class template {
         //换行
         $template = preg_replace("/ \?\>[\n\r]*\<\? /s"," ",$template);
         //附加处理
-        $template = "<?php if(!defined('SYS_IN')) exit('Access Denied');?><?php subtplcheck('".implode('|', $this->tpls['sub_tpls'])."', '$_G[timestamp]', '$tpl','$templatedir');?>$template";
+        $template = "<?php if(!defined('SYS_IN')) exit('Access Denied');?><?php subtplcheck('".implode('|', $this->tpls['sub_tpls'])."', '$_G[system][timestamp]', '$tpl','$templatedir');?>$template";
         //write
         if (!swritefile($objfile,$template)) {
             exit("File: $objfile can not be write!");

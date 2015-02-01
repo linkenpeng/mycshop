@@ -36,7 +36,7 @@ class login extends controller {
             ShowMsg(lang('message','checkcode_is_not_right'),"-1");
         }
 		
-        $userdb = Base::load_model("user_model");
+        $userdb = new user_model();
         $logininfo = $userdb->check_user_exist($username,$password);
         switch($logininfo['uid']) {
             case "-2":

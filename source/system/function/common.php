@@ -33,7 +33,7 @@ function getsiteurl() {
 }
 function ShowMsg($msg, $gourl, $onlymsg = 0, $limittime = 0) {
     global $_G;
-    $charset = $_G['charset'];
+    $charset = $_G['system']['charset'];
     $htmlhead = "<html>\r\n<head>\r\n<title>".SITE_NAME.lang("common","sysnote")."</title>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$charset\" />\r\n";
     $htmlhead .= "<link rel='stylesheet' href='".ADMIN_TEMPLATE_URL."css/style.css' type='text/css' />\r\n";
     $htmlhead .= "<base target='_self'/>\r\n</head>\r\n<body leftmargin='0' topmargin='0' bgcolor='#EBE9ED'>\r\n<center>\r\n<script>\r\n";
@@ -103,7 +103,7 @@ function rands($length = 6, $type = 3) {
  */
 function password($password, $encrypt = '') {
     global $_G;
-    $key = $encrypt ? $encrypt : $_G['pass_key'];
+    $key = $encrypt ? $encrypt : $_G['system']['pass_key'];
     $pwd = md5(md5(md5(trim($password)).$key).strlen($key));
     return $pwd;
 }
@@ -248,7 +248,7 @@ function cn_substr($str, $length = 0, $append = false, $charset = '', $istrimhtm
         $str = trimhtml($str);
     }
     if (empty($charset)) {
-        $charset = $_G['charset'];
+        $charset = $_G['system']['charset'];
     }
     $strlength = strlen($str);
     
@@ -317,7 +317,7 @@ function showResult($v) {
 //获取路由
 function get_uri($c = '', $a = '', $m = '', $extra = '') {
 	global $_G;
-    $route_config = $_G['route'];
+    $route_config = $_G['system']['route'];
     $c = !empty($c) ? $c : (!empty($_GET[C]) ? $_GET[C] : $route_config[C]);
     $a = !empty($a) ? $a : (!empty($_GET[A]) ? $_GET[A] : '');
     $m = !empty($m) ? $m : (!empty($_GET[M]) ? $_GET[M] : $route_config[M]);
