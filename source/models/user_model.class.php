@@ -27,7 +27,7 @@ class user_model extends model {
             if (!empty($usertype)) {
                 $where .= " and usertype='$usertype' ";
             }
-            $sql = "select uid,password,usertype from ".tname($this->_table)." $where ";
+            $sql = "select uid,password,usertype from ".$this->tname($this->_table)." $where ";
             $value = $this->db->get_one($sql);
             if (!empty($value['uid'])) {
                 if ($password_form==$value['password']) {
@@ -49,7 +49,7 @@ class user_model extends model {
         if (!empty($uid)) {
             $loginip = get_ip();
             $logintime = time();
-            $sql = "update ".tname($this->_table)." set last_ip='$loginip',last_login='$logintime',logins=logins+1 where uid='$uid'";
+            $sql = "update ".$this->tname($this->_table)." set last_ip='$loginip',last_login='$logintime',logins=logins+1 where uid='$uid'";
             $this->db->query($sql);
         }
     }
@@ -67,7 +67,7 @@ class user_model extends model {
     function update_password($admin_uid, $password) {
         $flag = false;
         if (!empty($admin_uid)&&!empty($password)) {
-            $this->db->update(tname($this->_table),array(
+            $this->db->update($this->tname($this->_table),array(
                 'password'=>password($password)
             ),"uid='$admin_uid'");
             $flag = true;

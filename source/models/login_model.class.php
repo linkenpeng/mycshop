@@ -14,7 +14,7 @@ class login_model extends model {
         if (!empty($cookie)) {
             list($uid,$password,$usertype) = explode("|",$cookie);
             if ($uid) {
-                $value = $this->db->get_one("select * from ".tname("session")." where uid='$uid' and password='$password' ");
+                $value = $this->db->get_one("select * from ".$this->tname("session")." where uid='$uid' and password='$password' ");
                 if (!empty($value)) {
                     $session->insert_session(array(
                         'uid'=>$value['uid'],
@@ -34,7 +34,7 @@ class login_model extends model {
                     $_SESSION['usertype'] = $value['usertype'];
                     $_SESSION['password'] = $value['password'];
                 } else {
-                    $user_info = $this->db->get_one("select uid,username,password,usertype from ".tname("user")." where uid='$uid' and password='$password' ");
+                    $user_info = $this->db->get_one("select uid,username,password,usertype from ".$this->tname("user")." where uid='$uid' and password='$password' ");
                     if (!empty($user_info)) {
                         $session->insert_session(array(
                             'uid'=>$user_info['uid'],
@@ -66,7 +66,7 @@ class login_model extends model {
             $password = getSession('admin_password');
             //验证session表是否存在登录用户
             if (!empty($uid)&&!empty($password)) {
-                $user_info = $this->db->get_one("select uid,username,password,usertype from ".tname("user")." where uid='$uid' and password='$password' ");
+                $user_info = $this->db->get_one("select uid,username,password,usertype from ".$this->tname("user")." where uid='$uid' and password='$password' ");
                 if (empty($user_info)) {
                     ShowMsg(lang('common','unlogin'),get_uri("login"));
                 }

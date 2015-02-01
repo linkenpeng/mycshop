@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 define('SYS_IN',true);
 define('DS','/');
 
@@ -13,8 +13,9 @@ define('A','a');
 define('FRAME_PATH',str_replace("\\","/",dirname(__FILE__)));
 
 //加载配置信息
-$_G = Base::load_config("sys"); //系统配置
-$_CTCONFIG = Base::load_config("customize"); //自定义配置信息
+$_G = include ROOT_PATH.DS.'configs'.DS.'config.php'; //系统配置
+$_CTCONFIG = include ROOT_PATH.DS.'configs'.DS.'customize.php'; //自定义配置信息
+global $_G, $_CTCONFIG;
 
 //autoload
 new AutoLoader($_G['autoload']);
@@ -68,10 +69,6 @@ if (empty($magic_quote)) {
     $_COOKIE = saddslashes($_COOKIE);
     $_REQUEST = saddslashes($_REQUEST);
 }
-
-//连接数据库
-Base::load_sys_class("mysql",'',0);
-$db = mysql::getInstance();
 
 //开启session
 $session = Base::load_model("session_model");
@@ -172,7 +169,7 @@ class Base {
      */
     public static function load_config($file, $key = '') {
         static $configs = array();
-        $path = ROOT_PATH.DS.'configs'.DS.'config.'.$file.'.php';       
+        $path = ROOT_PATH.DS.'configs'.DS.$file.'.php';       
         if (file_exists($path)) {
             $configs[$file] = include $path;
         }

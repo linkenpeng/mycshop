@@ -25,7 +25,7 @@ class usergroup_model extends model {
 		$menuids="";
         if(!empty($_SESSION['admin_usertype'])) {
 			$where = "where ugid=".$_SESSION['admin_usertype'];
-			$sql = "select * from ".tname($this->_table)." $where limit 0,1";
+			$sql = "select * from ".$this->tname($this->_table)." $where limit 0,1";
 			$value = $this->db->get_one($sql);
 			$menuids = $value['permission'];
 		}

@@ -20,8 +20,8 @@ class scene_model extends model {
 				$where .= " AND s.scenenum='".$param['scenenum']."'";
 			}			
 			$field = empty($field) ? " s.*,st.name as typename,st.enname as typeenname " : $field;
-			$sql = "select ".$field." from ".tname($this->_table)." s LEFT JOIN
-					".tname("scenetype")." st ON s.typeid = st.typeid $where limit 0,1";
+			$sql = "select ".$field." from ".$this->tname($this->_table)." s LEFT JOIN
+					".$this->tname("scenetype")." st ON s.typeid = st.typeid $where limit 0,1";
 			$value = $this->db->get_one($sql);
 			return $value;
 		} else {
@@ -36,8 +36,8 @@ class scene_model extends model {
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? ' ORDER BY s.dateline DESC ' : ' ORDER BY '.$oderbye;
 		$limit = empty($num) ? '' : " LIMIT $offset,$num ";
-        $sql = "SELECT ".$field." FROM ".tname($this->_table)." s LEFT JOIN 
-				".tname("scenetype")." st ON s.typeid = st.typeid 
+        $sql = "SELECT ".$field." FROM ".$this->tname($this->_table)." s LEFT JOIN 
+				".$this->tname("scenetype")." st ON s.typeid = st.typeid 
 				".$where.$oderbye.$limit;
 				
         $list = $this->db->get_list($sql);
@@ -46,8 +46,8 @@ class scene_model extends model {
 	
 	function get_count_withtype($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." s LEFT JOIN 
-				".tname("scenetype")." st ON s.typeid = st.typeid ".$where;
+        $sql = "SELECT COUNT(*) as c FROM ".$this->tname($this->_table)." s LEFT JOIN 
+				".$this->tname("scenetype")." st ON s.typeid = st.typeid ".$where;
         $value = $this->db->get_one($sql);
         return $value['c'];
     }
@@ -72,7 +72,7 @@ class scene_model extends model {
      */
 	function get_max_scenenum() {
 		$where = " where 1";
-		$sql = "SELECT scenenum FROM ".tname($this->_table)." $where ORDER BY scenenum DESC LIMIT 0,1";
+		$sql = "SELECT scenenum FROM ".$this->tname($this->_table)." $where ORDER BY scenenum DESC LIMIT 0,1";
 		$value = $this->db->get_one($sql);		
 		return $value['scenenum'];
 	}

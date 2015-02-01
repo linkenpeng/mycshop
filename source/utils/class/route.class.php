@@ -6,10 +6,13 @@ defined('SYS_IN') or exit('Access Denied.');
  */
 class route {
     //路由配置
-    private $route_config = '';
+    private $_config = '';
+    private $_mconfig = '';
     
     public function __construct() {
-        $this->route_config = Base::load_config('route');
+    	global $_G;
+        $this->_config = $_G['route'];
+        $this->_mconfig = $_G['module'];
     }
     /**
      * 获取模型
@@ -17,10 +20,9 @@ class route {
     public function route_m() {
         $m = isset($_GET[M])&&!empty($_GET[M]) ? $_GET[M] : (isset($_POST[M])&&!empty($_POST[M]) ? $_POST[M] : '');
         //允许的模块
-        $array_m = Base::load_config('module');
-        $m = in_array($m,$array_m) ? $m : "admin";
+        $m = in_array($m,$this->_mconfig) ? $m : "admin";
         if (empty($m)) {
-            return $this->route_config[M];
+            return $this->_config[M];
         } else {
             return $m;
         }
@@ -32,7 +34,7 @@ class route {
     public function route_c() {
         $c = isset($_GET[C])&&!empty($_GET[C]) ? $_GET[C] : (isset($_POST[C])&&!empty($_POST[C]) ? $_POST[C] : 'index');
         if (empty($c)) {
-            return $this->route_config[C];
+            return $this->_config[C];
         } else {
             return $c;
         }
@@ -44,7 +46,7 @@ class route {
     public function route_a() {
         $a = isset($_GET[A])&&!empty($_GET[A]) ? $_GET[A] : (isset($_POST[A])&&!empty($_POST[A]) ? $_POST[A] : 'init');
         if (empty($a)) {
-            return $this->route_config[A];
+            return $this->_config[A];
         } else {
             return $a;
         }

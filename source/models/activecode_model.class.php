@@ -25,7 +25,7 @@ class activecode_model extends model {
 		} else {
 			$where .= " AND ".$this->_primarykey."=".$ids;
 		}
-        $sql = "UPDATE ".tname($this->_table)." SET status=9 ".$where;
+        $sql = "UPDATE ".$this->tname($this->_table)." SET status=9 ".$where;
         if ($this->db->query($sql)) {
             $flag = true;
         }
@@ -34,7 +34,7 @@ class activecode_model extends model {
 	
     function delete_batch($batchid) {
         $flag = false;
-        $sql = "UPDATE ".tname($this->_table)." SET status=9 WHERE batchid=".$batchid;
+        $sql = "UPDATE ".$this->tname($this->_table)." SET status=9 WHERE batchid=".$batchid;
         if ($this->db->query($sql)) {
             $flag = true;
         }
@@ -58,8 +58,8 @@ class activecode_model extends model {
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
 		$limit = empty($num) ? "" : " LIMIT $offset,$num";	
 		
-        $sql = "SELECT ".$field." FROM ".tname($this->_table)." 
-				a LEFT JOIN ".tname("scene")." s ON 
+        $sql = "SELECT ".$field." FROM ".$this->tname($this->_table)." 
+				a LEFT JOIN ".$this->tname("scene")." s ON 
 				a.sceneid=s.sceneid 
 				".$where.$oderbye.$limit;
 		
@@ -74,8 +74,8 @@ class activecode_model extends model {
      */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." 
-				a LEFT JOIN ".tname("scene")." s ON 
+        $sql = "SELECT COUNT(*) as c FROM ".$this->tname($this->_table)." 
+				a LEFT JOIN ".$this->tname("scene")." s ON 
 				a.sceneid=s.sceneid 
 				".$where;
         $value = $this->db->get_one($sql);
@@ -90,7 +90,7 @@ class activecode_model extends model {
     function get_sceneid($activecode = "") {
         if(!empty($activecode)) {
 			$where = " WHERE activecode='".$activecode."'";
-			$sql = "SELECT sceneid FROM ".tname($this->_table).$where;
+			$sql = "SELECT sceneid FROM ".$this->tname($this->_table).$where;
 			$value = $this->db->get_one($sql);
 			return $value['sceneid'];
 		} else {
@@ -100,7 +100,7 @@ class activecode_model extends model {
 	
 	//更新验证码使用次数
 	function update_usednum($activecode) {
-		$sql = "UPDATE ".tname($this->_table)." SET usednum=usednum+1 WHERE activecode='$activecode'";
+		$sql = "UPDATE ".$this->tname($this->_table)." SET usednum=usednum+1 WHERE activecode='$activecode'";
 		$this->db->query($sql);
 	}
 }

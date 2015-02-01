@@ -114,12 +114,7 @@ function password($password, $encrypt = '') {
     $pwd = md5(md5(md5(trim($password)).$key).strlen($key));
     return $pwd;
 }
-//表名
-function tname($tname) {
-    //加载配置参数
-    $db_config = Base::load_config("db");
-    return empty($tname) ? '' : " `".$db_config['db_table_pre'].$tname."` ";
-}
+
 /*
 *获取语言包
 *@class 分类语言包

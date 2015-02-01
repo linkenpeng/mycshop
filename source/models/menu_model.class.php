@@ -60,7 +60,7 @@ class menu_model extends model {
 		if(!empty($menuids)) {
 			$menuids = explode(",",$menuids);
 			$where = "WHERE model='".$m."' AND ctrl='".$c."' AND act='".$a."' ";			
-            $sql = "select * from ".tname($this->_table)." $where limit 0,1";
+            $sql = "select * from ".$this->tname($this->_table)." $where limit 0,1";
             $value = $this->db->get_one($sql);			
 			if(!in_array($value['menuid'],$menuids)) {
 				ShowMsg(lang('message','no_permission'),-1);
@@ -74,7 +74,7 @@ class menu_model extends model {
      */
     function update_sortorder($id, $order) {
         if (!empty($id)) {
-            $sql = "UPDATE ".tname($this->_table)." SET sort_order='$order' WHERE menuid='$id' ";
+            $sql = "UPDATE ".$this->tname($this->_table)." SET sort_order='$order' WHERE menuid='$id' ";
             $this->db->query($sql);
         }
     }

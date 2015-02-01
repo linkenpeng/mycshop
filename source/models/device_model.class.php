@@ -16,7 +16,7 @@ class device_model extends model {
 				$where .= " AND `$key`='$val' ";
 			}
 		}
-		$sql = "SELECT COUNT(*) AS c FROM ".tname($this->_table).$where;
+		$sql = "SELECT COUNT(*) AS c FROM ".$this->tname($this->_table).$where;
 		$list = $this->db->get_one($sql);
 		return $list['c'] > 0;
 	}

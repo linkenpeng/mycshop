@@ -3,32 +3,35 @@ defined('SYS_IN') or exit('Access Denied.');
 class mysql {
     var $querynum = 0;
     private static $_instance = NULL;
-    function __construct() {
+    private $_config = array();
+    
+    function __construct($config) {
+    	$this->_config = $config;
         $this->dbconn();
     }
+    
     function dbconn() {
-        $db_config = Base::load_config('db');
-        if ($db_config['db_pconnect']) {
-            if (!$this->link = @mysql_pconnect($db_config['db_host'],$db_config['db_user'],$db_config['db_password'])) {
+        if ($this->_config['pconnect']) {
+            if (!$this->link = mysql_pconnect($this->_config['host'],$this->_config['user'],$this->_config['password'])) {
                 $this->halt('Can not connect to MySQL server');
             }
         } else {
-            if (!$this->link = @mysql_connect($db_config['db_host'],$db_config['db_user'],$db_config['db_password'],1)) {
+            if (!$this->link = mysql_connect($this->_config['host'],$this->_config['user'],$this->_config['password'],1)) {
                 $this->halt('Can not connect to MySQL server');
             }
         }
         if ($this->version()>'4.1') {
-            if ($db_config['db_charset']!='latin1') {
-                @mysql_query("SET character_set_connection=".$db_config['db_charset'].", character_set_results=".$db_config['db_charset'].", character_set_client=binary",$this->link);
+            if ($this->_config['charset']!='latin1') {
+                mysql_query("SET character_set_connection=".$this->_config['charset'].", character_set_results=".$this->_config['charset'].", character_set_client=binary",$this->link);
             }
             
             if ($this->version()>'5.0.1') {
-                @mysql_query("SET sql_mode=''",$this->link);
+                mysql_query("SET sql_mode=''",$this->link);
             }
         }
         
-        if ($db_config['db_name']) {
-            @mysql_select_db($db_config['db_name'],$this->link);
+        if ($this->_config['name']) {
+            mysql_select_db($this->_config['name'],$this->link);
         }
     
     }
@@ -187,11 +190,11 @@ class mysql {
         echo "</td></tr></table>";
     }
     
-    public static function getInstance() {
-        if (is_null(self::$_instance)||!isset(self::$_instance)) {
-            self::$_instance = new mysql();
-        }
-        return self::$_instance;
-    }
+    public static function getInstance($config) {
+		if (is_null(self::$_instance) || !isset(self::$_instance)) {
+			self::$_instance = new mysql($config);
+		}
+		return self::$_instance;
+	}
 }
 ?>

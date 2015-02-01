@@ -29,7 +29,7 @@ class session_model extends model {
         $this->session_id = $this->gen_session_id();
         if (!empty($uid)) {
             //删除过期的用户session
-            $this->db->query("DELETE FROM ".tname($this->_table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
+            $this->db->query("DELETE FROM ".$this->tname($this->_table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
             //添加新的session 
             $setarr['sid'] = $this->session_id;
             $setarr['uid'] = $uid;
@@ -38,13 +38,13 @@ class session_model extends model {
             $setarr['usertype'] = $usertype;
             $setarr['lastactivity'] = $this->time;
             $setarr['ip'] = $this->ip;
-            $this->db->insert(tname($this->_table),$setarr);
+            $this->db->insert($this->tname($this->_table),$setarr);
         }
     }
     
     function delete_session($uid) {
     	if (!empty($uid)) {
-    		$this->db->query("DELETE FROM ".tname($this->_table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
+    		$this->db->query("DELETE FROM ".$this->tname($this->_table)." where uid = '$uid' OR lastactivity < ".($this->time-$this->max_life_time));
     		session_destroy();
     	}
     }

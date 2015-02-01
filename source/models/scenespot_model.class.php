@@ -18,8 +18,8 @@ class scenespot_model extends model {
         if(!empty($scenespotid)) {
 			$where = "where sp.scenespotid=".$scenespotid;
 			$field = empty($field)?"sp.*":$field;
-			$sql = "select $field,s.scenename from ".tname($this->_table)." sp
-					LEFT JOIN ".tname("scene")." s ON 
+			$sql = "select $field,s.scenename from ".$this->tname($this->_table)." sp
+					LEFT JOIN ".$this->tname("scene")." s ON 
 					sp.sceneid=s.sceneid 
 					$where limit 0,1";
 			$value = $this->db->get_one($sql);
@@ -38,8 +38,8 @@ class scenespot_model extends model {
 			
 			$field = empty($field) ? "sp.*" : $field;
 			
-			$sql = "select $field,s.scenename from ".tname($this->_table)." sp
-					LEFT JOIN ".tname("scene")." s ON 
+			$sql = "select $field,s.scenename from ".$this->tname($this->_table)." sp
+					LEFT JOIN ".$this->tname("scene")." s ON 
 					sp.sceneid=s.sceneid 
 					$where limit 0,1";
 			
@@ -66,8 +66,8 @@ class scenespot_model extends model {
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
 		$limit = empty($num) ? '' : " LIMIT $offset, $num ";
-        $sql = "SELECT ".$field." FROM ".tname($this->_table)." 
-				sp LEFT JOIN ".tname("scene")." s ON 
+        $sql = "SELECT ".$field." FROM ".$this->tname($this->_table)." 
+				sp LEFT JOIN ".$this->tname("scene")." s ON 
 				sp.sceneid=s.sceneid 
 				".$where.$oderbye.$limit;
         //echo $sql;
@@ -89,7 +89,7 @@ class scenespot_model extends model {
         $field = empty($field) ? ' * ' : $field;
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
-        $sql = "SELECT ".$field." FROM ".tname($this->_table).$where.$oderbye." LIMIT $offset,$num ";
+        $sql = "SELECT ".$field." FROM ".$this->tname($this->_table).$where.$oderbye." LIMIT $offset,$num ";
         //echo $sql;
         $list = $this->db->get_list($sql);
         return $list;
@@ -101,8 +101,8 @@ class scenespot_model extends model {
      */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." 
-				sp LEFT JOIN ".tname("scene")." s ON 
+        $sql = "SELECT COUNT(*) as c FROM ".$this->tname($this->_table)." 
+				sp LEFT JOIN ".$this->tname("scene")." s ON 
 				sp.sceneid=s.sceneid 
 				".$where;
         $value = $this->db->get_one($sql);
@@ -129,7 +129,7 @@ class scenespot_model extends model {
      */
 	function get_max_infocards() {
 		$where = " where 1";
-		$sql = "SELECT infocards FROM ".tname($this->_table)." $where ORDER BY infocards DESC LIMIT 0,1";
+		$sql = "SELECT infocards FROM ".$this->tname($this->_table)." $where ORDER BY infocards DESC LIMIT 0,1";
 		$value = $this->db->get_one($sql);		
 		return $value['infocards'];
 	}

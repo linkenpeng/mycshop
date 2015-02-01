@@ -9,10 +9,17 @@ class model {
     protected $db = '';
     protected $_table = '';
     protected $_primarykey = '';
+    protected $_config = '';
     
-    public function __construct() {
-        global $db;
-        $this->db = $db;
+    public function __construct($config = array()) {
+        global $_G;
+        $this->_config = empty($config) ? $_G['db']['master'] : $config;
+        Base::load_sys_class("mysql",'',0);
+        $this->db = mysql::getInstance($this->_config);
+    }
+    
+    public function tname($tname) {
+    	return empty($tname) ? '' : " `".$this->_config['table_pre'].$tname."` ";
     }
     
     /**
@@ -23,7 +30,7 @@ class model {
      */
     function insert($data) {
     	$flag = false;
-    	if ($this->db->insert(tname($this->_table),$data)) {
+    	if ($this->db->insert($this->tname($this->_table),$data)) {
     		$flag = true;
     	}
     	return $flag;
@@ -40,7 +47,7 @@ class model {
     function update($data, $where) {
     	$flag = false;
     	if (!empty($data)&&!empty($where)) {
-    		$this->db->update(tname($this->_table),$data,$where);
+    		$this->db->update($this->tname($this->_table),$data,$where);
     		$flag = true;
     	}
     	return $flag;
@@ -54,7 +61,7 @@ class model {
      */
     function delete($primarykey) {
     	$flag = false;
-    	$sql = "DELETE FROM ".tname($this->_table)." WHERE ".$this->_primarykey."=".$primarykey;
+    	$sql = "DELETE FROM ".$this->tname($this->_table)." WHERE ".$this->_primarykey."=".$primarykey;
     	if ($this->db->query($sql)) {
     		$flag = true;
     	}
@@ -69,7 +76,7 @@ class model {
     function get_one($primarykey = "") {
     	if(!empty($primarykey)) {
     		$where = "where ".$this->_primarykey."=".$primarykey;
-    		$sql = "select * from ".tname($this->_table)." $where limit 1";
+    		$sql = "select * from ".$this->tname($this->_table)." $where limit 1";
     		$value = $this->db->get_one($sql);
     		return $value;
     	} else {
@@ -92,7 +99,7 @@ class model {
     	$field = empty($field) ? ' * ' : $field;
     	$where = empty($where) ? ' WHERE 1 ' : $where;
     	$oderbye = empty($oderbye) ? ' ORDER BY dateline DESC ' : ' ORDER BY '.$oderbye;
-    	$sql = "SELECT ".$field." FROM ".tname($this->_table).$where.$oderbye." LIMIT $offset,$num ";
+    	$sql = "SELECT ".$field." FROM ".$this->tname($this->_table).$where.$oderbye." LIMIT $offset,$num ";
     	$list = $this->db->get_list($sql);
     	return $list;
     }
@@ -104,7 +111,7 @@ class model {
      */
     function get_count($where = '') {
     	$where = empty($where) ? ' WHERE 1 ' : $where;
-    	$sql = "SELECT COUNT(*) as c FROM ".tname($this->_table).$where;
+    	$sql = "SELECT COUNT(*) as c FROM ".$this->tname($this->_table).$where;
     	$value = $this->db->get_one($sql);
     	return $value['c'];
     }

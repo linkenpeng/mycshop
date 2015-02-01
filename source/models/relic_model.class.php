@@ -19,8 +19,8 @@ class relic_model extends model {
         if(!empty($relicid)) {
 			$where = "where rel.relicid=".$relicid;
 			$field = empty($field) ? 'rel.*,s.scenespotname' : $field;			
-			$sql = "select $field from ".tname($this->_table)." rel
-					LEFT JOIN ".tname("scenespot")." s ON 
+			$sql = "select $field from ".$this->tname($this->_table)." rel
+					LEFT JOIN ".$this->tname("scenespot")." s ON 
 					rel.scenespotid=s.scenespotid 
 					$where limit 0,1";
 					
@@ -38,8 +38,8 @@ class relic_model extends model {
 				$where .= " AND rel.relicnum=".$param['relicnum'];
 			}
 			$field = empty($field) ? 'rel.*,s.scenespotname' : $field;			
-			$sql = "select $field from ".tname($this->_table)." rel
-					LEFT JOIN ".tname("scenespot")." s ON 
+			$sql = "select $field from ".$this->tname($this->_table)." rel
+					LEFT JOIN ".$this->tname("scenespot")." s ON 
 					rel.scenespotid=s.scenespotid 
 					$where limit 0,1";
 					
@@ -67,8 +67,8 @@ class relic_model extends model {
         $field = empty($field) ? ' * ' : $field;
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $oderbye = empty($oderbye) ? '' : ' ORDER BY '.$oderbye;
-        $sql = "SELECT ".$field." FROM ".tname($this->_table)." 
-				rel LEFT JOIN ".tname("scenespot")." s ON 
+        $sql = "SELECT ".$field." FROM ".$this->tname($this->_table)." 
+				rel LEFT JOIN ".$this->tname("scenespot")." s ON 
 				rel.scenespotid=s.scenespotid 
 				".$where.$oderbye." LIMIT $offset,$num ";
         
@@ -82,8 +82,8 @@ class relic_model extends model {
      */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
-        $sql = "SELECT COUNT(*) as c FROM ".tname($this->_table)." 
-				rel LEFT JOIN ".tname("scenespot")." s ON 
+        $sql = "SELECT COUNT(*) as c FROM ".$this->tname($this->_table)." 
+				rel LEFT JOIN ".$this->tname("scenespot")." s ON 
 				rel.scenespotid=s.scenespotid 
 				".$where;
         $value = $this->db->get_one($sql);
@@ -110,7 +110,7 @@ class relic_model extends model {
      */
 	function get_max_relicnum() {
 		$where = " where 1";
-		$sql = "SELECT relicnum FROM ".tname($this->_table)." $where ORDER BY relicnum DESC LIMIT 0,1";
+		$sql = "SELECT relicnum FROM ".$this->tname($this->_table)." $where ORDER BY relicnum DESC LIMIT 0,1";
 		$value = $this->db->get_one($sql);		
 		return $value['relicnum'];
 	}
