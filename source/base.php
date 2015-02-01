@@ -87,41 +87,23 @@ $menudb->check_permission($menuids);
 $check_modules = array('admin'); // 需要登录的模块
 $topmenus = $menudb->get_top_menus($menuids, $check_modules);
 
-/**
- * 
- * 基础类，用来载入一些公共函数，类，配置参数
- */
 class Base {
-    /**
-     * 初始化应用程序
-     */
     public static function start_app() {
         return self::load_sys_class('application');
-    }
-    /**
-     * 加载数据模型
-     * @param string $classname 类名
-     */
-    public static function load_model($classname) {
-        return self::_load_class($classname,'models',1);
-    }
-    /**
-     * 加载系统类方法
-     * @param string $classname 类名
-     * @param string $path 扩展地址
-     * @param intger $initialize 是否初始化
-     */
+    }   
+    
     public static function load_sys_class($classname, $path = '', $initialize = 1) {
         return self::_load_class($classname,$path,$initialize);
     }
-    /**
-     * 加载类文件函数
-     * @param string $classname 类名
-     * @param string $path 扩展地址,并判断加载的文件的前缀，
-     * 1、$path为models时，则加载 models/中的类
-     * 2、$path 为空时，则加载utils/class中的系统类
-     * @param intger $initialize 是否初始化
-     */
+    
+    public static function load_sys_func($func) {
+    	return self::_load_func($func);
+    }
+    
+    public static function load_model($classname) {
+    	return self::_load_class($classname,'models',1);
+    }
+    
     private static function _load_class($classname, $path = '', $initialize) {
         static $classes = array();
         if (empty($path))
@@ -137,21 +119,9 @@ class Base {
             return $classes[$key];
         } else {
             return false;
-        }
+        }    
+    }
     
-    }
-    /**
-     * 加载系统的函数库
-     * @param string $func 函数库名
-     */
-    public static function load_sys_func($func) {
-        return self::_load_func($func);
-    }
-    /**
-     * 加载函数库
-     * @param string $func 函数库名
-     * @param string $path 地址
-     */
     private static function _load_func($func, $path = '') {
         if (empty($path))
             $path = 'utils'.DS.'function';
