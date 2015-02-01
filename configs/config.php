@@ -24,9 +24,10 @@ $config = array(
 		'cookiedomain' => '.mycshop.com'  // 设置cookie域名
 	),
 	'autoload' => array(
-		'/source/models/',
-		'/source/applications/admin/',
-		'/source/utils/class/' 
+		'/source/models',
+		'/source/applications/admin',
+		'/source/utils/class',
+		'/source/utils/class/db' 
 	),
 	'module' => array(
 		"index",

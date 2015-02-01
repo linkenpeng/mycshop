@@ -88,19 +88,25 @@ $check_modules = array(
 	'admin' 
 ); // 需要登录的模块
 $topmenus = $menudb->get_top_menus($menuids, $check_modules);
+
 class Base {
+
 	public static function start_app() {
 		return self::load_sys_class('application');
 	}
+
 	public static function load_sys_class($classname, $path = '', $initialize = 1) {
 		return self::_load_class($classname, $path, $initialize);
 	}
+
 	public static function load_sys_func($func) {
 		return self::_load_func($func);
 	}
+
 	public static function load_model($classname) {
 		return self::_load_class($classname, 'models', 1);
 	}
+
 	private static function _load_class($classname, $path = '', $initialize) {
 		static $classes = array();
 		$path = empty($path) ? 'utils' . DS . 'class' : $path;
@@ -117,6 +123,7 @@ class Base {
 			return false;
 		}
 	}
+
 	private static function _load_func($func, $path = '') {
 		$path = empty($path) ? 'utils' . DS . 'function' : $path;
 		$path .= DS . $func . '.php';
@@ -128,8 +135,10 @@ class Base {
 		return true;
 	}
 }
+
 class AutoLoader {
 	protected static $_autoloadPaths = array();
+
 	public function __construct($autoPaths) {
 		self::$_autoloadPaths = $autoPaths;
 		spl_autoload_register(array(
@@ -137,6 +146,7 @@ class AutoLoader {
 			'autoLoad' 
 		));
 	}
+
 	public function autoLoad($class) {
 		$classPath = $this->getClassPath($class);
 		if (false !== $classPath) {
@@ -144,12 +154,14 @@ class AutoLoader {
 		}
 		return false;
 	}
+
 	public function getClassPath($class) {
 		$class = strtolower($class);
 		foreach (self::$_autoloadPaths as $val) {
-			$classPath = ROOT_PATH . $val . $class . '.php';
-			if (is_readable($classPath))
+			$classPath = ROOT_PATH . $val . DS . $class . '.php';
+			if (is_readable($classPath)) {
 				return $classPath;
+			}
 		}
 		return false;
 	}
