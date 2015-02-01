@@ -1,13 +1,18 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class db_driver_mysql {
-    var $querynum = 0;
-    private static $_instance = NULL;
-    private $_config = array();
-    
+
+class db_driver_mysql extends db_driver {
+	
     function __construct($config) {
     	$this->_config = $config;
         $this->dbconn();
+    }
+    
+    public static function getInstance($config) {
+    	if (is_null(self::$_instance) || !isset(self::$_instance)) {
+    		self::$_instance = new self($config);
+    	}
+    	return self::$_instance;
     }
     
     function dbconn() {
@@ -32,8 +37,7 @@ class db_driver_mysql {
         
         if ($this->_config['name']) {
             mysql_select_db($this->_config['name'],$this->link);
-        }
-    
+        }    
     }
     
     function select_db($dbname) {
@@ -189,12 +193,4 @@ class db_driver_mysql {
         echo "<br><br><b>You Can Get Help In</b>:<br><a target=_blank href=".$website."/><b>".$website."</b></a>";
         echo "</td></tr></table>";
     }
-    
-    public static function getInstance($config) {
-		if (is_null(self::$_instance) || !isset(self::$_instance)) {
-			self::$_instance = new db_driver_mysql($config);
-		}
-		return self::$_instance;
-	}
 }
-?>
