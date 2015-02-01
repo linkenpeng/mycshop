@@ -37,8 +37,8 @@ class scenetype extends controller {
             }
             $_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
             if (!empty($_FILES['image']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile("jpg,gif,bmp,png");
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile("jpg,gif,bmp,png");
                 $upfile->savesamll = 1;
                 $image = $upfile->upload($_FILES['image']);
             }
@@ -74,8 +74,8 @@ class scenetype extends controller {
         }
         if (!empty($_POST['action'])&&!empty($_POST['typeid'])) {
             if (!empty($_FILES['image']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile("jpg,gif,bmp,png");
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile("jpg,gif,bmp,png");
                 $upfile->savesamll = 1;
                 $image = $upfile->upload($_FILES['image']);
             }

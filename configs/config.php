@@ -12,10 +12,10 @@ $config = array(
 			'charset' => 'utf8',
 			'pconnect' => '0',
 			'table_pre' => 'hb_',
-			'type' => 'mysql' 
+			'driver' => 'mysql' 
 		) 
 	),
-	'sys' => array(
+	'system' => array(
 		'charset' => 'utf-8', // 网站编码
 		'pass_key' => 'ZmF3dXlvdS5jb20', // 用户加密密匙base64_encode 不可随意更改fawuyou.com去掉最后一个=
 		'gzip' => 1,
@@ -24,18 +24,9 @@ $config = array(
 		'cookiedomain' => '.mycshop.com'  // 设置cookie域名
 	),
 	'autoload' => array(
-		'model' => array(
-			'path' => ROOT_PATH . '/source/models/',
-			'extension' => '.class.php' 
-		),
-		'controller' => array(
-			'path' => ROOT_PATH . '/source/applications/admin/',
-			'extension' => '.php' 
-		),
-		'library' => array(
-			'path' => ROOT_PATH . '/source/utils/class/',
-			'extension' => '.class.php' 
-		) 
+		'/source/models/',
+		'/source/applications/admin/',
+		'/source/utils/class/' 
 	),
 	'module' => array(
 		"index",

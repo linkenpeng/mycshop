@@ -54,8 +54,8 @@ class product extends controller {
             }
             $_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
             if (!empty($_FILES['image']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_FILE_TYPES);
                 $upfile->savesamll = 1;
                 $image = $upfile->upload($_FILES['image']);
             }
@@ -102,8 +102,8 @@ class product extends controller {
         }
         if (!empty($_POST['action'])&&!empty($_POST['productid'])) {
             if (!empty($_FILES['image']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_FILE_TYPES);
                 $upfile->savesamll = 1;
                 $image = $upfile->upload($_FILES['image']);
             }

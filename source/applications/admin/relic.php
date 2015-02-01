@@ -58,19 +58,19 @@ class relic extends controller {
             }
             $_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
             if (!empty($_FILES['image']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_IMAGE_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_IMAGE_FILE_TYPES);
                 $upfile->savesamll = 1;
                 $image = $upfile->upload($_FILES['image']);
             }
 			if (!empty($_FILES['cn_audio']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_AUDIO_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_AUDIO_FILE_TYPES);
                 $cn_audio = $upfile->upload($_FILES['cn_audio']);
             }
 			if (!empty($_FILES['en_audio']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_AUDIO_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_AUDIO_FILE_TYPES);
                 $en_audio = $upfile->upload($_FILES['en_audio']);
             }
             $data = array(
@@ -118,19 +118,19 @@ class relic extends controller {
         }
         if (!empty($_POST['action'])&&!empty($_POST['relicid'])) {
             if (!empty($_FILES['image']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_IMAGE_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_IMAGE_FILE_TYPES);
                 $upfile->savesamll = 1;
                 $image = $upfile->upload($_FILES['image']);
             }
 			if (!empty($_FILES['cn_audio']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_AUDIO_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_AUDIO_FILE_TYPES);
                 $cn_audio = $upfile->upload($_FILES['cn_audio']);
             }
 			if (!empty($_FILES['en_audio']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile(UPLOAD_AUDIO_FILE_TYPES);
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile(UPLOAD_AUDIO_FILE_TYPES);
                 $en_audio = $upfile->upload($_FILES['en_audio']);
             }
             $data = array(

@@ -21,7 +21,7 @@ global $_G, $_CTCONFIG;
 new AutoLoader($_G['autoload']);
 
 //加载公共函数
-Base::load_sys_func("global");
+Base::load_sys_func("common");
 
 //设置时区
 date_default_timezone_set($_CTCONFIG['timezone']);
@@ -47,7 +47,7 @@ define('UPLOAD_VIDEO_FILE_TYPES',$_CTCONFIG['upload_video_file_types']);
 //定义地图key
 define('MAPKEY',$_CTCONFIG['mapkey']);
 //定义站点字符集
-define('CHARSET',$_G['charset']);
+define('CHARSET',$_G['system']['charset']);
 //输出页面字符集
 header('Content-type: text/html; charset='.CHARSET);
 
@@ -57,7 +57,7 @@ define('ADMIN_TEMPLATE_URL',SITE_URL.'/templates/'.$_CTCONFIG['admin_template'])
 define('TEMPLATE_URL',SITE_URL.'/templates/'.$_CTCONFIG['template']);
 
 //定义站点gzip
-define('GZIP',$_G['gzip']);
+define('GZIP',$_G['system']['gzip']);
 //来源
 define('HTTP_REFERER',isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '');
 
@@ -127,8 +127,8 @@ class Base {
         if (empty($path))
             $path = 'utils'.DS.'class';
         $key = md5($classname);
-        if (file_exists(FRAME_PATH.DS.$path.DS.$classname.'.class.php')) {
-            include_once FRAME_PATH.DS.$path.DS.$classname.'.class.php';
+        if (file_exists(FRAME_PATH.DS.$path.DS.$classname.'.php')) {
+            include_once FRAME_PATH.DS.$path.DS.$classname.'.php';
             if ($initialize) {
                 $classes[$key] = new $classname();
             } else {
@@ -155,31 +155,13 @@ class Base {
     private static function _load_func($func, $path = '') {
         if (empty($path))
             $path = 'utils'.DS.'function';
-        $path .= DS.$func.'.func.php';
+        $path .= DS.$func.'.php';
         if (file_exists(FRAME_PATH.DS.$path)) {
             include FRAME_PATH.DS.$path;
         } else {
             return false;
         }
         return true;
-    }
-    /**
-     * 加载配置文件
-     * @param string $file 文件名
-     */
-    public static function load_config($file, $key = '') {
-        static $configs = array();
-        $path = ROOT_PATH.DS.'configs'.DS.$file.'.php';       
-        if (file_exists($path)) {
-            $configs[$file] = include $path;
-        }
-        if (empty($key)) {
-            return $configs[$file];
-        } elseif (isset($configs[$file][$key])) {
-            return $configs[$file][$key];
-        } else {
-            return '';
-        }
     }
 }
 
@@ -204,7 +186,7 @@ class AutoLoader
 	public function getClassPath($class) {
 		$class = strtolower($class);
 		foreach(self::$_autoloadPaths as $val) {
-			$classPath = $val['path'].$class.$val['extension'];
+			$classPath = ROOT_PATH.$val.$class.'.php';
 			if(is_readable($classPath)) return $classPath;
 		}
 		return false;

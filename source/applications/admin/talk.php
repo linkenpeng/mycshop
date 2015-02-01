@@ -53,8 +53,8 @@ class talk extends controller {
             $_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
            
             if (!empty($_FILES['attachment']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile();
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile();
                 $attachment = $upfile->upload($_FILES['attachment']);
                 $attachment_tempname=$_FILES['attachment']['name'];
                 $attachmentnames=explode(".",$attachment_tempname);
@@ -99,8 +99,8 @@ class talk extends controller {
         }
         if (!empty($_POST['action'])&&!empty($_POST['talkid'])) {
             if (!empty($_FILES['attachment']['name'])) {
-                Base::load_sys_class("upfile",'',0);
-                $upfile = new upfile();
+                Base::load_sys_class("uploadfile",'',0);
+                $upfile = new uploadfile();
                 $attachment = $upfile->upload($_FILES['attachment']);
                 $attachment_tempname=$_FILES['attachment']['name'];
                 $attachmentnames=explode(".",$attachment_tempname);
