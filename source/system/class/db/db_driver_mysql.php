@@ -2,6 +2,8 @@
 defined('SYS_IN') or exit('Access Denied.');
 
 class db_driver_mysql extends db_driver {
+	protected static $_instance = null;
+	protected $_config = array();
 
 	function __construct($config) {
 		$this->_config = $config;
@@ -40,12 +42,21 @@ class db_driver_mysql extends db_driver {
 		}
 	}
 
-	function select_db($dbname) {
-		return mysql_select_db($dbname, $this->link);
-	}
-
-	function fetch_array($query, $result_type = MYSQL_ASSOC) {
-		return mysql_fetch_array($query, $result_type);
+	function query($sql, $type = '') {
+		if (!$this->link) {
+			$this->dbconn();
+		}
+		$func = $type == 'UNBUFFERED' && function_exists('mysql_unbuffered_query') ? 'mysql_unbuffered_query' : 'mysql_query';
+		if (!($query = $func($sql, $this->link))) {
+			if ($this->errno() && substr($type, 0, 5) != 'RETRY') {
+				$this->close();
+				$this->dbconn();
+				$this->query($sql, 'RETRY' . $type);
+			} elseif ($type != 'SILENT' && substr($type, 5) != 'SILENT') {
+				$this->halt('MySQL Query Error', $sql);
+			}
+		}
+		return $query;
 	}
 
 	function update($table, $bind = array(), $where = '') {
@@ -73,6 +84,27 @@ class db_driver_mysql extends db_driver {
 		return $this->insert_id();
 	}
 
+	function insert_id() {
+		return ($id = mysql_insert_id($this->link)) >= 0 ? $id : $this->result($this->query("SELECT last_insert_id()"), 0);
+	}
+
+	function affected_rows() {
+		return mysql_affected_rows($this->link);
+	}
+
+	function fetch_fields($query) {
+		return mysql_fetch_field($query);
+	}
+
+	function fetch_row($query) {
+		$query = mysql_fetch_row($query);
+		return $query;
+	}
+
+	function fetch_array($query, $result_type = MYSQL_ASSOC) {
+		return mysql_fetch_array($query, $result_type);
+	}
+
 	function get_one($sql, $type = '') {
 		if ($sql != "") {
 			if (!preg_match("/limit/is", $sql)) {
@@ -96,37 +128,12 @@ class db_driver_mysql extends db_driver {
 		return $ret;
 	}
 
-	function query($sql, $type = '') {
-		if (!$this->link) {
-			$this->dbconn();
-		}
-		$func = $type == 'UNBUFFERED' && function_exists('mysql_unbuffered_query') ? 'mysql_unbuffered_query' : 'mysql_query';
-		if (!($query = $func($sql, $this->link))) {
-			if ($this->errno() && substr($type, 0, 5) != 'RETRY') {
-				$this->close();
-				$this->dbconn();
-				$this->query($sql, 'RETRY' . $type);
-			} elseif ($type != 'SILENT' && substr($type, 5) != 'SILENT') {
-				$this->halt('MySQL Query Error', $sql);
-			}
-		}
-		$this->querynum++;
-		return $query;
+	function free_result($query) {
+		return mysql_free_result($query);
 	}
 
-	function counter($table_name, $where_str = "", $field_name = "*") {
-		$where_str = trim($where_str);
-		if (strtolower(substr($where_str, 0, 5)) != 'where' && $where_str) {
-			$where_str = "WHERE " . $where_str;
-		}
-		$query = " SELECT COUNT($field_name) FROM $table_name $where_str ";
-		$result = $this->query($query);
-		$fetch_row = mysql_fetch_row($result);
-		return $fetch_row[0];
-	}
-
-	function affected_rows() {
-		return mysql_affected_rows($this->link);
+	function version() {
+		return mysql_get_server_info($this->link);
 	}
 
 	function error() {
@@ -137,57 +144,26 @@ class db_driver_mysql extends db_driver {
 		return intval(($this->link) ? mysql_errno($this->link) : mysql_errno());
 	}
 
-	function result($query, $row) {
-		$query = mysql_result($query, $row);
-		return $query;
-	}
-
-	function num_rows($query) {
-		$query = mysql_num_rows($query);
-		return $query;
-	}
-
-	function num_fields($query) {
-		return mysql_num_fields($query);
-	}
-
-	function free_result($query) {
-		return mysql_free_result($query);
-	}
-
-	function insert_id() {
-		return ($id = mysql_insert_id($this->link)) >= 0 ? $id : $this->result($this->query("SELECT last_insert_id()"), 0);
-	}
-
-	function fetch_row($query) {
-		$query = mysql_fetch_row($query);
-		return $query;
-	}
-
-	function fetch_fields($query) {
-		return mysql_fetch_field($query);
-	}
-
-	function version() {
-		return mysql_get_server_info($this->link);
-	}
-
 	function close() {
 		return mysql_close($this->link);
 	}
 
 	function halt($message = '') {
-		$website = SITE_URL;
-		$sqlerror = mysql_error();
-		$sqlerrno = mysql_errno();
-		$sqlerror = str_replace($this->db_host, 'dbhost', $sqlerror);
+		$sqlerror = $this->error();
+		$sqlerrno = $this->errno();
 		ob_end_clean();
 		GZIP == 1 && function_exists('ob_gzhandler') ? ob_start('ob_gzhandler') : ob_start();
-		echo "<html><head><title>$website</title><style type='text/css'>P,BODY{FONT-FAMILY:tahoma,arial,sans-serif;FONT-SIZE:10px;}A { TEXT-DECORATION: none;}a:hover{ text-decoration: underline;}TD { BORDER-RIGHT: 1px; BORDER-TOP: 0px; FONT-SIZE: 16pt; COLOR: #000000;}</style><body>\n\n";
-		echo "<table style='TABLE-LAYOUT:fixed;WORD-WRAP: break-word'><tr><td>$message";
-		echo "<br><br><b>The URL Is</b>:<br>" . HTTP_REFERER;
-		echo "<br><br><b>MySQL Server Error</b>:<br>$sqlerror  ( $sqlerrno )";
-		echo "<br><br><b>You Can Get Help In</b>:<br><a target=_blank href=" . $website . "/><b>" . $website . "</b></a>";
-		echo "</td></tr></table>";
+		$html = "<html><head><title>MySQL Server Error</title>";
+		$html .= "<style type='text/css'>";
+		$html .= "p,body{FONT-FAMILY:tahoma,arial,sans-serif;FONT-SIZE:10px;}";
+		$html .= "a {TEXT-DECORATION: none;}";
+		$html .= "a:hover{text-decoration: underline;}";
+		$html .= "td {BORDER-RIGHT: 1px; BORDER-TOP: 0px; FONT-SIZE: 16pt; COLOR: #000000;}";
+		$html .= "</style>";
+		$html .= "<body>\n\n";
+		$html .= "<table style='TABLE-LAYOUT:fixed;WORD-WRAP: break-word'><tr><td>$message";
+		$html .= "<br><br><b>MySQL Server Error</b>:<br>$sqlerror  ( $sqlerrno )";
+		$html .= "</td></tr></table>";
+		echo $html;
 	}
 }

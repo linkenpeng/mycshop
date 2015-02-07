@@ -14,7 +14,6 @@ class model {
 		global $_G;
 		$this->_config = empty($dbconfig) ? $_G['db']['master'] : $_G['db'][$dbconfig];
 		$driver_name = "db_driver_" . $this->_config['driver'];
-		Base::load_sys_class($driver_name, '', 0);
 		$this->db = $driver_name::getInstance($this->_config);
 	}
 
