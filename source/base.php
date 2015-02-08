@@ -108,7 +108,7 @@ class Base {
 
 	private static function _load_class($classname, $path = '', $initialize) {
 		static $classes = array();
-		$path = empty($path) ? 'system' . DS . 'class' : $path;
+		$path = empty($path) ? 'framework' . DS . 'class' : $path;
 		$key = md5($classname);
 		if (file_exists(FRAME_PATH . DS . $path . DS . $classname . '.php')) {
 			include_once FRAME_PATH . DS . $path . DS . $classname . '.php';
@@ -124,7 +124,7 @@ class Base {
 	}
 
 	private static function _load_func($func, $path = '') {
-		$path = empty($path) ? 'system' . DS . 'function' : $path;
+		$path = empty($path) ? 'framework' . DS . 'function' : $path;
 		$path .= DS . $func . '.php';
 		if (file_exists(FRAME_PATH . DS . $path)) {
 			include FRAME_PATH . DS . $path;

@@ -12,7 +12,7 @@ $config = array(
 			'charset' => 'utf8',
 			'pconnect' => '0',
 			'table_pre' => 'hb_',
-			'driver' => 'mysql' 
+			'driver' => 'mysqli' 
 		) 
 	),
 	'system' => array(
@@ -27,8 +27,8 @@ $config = array(
 	'autoload' => array(
 		'/source/models',
 		'/source/applications/admin',
-		'/source/system/class',
-		'/source/system/class/db' 
+		'/source/framework/class',
+		'/source/framework/class/db' 
 	),
 	'module' => array(
 		"index",
