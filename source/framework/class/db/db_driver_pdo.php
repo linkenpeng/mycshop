@@ -1,5 +1,4 @@
 <?php
-defined('SYS_IN') or exit('Access Denied.');
 
 class db_driver_pdo extends db_driver {
 	protected static $_instance = null;
@@ -21,37 +20,37 @@ class db_driver_pdo extends db_driver {
 	}
 
 	function dbconn() {
-		$dsn = 'mysql:dbname='.$this->_config['dbname'].';host='.$this->_config['host'];		
+		$dsn = 'mysql:dbname=' . $this->_config['dbname'] . ';host=' . $this->_config['host'];
 		try {
 			$this->_link = new PDO($dsn, $this->_config['user'], $this->_config['password']);
 		} catch (PDOException $e) {
 			$this->halt('Connection failed: ' . $e->getMessage());
 		}
 	}
-	
+
 	public function execute($sql, $query = '', $field = 0) {
 		$this->_stmt = $this->prepare($sql);
 		$result = $this->_stmt->execute();
-		if ($query=='select') {
+		if ($query == 'select') {
 			return $this->_stmt->fetchAll(PDO::FETCH_ASSOC);
-		} else if ($query=='count') {
+		} else if ($query == 'count') {
 			return count($this->_stmt->fetchAll());
 		} else if ($query == 'row') {
 			return $this->_stmt->fetch(PDO::FETCH_ASSOC);
 		} else if ($query == 'field') {
 			return $this->_stmt->fetchColumn($field);
 		} else if ($query == 'column') {
-			return $this->_stmt->fetchAll(PDO::FETCH_COLUMN,intval($field));
+			return $this->_stmt->fetchAll(PDO::FETCH_COLUMN, intval($field));
 		} else if ($query == 'effect') {
 			return $this->_stmt->rowCount();
 		} else {
 			return $result;
 		}
 	}
-	
+
 	public function prepare($sql, $driver_options = array()) {
 		return $this->_link->prepare($sql, $driver_options);
-	}	
+	}
 
 	function query($sql, $type = '') {
 		return $this->execute($sql);
@@ -128,7 +127,7 @@ class db_driver_pdo extends db_driver {
 	function free_result($query) {
 		return null;
 	}
-	
+
 	function escape_string($str) {
 		return $str;
 	}

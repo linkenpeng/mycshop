@@ -1,5 +1,4 @@
 <?php
-defined('SYS_IN') or exit('Access Denied.');
 
 class db_driver_mysql extends db_driver {
 	protected static $_instance = null;
@@ -87,7 +86,7 @@ class db_driver_mysql extends db_driver {
 	function insert_id() {
 		return ($id = mysql_insert_id($this->link)) >= 0 ? $id : $this->result($this->query("SELECT last_insert_id()"), 0);
 	}
-	
+
 	function result($query, $row = 0) {
 		$query = mysql_result($query, $row);
 		return $query;
@@ -136,7 +135,7 @@ class db_driver_mysql extends db_driver {
 	function free_result($query) {
 		return mysql_free_result($query);
 	}
-	
+
 	function escape_string($str) {
 		return mysql_escape_string($str);
 	}

@@ -1,5 +1,4 @@
 <?php
-defined('SYS_IN') or exit('Access Denied.');
 
 /**
  * model.class.php 数据模型基类
@@ -68,7 +67,7 @@ class model {
 		$list = $this->db->get_list($sql);
 		return $list;
 	}
-	
+
 	function get_all($field = '', $where = '', $oderbye = '') {
 		$field = empty($field) ? ' * ' : $field;
 		$where = empty($where) ? ' WHERE 1 ' : $where;

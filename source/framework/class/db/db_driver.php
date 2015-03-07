@@ -1,5 +1,4 @@
 <?php
-defined('SYS_IN') or exit('Access Denied.');
 
 abstract class db_driver {
 
@@ -28,8 +27,8 @@ abstract class db_driver {
 	abstract function get_list($sql, $type = '');
 
 	abstract function free_result($query);
-	
-	abstract function escape_string($str);	
+
+	abstract function escape_string($str);
 
 	abstract function version();
 

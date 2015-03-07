@@ -1,5 +1,4 @@
 <?php
-defined('SYS_IN') or exit('Access Denied.');
 
 class db_driver_mysqli extends db_driver {
 	protected static $_instance = null;
@@ -21,11 +20,11 @@ class db_driver_mysqli extends db_driver {
 
 	function dbconn() {
 		$link = new mysqli();
-		if(!$link->real_connect($this->_config['host'], $this->_config['user'], $this->_config['password'], $this->_config['dbname'], null, null, MYSQLI_CLIENT_COMPRESS)) {
+		if (!$link->real_connect($this->_config['host'], $this->_config['user'], $this->_config['password'], $this->_config['dbname'], null, null, MYSQLI_CLIENT_COMPRESS)) {
 			$this->halt('Can not connect to MySQL server');
 		} else {
 			$this->_link = $link;
-			if($this->version() > '4.1') {
+			if ($this->version() > '4.1') {
 				$link->set_charset($this->_config['charset']);
 				$serverset = $this->version() > '5.0.1' ? 'sql_mode=\'\'' : '';
 				$serverset && $link->query("SET $serverset");
@@ -35,22 +34,25 @@ class db_driver_mysqli extends db_driver {
 	}
 
 	function query($sql, $silent = false, $unbuffered = false) {
-		if('UNBUFFERED' === $silent) {
+		if ('UNBUFFERED' === $silent) {
 			$silent = false;
 			$unbuffered = true;
-		} elseif('SILENT' === $silent) {
+		} elseif ('SILENT' === $silent) {
 			$silent = true;
 			$unbuffered = false;
 		}
-
+		
 		$resultmode = $unbuffered ? MYSQLI_USE_RESULT : MYSQLI_STORE_RESULT;
-
-		if(!($query = $this->_link->query($sql, $resultmode))) {
-			if(in_array($this->errno(), array(2006, 2013)) && substr($silent, 0, 5) != 'RETRY') {
+		
+		if (!($query = $this->_link->query($sql, $resultmode))) {
+			if (in_array($this->errno(), array(
+				2006,
+				2013 
+			)) && substr($silent, 0, 5) != 'RETRY') {
 				$this->connect();
-				return $this->_link->query($sql, 'RETRY'.$silent);
+				return $this->_link->query($sql, 'RETRY' . $silent);
 			}
-			if(!$silent) {
+			if (!$silent) {
 				$this->halt($sql);
 			}
 		}
@@ -86,9 +88,9 @@ class db_driver_mysqli extends db_driver {
 	function insert_id() {
 		return ($id = $this->_link->insert_id) >= 0 ? $id : $this->result($this->query("SELECT last_insert_id()"), 0);
 	}
-	
+
 	function result($query, $row = 0) {
-		if(!$query || $query->num_rows == 0) {
+		if (!$query || $query->num_rows == 0) {
 			return null;
 		}
 		$query->data_seek($row);
@@ -110,7 +112,8 @@ class db_driver_mysqli extends db_driver {
 	}
 
 	function fetch_array($query, $result_type = MYSQLI_ASSOC) {
-		if($result_type == 'MYSQL_ASSOC') $result_type = MYSQLI_ASSOC;
+		if ($result_type == 'MYSQL_ASSOC')
+			$result_type = MYSQLI_ASSOC;
 		return $query ? $query->fetch_array($result_type) : null;
 	}
 
@@ -140,13 +143,13 @@ class db_driver_mysqli extends db_driver {
 	function free_result($query) {
 		return $query ? $query->free() : false;
 	}
-	
+
 	function escape_string($str) {
 		return $this->_link->escape_string($str);
 	}
 
 	function version() {
-		if(empty($this->_version)) {
+		if (empty($this->_version)) {
 			$this->_version = $this->_link->server_info;
 		}
 		return $this->_version;
