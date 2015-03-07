@@ -68,6 +68,15 @@ class model {
 		$list = $this->db->get_list($sql);
 		return $list;
 	}
+	
+	function get_all($field = '', $where = '', $oderbye = '') {
+		$field = empty($field) ? ' * ' : $field;
+		$where = empty($where) ? ' WHERE 1 ' : $where;
+		$oderbye = empty($oderbye) ? '' : ' ORDER BY ' . $oderbye;
+		$sql = "SELECT " . $field . " FROM " . $this->tname($this->_table) . $where . $oderbye;
+		$list = $this->db->get_list($sql);
+		return $list;
+	}
 
 	function get_count($where = '') {
 		$where = empty($where) ? ' WHERE 1 ' : $where;

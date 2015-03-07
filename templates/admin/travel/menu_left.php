@@ -4,9 +4,7 @@ if(!defined('SYS_IN')) {
 }
 ?>
 <div id="navbar">
-	<div class="lefttitle">
-	
-	</div>
+	<div class="lefttitle"></div>	
 	<div class="leftmenu">
 		<ul class="menubar">
 			<?php 
@@ -19,6 +17,5 @@ if(!defined('SYS_IN')) {
 				</li>
 			<?php } ?>			
 		</ul>
-	</div>
-	
+	</div>	
 </div>

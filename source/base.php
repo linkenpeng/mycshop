@@ -14,7 +14,7 @@ define('FRAME_PATH', str_replace("\\", "/", dirname(__FILE__)));
 
 // 加载配置信息
 $_G = include ROOT_PATH . DS . 'configs' . DS . 'config.php'; // 系统配置
-$_CTCONFIG = include ROOT_PATH . DS . 'configs' . DS . 'customize.php'; // 自定义配置信息
+$_CTCONFIG = include ROOT_PATH . DS . 'caches' . DS . 'customize_config.php'; // 自定义配置信息
 global $_G, $_CTCONFIG;
 
 // autoload
@@ -24,7 +24,7 @@ new AutoLoader($_G['autoload']);
 Base::load_sys_func("common");
 
 // 设置时区
-date_default_timezone_set($_CTCONFIG['timezone']);
+date_default_timezone_set($_CTCONFIG['time_zone']);
 $_G['system']['timestamp'] = time();
 define('START_TIME', mtime()); // 记录程序启动时间
                                
@@ -37,24 +37,28 @@ define('SITE_URL', getsiteurl());
 define('DEFAULT_PROVINCE', $_CTCONFIG['province']);
 
 // 附件路径
-define('UPLOAD_PATH', ROOT_PATH . '/uploadfiles');
-define('UPLOAD_URI', SITE_URL . '/uploadfiles');
+define('UPLOAD_PATH', ROOT_PATH . DS . 'uploadfiles');
+define('UPLOAD_URI', SITE_URL . DS . 'uploadfiles');
 // 允许上传的文件类型
 define('UPLOAD_IMAGE_FILE_TYPES', $_CTCONFIG['upload_image_file_types']);
 define('UPLOAD_AUDIO_FILE_TYPES', $_CTCONFIG['upload_audio_file_types']);
 define('UPLOAD_VIDEO_FILE_TYPES', $_CTCONFIG['upload_video_file_types']);
 
 // 定义地图key
-define('MAPKEY', $_CTCONFIG['mapkey']);
+define('MAPABC_KEY', $_CTCONFIG['mapabc_key']);
 // 定义站点字符集
 define('CHARSET', $_G['system']['charset']);
 // 输出页面字符集
 header('Content-type: text/html; charset=' . CHARSET);
 
-// 定义后台模板url
-define('ADMIN_TEMPLATE_URL', SITE_URL . '/templates/' . $_CTCONFIG['admin_template']);
-// 定义前台模板url
-define('TEMPLATE_URL', SITE_URL . '/templates/' . $_CTCONFIG['template']);
+// 定义后台模板
+$admin_tpl = 'templates' . DS . 'admin' . DS . $_CTCONFIG['admin_template'];
+define('ADMIN_TEMPLATE_URL', SITE_URL . DS . $admin_tpl);
+define('ADMIN_TEMPLATE_PATH', ROOT_PATH . DS . $admin_tpl);
+// 定义前台模板
+$front_tpl = 'templates' . DS . 'front' . DS . $_CTCONFIG['template'];
+define('TEMPLATE_URL', SITE_URL . DS . $front_tpl);
+define('TEMPLATE_PATH', ROOT_PATH . DS . $front_tpl);
 
 // 定义站点gzip
 define('GZIP', $_G['system']['gzip']);
@@ -84,8 +88,7 @@ $menuids = $usergroupdb->get_permission();
 $menudb = Base::load_model("menu_model");
 $menudb->check_permission($menuids);
 // 获得用户组分配的主菜单
-$check_modules = array('admin' 
-); // 需要登录的模块
+$check_modules = array('admin');
 $topmenus = $menudb->get_top_menus($menuids, $check_modules);
 
 class Base {

@@ -169,11 +169,7 @@ function subtplcheck($subfiles, $mktime, $tpl, $templatedir) {
  * $name 模板名称
  */
 function admin_template($name) {
-	global $_CTCONFIG;
-	if (empty($_CTCONFIG['admin_template'])) {
-        $_CTCONFIG['admin_template'] = 'admin';
-    }
-    $objfile = ROOT_PATH.DS.'templates/'.$_CTCONFIG['admin_template'].'/'.$name.'.php';
+    $objfile = ADMIN_TEMPLATE_PATH.DS.$name.'.php';
     return $objfile;
 }
 
@@ -225,7 +221,7 @@ function sgmdate($dateformat, $timestamp = '', $format = 0) {
         $time = $_CTCONFIG['timestamp']-$timestamp;
         echo $time;
         if ($time>24*3600) {
-            $result = gmdate($dateformat,$timestamp+$_CTCONFIG['timeoffset']*3600);
+            $result = gmdate($dateformat,$timestamp+$_CTCONFIG['time_offset']*3600);
         } elseif ($time>3600) {
             $result = intval($time/3600).lang('datetime','hour').lang('datetime','before');
         } elseif ($time>60) {
@@ -236,7 +232,7 @@ function sgmdate($dateformat, $timestamp = '', $format = 0) {
             $result = lang('datetime','now');
         }
     } else {
-        $result = gmdate($dateformat,$timestamp+$_CTCONFIG['timeoffset']*3600);
+        $result = gmdate($dateformat,$timestamp+$_CTCONFIG['time_offset']*3600);
     }
     return $result;
 }

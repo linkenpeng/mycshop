@@ -13,7 +13,7 @@ class session_model extends model {
         global $_G,$_CTCONFIG;
         parent::__construct();
         $this->ip = get_ip();
-        $this->max_life_time = ($_CTCONFIG['onlinetime']<600) ? "600" : $_CTCONFIG['onlinetime'];
+        $this->max_life_time = ($_CTCONFIG['online_time']<600) ? "600" : $_CTCONFIG['online_time'];
         $this->time = $_G['system']['timestamp'];
     }
     

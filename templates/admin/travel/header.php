@@ -28,7 +28,7 @@ if(!defined('SYS_IN')) {
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 <?php } ?>
 <?php if(isset($show_map)) { ?>
-<script src="http://app.mapabc.com/apis?&t=flashmap&v=2.2&key=<?php echo MAPKEY; ?>" type="text/javascript"></script> 
+<script src="http://app.mapabc.com/apis?&t=flashmap&v=2.2&key=<?php echo MAPABC_KEY; ?>" type="text/javascript"></script> 
 <?php } ?>
 
 <script language="javascript" src="<?php echo ADMIN_TEMPLATE_URL?>/js/common.js" type="text/javascript"></script>
