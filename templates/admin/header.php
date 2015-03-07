@@ -46,7 +46,7 @@ $().ready(function(){
 			$("#navbar").show();
 			$("#leftmunectrl").attr("ctvalue",1);
 			$("#leftmunectrl").html("隐藏菜单");
-			$(".pageMain").width("80%");
+			$(".pageMain").width("81%");
 		}
 	}
 });

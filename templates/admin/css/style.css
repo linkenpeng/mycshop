@@ -18,7 +18,7 @@ h3 {font-size:14px;height:24px;line-height:24px;margin:0;}
 	margin-top:8px;
 	margin-right:4px;
 	/*border:1px solid;*/
-	width:80%;
+	width:81%;
 	float:left;
 }
 .pageTitle{
@@ -103,7 +103,8 @@ a:hover  { color:#cc0000;text-decoration:underline; }
 	height:100px;
 	background:url(../images/head.gif) repeat-x;
 }
-#banner {width:500px;float: left;background:url(/statics/images/logo.png);height:100px; }
+#banner {width:500px;float: left;height:100px; }
+#banner .logo {font-size:30px;font-family:'é»‘ä½“';padding-left:10px;margin-top:30px;float:left;color:#056AB8;}
 #banner_menu {width:500px;float: right; }
 .login_status {text-align:right;padding-top:10px;padding-right:70px;height:30px;font-size:16px;}
 #top ul {	
@@ -128,12 +129,6 @@ a:hover  { color:#cc0000;text-decoration:underline; }
 	margin-top:8px;
 	margin-right:8px;
 	font-size: 0.9em;
-	/*
-	border-top:solid 1px #000000;
-	border-bottom:solid 1px #000000;
-	border-right:solid 1px #000000;
-	background:url(../images/left-02.gif) repeat-y;
-	*/
 	float:left;
 }
 #navbar .lefttitle{
@@ -221,7 +216,7 @@ padding-bottom:30px;
 .page a { color: #000000; text-decoration:none;}
 .page a:hover { text-decoration: none;background:#FFFFFF;color:#CC3300; }
 
-/*Ñ¡Ôñµ¯³ö¿òÑùÊ½2011-08-03 by linken*/
+/*Ñ¡ï¿½ñµ¯³ï¿½ï¿½ï¿½ï¿½ï¿½Ê½2011-08-03 by linken*/
 .layer_global {
 background:#E1E1E1;
 font-family:Geneva,Arial,Helvetica,sans-serif;

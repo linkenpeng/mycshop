@@ -3,7 +3,7 @@ if (!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 return array(
-	'site_name' => '网店管理系统',
+	'site_name' => '后台管理系统',
 	'timezone' => 'Asia/Shanghai',
 	'timeoffset' => '8',
 	'lang' => 'zh-cn', // 网站语言包

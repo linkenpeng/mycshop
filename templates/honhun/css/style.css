@@ -117,7 +117,8 @@ a:hover  { color:#cc0000;text-decoration:underline; }
 	border-bottom:1px solid #FFFFFF;
 	color: #FFFFFF;
 }
-#banner {width:400px;float: left;background:url(../images/head-02.jpg) no-repeat;height:90px; }
+#banner {width:400px;float: left;height:90px; }
+#banner .logo {font-size:30px;font-family:'é»‘ä½“';padding-left:10px;margin-top:30px;float:left;color:#FFFFFF;}
 #banner_menu {width:500px;float: right; }
 .login_status {text-align:right;padding-top:10px;padding-right:70px;height:30px;font-size:16px;color: #FFFFFF;}
 #top ul {	
@@ -221,7 +222,7 @@ padding-bottom:30px;
 .page a { color: #000000; text-decoration:none;}
 .page a:hover { text-decoration: none;background:#FFFFFF;color:#CC3300; }
 
-/*Ñ¡Ôñµ¯³ö¿òÑùÊ½2011-08-03 by linken*/
+/*Ñ¡ï¿½ñµ¯³ï¿½ï¿½ï¿½ï¿½ï¿½Ê½2011-08-03 by linken*/
 .layer_global {
 background:#E1E1E1;
 font-family:Geneva,Arial,Helvetica,sans-serif;

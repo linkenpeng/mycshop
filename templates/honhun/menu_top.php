@@ -7,15 +7,13 @@ if(!defined('SYS_IN')) {
 	<span style="float:right;margin-right:10px;">
 		欢迎你：<?php echo $_SESSION['admin_username'];?> 你的身份是：<?php echo $_SESSION['usergroupname'];?>
 	</span>
-	<img src="<?php echo ADMIN_TEMPLATE_URL?>/images/Announce.gif" />
-	<span style="width:500px;">
-	<marquee onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="1" scrolldelay="4" align="left" width="500">欢迎使用<?php echo SITE_NAME?>！</marquee>
-	</span>
-	
+	<span style="width:500px;">	
+	</span>	
 </div>
+
 <div id="top">
 	<div id="banner">
-		
+		<span class="logo"><?php echo SITE_NAME;?></span>
 	</div>
 	<div id="banner_menu">
 		<div class="login_status"></div>
