@@ -74,4 +74,3 @@ $config = array(
 	) 
 );
 return $config;
-?>
