@@ -1,8 +1,5 @@
 <?php
 
-/**
- * filename: pages.class.php
- */
 class trig_page {
 	var $page_name = "page"; // page标签，用来控制url页。比如说xxx.php?PB_page=2中的PB_page
 	var $next_page = '>'; // 下一页
@@ -26,12 +23,7 @@ class trig_page {
 	var $url = ""; // url地址头
 	var $offset = 0;
 
-	/**
-	 * constructor构造函数
-	 *
-	 * @param array $array['total'],$array['perpage'],$array['nowindex'],$array['url'],$array['ajax']...        	
-	 */
-	function page($array) {
+	function __construct($array) {
 		if (is_array($array)) {
 			if (!array_key_exists('total', $array))
 				$this->error(__FUNCTION__, 'need a param of total');
@@ -142,7 +134,7 @@ class trig_page {
 		$begin = $this->nowindex - $plus + 1;
 		$begin = ($begin >= 1) ? $begin : 1;
 		$return = '';
-		for($i = $begin; $i < $begin + $this->pagebarnum; $i++) {
+		for($i = $begin; $i < $begin + $this->pagebarnum; $i ++) {
 			if ($i <= $this->totalpage) {
 				if ($i != $this->nowindex)
 					$return .= $this->_get_text($this->_get_link($this->_get_url($i), $i, $style));
@@ -164,7 +156,7 @@ class trig_page {
 	 */
 	function select() {
 		$return = '<select name="PB_Page_Select" >';
-		for($i = 1; $i <= $this->totalpage; $i++) {
+		for($i = 1; $i <= $this->totalpage; $i ++) {
 			if ($i == $this->nowindex) {
 				$return .= '<option value="' . $i . '" selected>' . $i . '</option>';
 			} else {

@@ -1,11 +1,14 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
+
 class application_admin_scenespot extends application_base {
 	private $scenespotdb;
+
 	function __construct() {
 		parent::__construct();
 		$this->scenespotdb = new model_scenespot();
 	}
+
 	function init() {
 		$where = " WHERE 1 ";
 		$typeid = empty($_GET['typeid']) ? "" : intval($_GET['typeid']);
@@ -68,7 +71,7 @@ class application_admin_scenespot extends application_base {
 		
 		include trig_func_common::admin_template('scenespot');
 	}
-	
+
 	public function add() {
 		if (!empty($_POST['action'])) {
 			if (empty($_POST['scenespotname'])) {
@@ -130,19 +133,19 @@ class application_admin_scenespot extends application_base {
 		
 		include trig_func_common::admin_template('scenespotform');
 	}
-	
+
 	public function edit() {
 		$scenespotid = $_GET['scenespotid'];
 		if (!empty($scenespotid)) {
 			$value = $this->scenespotdb->get_one($scenespotid);
 		}
-		if (!empty($_POST['action']) && !empty($_POST['scenespotid'])) {				
+		if (!empty($_POST['action']) && !empty($_POST['scenespotid'])) {
 			if (!empty($_FILES['image']['name'])) {
 				
 				$upfile = new trig_uploadfile(UPLOAD_IMAGE_FILE_TYPES);
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
-			}			
+			}
 			if (!empty($_FILES['cn_audio']['name'])) {
 				
 				$upfile = new trig_uploadfile(UPLOAD_AUDIO_FILE_TYPES);
@@ -194,7 +197,7 @@ class application_admin_scenespot extends application_base {
 		$show_validator = 1;
 		include trig_func_common::admin_template('scenespotform');
 	}
-	
+
 	public function delete() {
 		$scenespotid = $_GET['scenespotid'];
 		if (!empty($scenespotid)) {

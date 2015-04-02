@@ -6,19 +6,19 @@ class application_admin_index extends application_base {
     }
     
     function init() {
-    	$userdb = new user_model();
+    	$userdb = new model_user();
         $user_info = $userdb->get_user_info($_SESSION['admin_uid']);
 		
-		$scenedb = new scene_model();
+		$scenedb = new model_scene();
 		$scene_list = $scenedb->get_list(10,0," * ","","dateline DESC ");
 		
-		$scenespotdb = new scenespot_model();
+		$scenespotdb = new model_scenespot();
 		$scenespot_list = $scenespotdb->get_list(10,0," * ",""," sp.dateline DESC ");
 		
-		$commentdb = new comment_model();
+		$commentdb = new model_comment();
 		$comment_list = $commentdb->get_list(10,0," * ","","dateline DESC ");
 		
-		$signindb =new signin_model();
+		$signindb =new model_signin();
 		$signin_list = $signindb->get_list(10,0," * ","","dateline DESC ");
 		
         include trig_func_common::admin_template('index');
