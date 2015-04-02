@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "添加修改公告分类";
-include admin_template("header");
+include trig_func_common::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -17,7 +17,7 @@ include admin_template("header");
 <div class="pageTitle">当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
   <table width="100%">
-    <form action="<?php echo get_uri();?>" method="post" id="dataForm">
+    <form action="<?php echo trig_func_common::get_uri();?>" method="post" id="dataForm">
     <input type="hidden" name="notetypeid" value="<?php echo $value['notetypeid']; ?>" />
     <input type="hidden" name="action" value="1" />
     <tr>
@@ -36,5 +36,5 @@ include admin_template("header");
 </div>
 </div>
 <?php
-include admin_template("footer");
+include trig_func_common::admin_template("footer");
 ?>

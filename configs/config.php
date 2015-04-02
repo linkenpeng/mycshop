@@ -59,11 +59,7 @@ $config = array(
 		'template' => 'default' 
 	),
 	'autoload' => array(
-		'/source/models',
-		'/source/applications/admin',
-		'/source/framework/class',
-		'/source/framework/class/db',
-		'/source/framework/class/cache'
+		'/source',
 	),
 	'module' => array(
 		"index",

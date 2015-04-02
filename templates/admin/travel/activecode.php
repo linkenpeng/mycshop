@@ -1,6 +1,6 @@
 <?php
 $pagetitle="激活码管理";
-include admin_template("header");
+include trig_func_common::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -39,10 +39,10 @@ include admin_template("header");
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo get_uri("activecode","add");?>">添加</a>
+<a href="<?php echo trig_func_common::get_uri("activecode","add");?>">添加</a>
 </div>
 <div class="pageContent">
-  <form action="<?php echo get_uri();?>" method="get" id="searchform">
+  <form action="<?php echo trig_func_common::get_uri();?>" method="get" id="searchform">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -58,14 +58,14 @@ include admin_template("header");
 		从 <input name="startdate" id="startdate" type="text" size="20" value="<?php echo $startdate?>" class="Wdate" onClick="WdatePicker()" />
 		到 <input name="enddate" id="enddate" type="text" size="20" value="<?php echo $enddate?>" class="Wdate" onClick="WdatePicker()" /> 
 		每页数据:<input name="pagesize" type="text" size="3" value="<?php echo $pagesize?>" />
-		<input type="submit" name="Submit" value="<?php echo lang("action","search")?>" />
+		<input type="submit" name="Submit" value="<?php echo trig_func_common::lang("action","search")?>" />
 		
 		</td>
 	  </tr>
 	 </table>
   </form>
 	
-	 <form action="<?php echo get_uri("activecode","batch","admin");?>" method="post">
+	 <form action="<?php echo trig_func_common::get_uri("activecode","batch","admin");?>" method="post">
 	 <table width="100%">
 		<tr id="order">
 		  <th width="20"><input type="checkbox" name="checkall" id="checkall" /></th>
@@ -115,7 +115,7 @@ include admin_template("header");
 		  <td align="center">
 		  <?php echo isset($batlist[$value['batchid']]) ? : ''; ?>
 		  
-		  [<a href="<?php echo get_uri("activecode","delbatch","admin");?>&batchid=<?php echo $value['batchid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');" >删除此批</a>]
+		  [<a href="<?php echo trig_func_common::get_uri("activecode","delbatch","admin");?>&batchid=<?php echo $value['batchid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');" >删除此批</a>]
 		  
 		  </td>
 		  <td align="center"><?php echo date("Y-m-d H:i",$value['dateline'])?></td>
@@ -135,12 +135,12 @@ include admin_template("header");
 		<tr>
 			<td colspan=6 align="center">
 				<div class="page">
-					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo trig_func_common::lang("page","total")?><b><?php echo $count?></b><?php echo trig_func_common::lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo trig_func_common::lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
-				$endTime = mtime();
+				$endTime = trig_func_common::mtime();
 				$totaltime = sprintf("%.3f",($endTime - START_TIME));
-				echo lang("page","thispage").lang("common","excute").lang("common","time").($totaltime).lang("common","second");
+				echo trig_func_common::lang("page","thispage").trig_func_common::lang("common","excute").trig_func_common::lang("common","time").($totaltime).trig_func_common::lang("common","second");
 			?>
 			</td>
 		</tr>
@@ -149,5 +149,5 @@ include admin_template("header");
 </div>
 </div>
 <?php
-include admin_template("footer");
+include trig_func_common::admin_template("footer");
 ?>

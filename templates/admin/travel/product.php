@@ -1,14 +1,14 @@
 <?php
 $pagetitle="产品管理";
-include admin_template("header");
+include trig_func_common::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo get_uri("product","add");?>">添加</a>
+<a href="<?php echo trig_func_common::get_uri("product","add");?>">添加</a>
 </div>
 <div class="pageContent">
-  <form action="<?php echo get_uri();?>" method="get">
+  <form action="<?php echo trig_func_common::get_uri();?>" method="get">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -26,7 +26,7 @@ include admin_template("header");
 			 </select>
 		型号:<input name="model" type="text" size="20" value="<?php echo $model?>" />
 		条形码:<input name="barcode" type="text" size="20" value="<?php echo $barcode?>" />
-		<input type="submit" name="Submit" value="<?php echo lang("action","search")?>" /></td>
+		<input type="submit" name="Submit" value="<?php echo trig_func_common::lang("action","search")?>" /></td>
 	  </tr>
 	 </table>
   </form>
@@ -40,7 +40,7 @@ include admin_template("header");
 		  <th width="80">重量</th>
 		  <th width="100">条形码</th>
 		  <th>单价</th>
-		  <th width="100"><?php echo lang("action","operation")?> </th>
+		  <th width="100"><?php echo trig_func_common::lang("action","operation")?> </th>
 		</tr>
 		<?php if(is_array($list)) { 
 			foreach ($list as $value) {
@@ -61,20 +61,20 @@ include admin_template("header");
 		  <td align="center"><?php echo $value['barcode'];?></td>
 		  <td align="center"><?php echo $value['price'];?></td>
 		  <td align="center">
-				<a href="<?php echo get_uri("product","edit","admin");?>&productid=<?php echo $value['productid']; ?>" ><?php echo lang("action","edit")?></a>
-				<a href="<?php echo get_uri("product","delete","admin");?>&productid=<?php echo $value['productid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
+				<a href="<?php echo trig_func_common::get_uri("product","edit","admin");?>&productid=<?php echo $value['productid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_func_common::get_uri("product","delete","admin");?>&productid=<?php echo $value['productid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
 		<tr>
 			<td colspan=9 align="center">
 				<div class="page">
-					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo trig_func_common::lang("page","total")?><b><?php echo $count?></b><?php echo trig_func_common::lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo trig_func_common::lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
-				$endTime = mtime();
+				$endTime = trig_func_common::mtime();
 				$totaltime = sprintf("%.3f",($endTime - START_TIME));
-				echo lang("page","thispage").lang("common","excute").lang("common","time").($totaltime).lang("common","second");
+				echo trig_func_common::lang("page","thispage").trig_func_common::lang("common","excute").trig_func_common::lang("common","time").($totaltime).trig_func_common::lang("common","second");
 			?>
 			</td>
 		</tr>
@@ -83,5 +83,5 @@ include admin_template("header");
 </div>
 </div>
 <?php
-include admin_template("footer");
+include trig_func_common::admin_template("footer");
 ?>

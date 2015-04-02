@@ -1,6 +1,6 @@
 <?php
 $pagetitle="管理后台首页";
-include admin_template("header");
+include trig_func_common::admin_template("header");
 ?>
 <div class="pageMain">
 
@@ -48,5 +48,5 @@ include admin_template("header");
 </div>
 </div>
 <?php
-include admin_template("footer");
+include trig_func_common::admin_template("footer");
 ?>

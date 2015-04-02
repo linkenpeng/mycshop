@@ -3,5 +3,7 @@
  * index.php 系统 入口
  */
 define('ROOT_PATH',str_replace("\\","/",dirname(__FILE__)));
+$autoload_paths['app'] = ROOT_PATH.'/source';
+include ROOT_PATH.'/framework/index.php';
 include ROOT_PATH.'/source/base.php';
-Base::start_app();
+new trig_mvc_application();

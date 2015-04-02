@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "添加修改产品分类";
-include admin_template("header");
+include trig_func_common::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -18,7 +18,7 @@ include admin_template("header");
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
   <table width="100%">
-    <form action="<?php echo get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
+    <form action="<?php echo trig_func_common::get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
     <input type="hidden" name="typeid" value="<?php echo $value['typeid']; ?>" />
     <input type="hidden" name="action" value="1" />
 	<input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
@@ -48,5 +48,5 @@ include admin_template("header");
 </div>
 </div>
 <?php
-include admin_template("footer");
+include trig_func_common::admin_template("footer");
 ?>

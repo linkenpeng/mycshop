@@ -1,14 +1,14 @@
 <?php
 $pagetitle="公告管理";
-include admin_template("header");
+include trig_func_common::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo get_uri("note","add");?>">添加</a>
+<a href="<?php echo trig_func_common::get_uri("note","add");?>">添加</a>
 </div>
 <div class="pageContent">
-  <form action="<?php echo get_uri();?>" method="get">
+  <form action="<?php echo trig_func_common::get_uri();?>" method="get">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -27,7 +27,7 @@ include admin_template("header");
 				<option value="<?php echo $k;?>" <?php if($notetypeid==$k) { ?> selected="selected" <?php } ?>><?php echo $v;?></option>
 				<?php }} ?>
 			 </select>
-		<input type="submit" name="Submit" value="<?php echo lang("action","search")?>" /></td>
+		<input type="submit" name="Submit" value="<?php echo trig_func_common::lang("action","search")?>" /></td>
 	  </tr>
 	 </table>
   </form>
@@ -38,7 +38,7 @@ include admin_template("header");
 		  <th width="60">创建人</th>
 		  <th>添加时间</th>
 		  <th width="100">附件</th>
-		  <th width="100"><?php echo lang("action","operation")?> </th>
+		  <th width="100"><?php echo trig_func_common::lang("action","operation")?> </th>
 		</tr>
 		<?php if(is_array($list)) { 
 			foreach ($list as $value) {
@@ -54,20 +54,20 @@ include admin_template("header");
 		  </a>
 		</td>
 		  <td align="center">
-				<a href="<?php echo get_uri("note","edit","admin");?>&noteid=<?php echo $value['noteid']; ?>" ><?php echo lang("action","edit")?></a>
-				<a href="<?php echo get_uri("note","delete","admin");?>&noteid=<?php echo $value['noteid']; ?>" onclick="return confirm('<?php echo lang("action","isdelete")?>?');"><?php echo lang("action","delete")?></a>
+				<a href="<?php echo trig_func_common::get_uri("note","edit","admin");?>&noteid=<?php echo $value['noteid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_func_common::get_uri("note","delete","admin");?>&noteid=<?php echo $value['noteid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
 		<tr>
 			<td colspan=8 align="center">
 				<div class="page">
-					<?php echo lang("page","total")?><b><?php echo $count?></b><?php echo lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo lang("page","page")?> <?php echo $p->show(); ?>
+					<?php echo trig_func_common::lang("page","total")?><b><?php echo $count?></b><?php echo trig_func_common::lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo trig_func_common::lang("page","page")?> <?php echo $p->show(); ?>
 				</div>
 			<?php
-				$endTime = mtime();
+				$endTime = trig_func_common::mtime();
 				$totaltime = sprintf("%.3f",($endTime - START_TIME));
-				echo lang("page","thispage").lang("common","excute").lang("common","time").($totaltime).lang("common","second");
+				echo trig_func_common::lang("page","thispage").trig_func_common::lang("common","excute").trig_func_common::lang("common","time").($totaltime).trig_func_common::lang("common","second");
 			?>
 			</td>
 		</tr>
@@ -76,5 +76,5 @@ include admin_template("header");
 </div>
 </div>
 <?php
-include admin_template("footer");
+include trig_func_common::admin_template("footer");
 ?>
