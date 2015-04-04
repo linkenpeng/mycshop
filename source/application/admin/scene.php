@@ -78,7 +78,7 @@ class application_admin_scene extends application_base {
 			'2' => '3A以下' 
 		);
 		$show_zone = 1;
-		include trig_func_common::admin_template('scene');
+		include trig_mvc_template::admin_template('scene');
 	}
 
 	public function add() {
@@ -145,7 +145,7 @@ class application_admin_scene extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->scenedb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("scene", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("scene", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -165,7 +165,7 @@ class application_admin_scene extends application_base {
 		
 		$value['scenenum'] = $this->scenedb->get_auto_scenenum();
 		
-		include trig_func_common::admin_template('sceneform');
+		include trig_mvc_template::admin_template('sceneform');
 	}
 
 	public function edit() {
@@ -256,14 +256,14 @@ class application_admin_scene extends application_base {
 			}
 			
 			if ($this->scenedb->update($data, "sceneid=" . $_POST['sceneid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("scene", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("scene", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		// 景区分类
 		$scenetypedb = new model_scenetype();
-		$scenetype_list = $scenetypedb->get_list(100, 0, " typeid,name ", $where, "typeid ASC ");
+		$scenetype_list = $scenetypedb->get_list(100, 0, " typeid,name ", '', "typeid ASC ");
 		// 游玩主题
 		$traveltopicdb = new model_traveltopic();
 		$traveltopic_list = $traveltopicdb->get_list(100, 0, " typeid,name ", "", "typeid ASC ");
@@ -273,14 +273,14 @@ class application_admin_scene extends application_base {
 		$show_zone = 1;
 		// $show_map = 1;
 		
-		include trig_func_common::admin_template('sceneform');
+		include trig_mvc_template::admin_template('sceneform');
 	}
 
 	public function delete() {
 		$sceneid = $_GET['sceneid'];
 		if (!empty($sceneid)) {
 			if ($this->scenedb->delete($sceneid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("scene", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("scene", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

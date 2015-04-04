@@ -24,7 +24,7 @@ class application_admin_scenetype extends application_base {
 		$list = $this->scenetypedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_zone = 1;
 		
-		include trig_func_common::admin_template('scenetype');
+		include trig_mvc_template::admin_template('scenetype');
 	}
 	
 	public function add() {
@@ -50,13 +50,13 @@ class application_admin_scenetype extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->scenetypedb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("scenetype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("scenetype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('scenetypeform');
+		include trig_mvc_template::admin_template('scenetypeform');
 	}
 	
 	public function edit() {
@@ -85,20 +85,20 @@ class application_admin_scenetype extends application_base {
 				}
 			}
 			if ($this->scenetypedb->update($data, "typeid=" . $_POST['typeid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("scenetype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("scenetype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('scenetypeform');
+		include trig_mvc_template::admin_template('scenetypeform');
 	}
 	
 	public function delete() {
 		$typeid = $_GET['typeid'];
 		if (!empty($typeid)) {
 			if ($this->scenetypedb->delete($typeid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("scenetype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("scenetype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

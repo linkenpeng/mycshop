@@ -35,7 +35,7 @@ class application_admin_user extends application_base {
 		foreach ($usergroup_list as $k => $v) {
 			$ugroup_list[$v['ugid']] = $v['name'];
 		}
-		include trig_func_common::admin_template('user');
+		include trig_mvc_template::admin_template('user');
 	}
 
 	function ajax_userlist() {
@@ -65,7 +65,7 @@ class application_admin_user extends application_base {
 		foreach ($usergroup_list as $k => $v) {
 			$ugroup_list[$v['ugid']] = $v['name'];
 		}
-		include trig_func_common::admin_template('ajax_userlist');
+		include trig_mvc_template::admin_template('ajax_userlist');
 	}
 
 	public function add() {
@@ -88,7 +88,7 @@ class application_admin_user extends application_base {
 				'content' => $_POST['content'] 
 			);
 			if ($this->userdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("user", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("user", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -99,7 +99,7 @@ class application_admin_user extends application_base {
 		$where = '';
 		$usergroupdb = new model_usergroup();
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");
-		include trig_func_common::admin_template('userform');
+		include trig_mvc_template::admin_template('userform');
 	}
 
 	public function edit() {
@@ -124,7 +124,7 @@ class application_admin_user extends application_base {
 				$data['password'] = password($_POST['password']);
 			}
 			if ($this->userdb->update($data, "uid=" . $_POST['uid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("user", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("user", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -135,14 +135,14 @@ class application_admin_user extends application_base {
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");
 		$show_zone = 1;
 		$show_validator = 1;
-		include trig_func_common::admin_template('userform');
+		include trig_mvc_template::admin_template('userform');
 	}
 
 	public function delete() {
 		$uid = $_GET['uid'];
 		if (!empty($uid) && $uid != 1) {
 			if ($this->userdb->delete($uid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("user", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("user", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}
@@ -156,7 +156,7 @@ class application_admin_user extends application_base {
 	 */
 	function editpass() {
 		$user_info = $this->userdb->get_user_info($_SESSION['admin_uid']);
-		include trig_func_common::admin_template('changepass');
+		include trig_mvc_template::admin_template('changepass');
 	}
 	
 	/*

@@ -12,9 +12,9 @@ if(!defined('SYS_IN')) {
 		<div>
 			<ul>
     		<li><a href="javascript:void(0);" id="leftmunectrl" ctvalue="1">显示菜单</a></li>
-    		<li><a href="<?php echo trig_func_common::get_uri('index','init');?>">后台首页</a></li>
-    		<li><a href="<?php echo trig_func_common::get_uri('user','editpass');?>">修改密码</a></li>
-    		<li><a href="<?php echo trig_func_common::get_uri('login','admin_logout');?>">退出</a></li>
+    		<li><a href="<?php echo trig_mvc_route::get_uri('index','init');?>">后台首页</a></li>
+    		<li><a href="<?php echo trig_mvc_route::get_uri('user','editpass');?>">修改密码</a></li>
+    		<li><a href="<?php echo trig_mvc_route::get_uri('login','admin_logout');?>">退出</a></li>
     		</ul>
 		</div>
 	</div>

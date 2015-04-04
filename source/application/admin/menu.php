@@ -23,7 +23,7 @@ class application_admin_menu extends application_base {
 		$list = $this->menudb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 		$list = $this->menudb->make_tree_list($list);
 		
-		include trig_func_common::admin_template('menu');
+		include trig_mvc_template::admin_template('menu');
 	}
 
 	public function add() {
@@ -42,7 +42,7 @@ class application_admin_menu extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->menudb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("menu", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("menu", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -52,7 +52,7 @@ class application_admin_menu extends application_base {
 		$value['ctrl'] = $value_parent['ctrl'];
 		$value['parent_name'] = $value_parent['name'];
 		$show_validator = 1;
-		include trig_func_common::admin_template('menuform');
+		include trig_mvc_template::admin_template('menuform');
 	}
 
 	public function edit() {
@@ -69,20 +69,20 @@ class application_admin_menu extends application_base {
 				'name' => $_POST['name'] 
 			);
 			if ($this->menudb->update($data, "menuid=" . $_POST['menuid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("menu", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("menu", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('menuform');
+		include trig_mvc_template::admin_template('menuform');
 	}
 
 	public function delete() {
 		$menuid = $_GET['menuid'];
 		if (!empty($menuid)) {
 			if ($this->menudb->delete($menuid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("menu", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("menu", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}
@@ -101,7 +101,7 @@ class application_admin_menu extends application_base {
 				}
 			}
 		}
-		trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_status_success'), trig_func_common::get_uri("menu", "init"));
+		trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_status_success'), trig_mvc_route::get_uri("menu", "init"));
 	}
 }
 ?>

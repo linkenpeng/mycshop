@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "添加修改洽谈记录";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -115,7 +115,7 @@ include trig_func_common::admin_template("header");
 <div class="pageTitle">当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
   <table width="100%">
-    <form action="<?php echo trig_func_common::get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
+    <form action="<?php echo trig_mvc_route::get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
     <input type="hidden" name="talkid" value="<?php echo $value['talkid']; ?>" />
     <input type="hidden" name="action" value="1" />
     <input type="hidden" name="oldattachment" value="<?php echo $value['attachment']; ?>" />
@@ -143,5 +143,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

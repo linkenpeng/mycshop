@@ -1,15 +1,15 @@
 <?php
 $pagetitle="系统配置管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-【<a href="<?php echo trig_func_common::get_uri("system","add");?>">添加</a>】
-【<a href="<?php echo trig_func_common::get_uri("system","cache");?>">生成缓存</a>】
+【<a href="<?php echo trig_mvc_route::get_uri("system","add");?>">添加</a>】
+【<a href="<?php echo trig_mvc_route::get_uri("system","cache");?>">生成缓存</a>】
 </div>
 <div class="pageContent">
-  <form action="<?php echo trig_func_common::get_uri("","sortorder");?>" method="post">
+  <form action="<?php echo trig_mvc_route::get_uri("","sortorder");?>" method="post">
 	  <table width="100%">
 		<tr>		  
 		  <th>配置键</th>
@@ -25,7 +25,7 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo $value['config_value']; ?></td>
 		  <td align="center"><?php echo $value['name']; ?></td>	  
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("system","edit","admin");?>&sid=<?php echo $value['sid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("system","edit","admin");?>&sid=<?php echo $value['sid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
@@ -46,5 +46,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

@@ -28,6 +28,6 @@ class application_admin_device extends application_base {
 		// 获取分页后的数据
 		$list = $this->devicedb->get_list($pagesize, $pagesize * ($nowpage - 1), $field, $where, " loginnum DESC");
 		
-		include trig_func_common::admin_template('device');
+		include trig_mvc_template::admin_template('device');
 	}
 }

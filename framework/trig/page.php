@@ -300,6 +300,46 @@ class trig_page {
 			return '<a ' . $style . ' href="' . $url . '">' . $text . '</a>';
 		}
 	}
+	
+	// ajax 分页函数
+	public static function ajax_page($num, $perpage, $curpage, $mpurl, $ajaxdiv, $waitmsg) {
+		$maxpage = 10;
+		$page = 5;
+		$multipage = '';
+		$mpurl .= strpos($mpurl, '?') ? '&' : '?';
+		$realpages = 1;
+		if ($num > $perpage) {
+			$offset = 2;
+			$realpages = @ceil($num / $perpage);
+			$pages = $maxpage && $maxpage < $realpages ? $maxpage : $realpages;
+			if ($page > $pages) {
+				$from = 1;
+				$to = $pages;
+			} else {
+				$from = $curpage - $offset;
+				$to = $from + $page - 1;
+				if ($from < 1) {
+					$to = $curpage + 1 - $from;
+					$from = 1;
+					if ($to - $from < $page) {
+						$to = $page;
+					}
+				} elseif ($to > $pages) {
+					$from = $pages - $page + 1;
+					$to = $pages;
+				}
+			}
+				
+			$multipage = ($curpage - $offset > 1 && $pages > $page ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=1\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');" >1 ...</a>' : '') . ($curpage > 1 ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . ($curpage - 1) . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');" >&lt;&lt;</a>' : '');
+			for($i = $from; $i <= $to; $i ++) {
+				$multipage .= $i == $curpage ? '<strong class="pagercurrent">' . $i . '</strong>' : '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . $i . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');">' . $i . '</a>';
+			}
+			$multipage .= ($curpage < $pages ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . ($curpage + 1) . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');" >&gt;&gt;</a>' : '') . ($to < $pages ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . $pages . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');">... ' . $realpages . '</a>' : '');
+			$multipage = $multipage ? ('<a href="javascript:;">&nbsp;' . $num . '&nbsp;</a>' . $multipage) : '';
+		}
+		$maxpage = $realpages;
+		return $multipage;
+	}
 
 	/**
 	 * 出错处理方式

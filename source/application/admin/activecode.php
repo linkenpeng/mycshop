@@ -54,7 +54,7 @@ class application_admin_activecode extends application_base {
 		
 		$show_date_js = 1;
 		
-		include trig_func_common::admin_template('activecode');
+		include trig_mvc_template::admin_template('activecode');
 	}
 
 	public function add() {
@@ -107,7 +107,7 @@ class application_admin_activecode extends application_base {
 				$this->activecodedb->insert($data);
 			}
 			
-			trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("activecode", "init"));
+			trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("activecode", "init"));
 		}
 		
 		// 景区列表
@@ -116,7 +116,7 @@ class application_admin_activecode extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_func_common::admin_template('activecodeform');
+		include trig_mvc_template::admin_template('activecodeform');
 	}
 
 	public function batch() {
@@ -124,7 +124,7 @@ class application_admin_activecode extends application_base {
 			$ids = $_POST['ids'];
 			if (!empty($ids)) {
 				$this->activecodedb->delete($ids);
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("activecode", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("activecode", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'no_choose'), -1);
 			}
@@ -137,7 +137,7 @@ class application_admin_activecode extends application_base {
 			$batchdb = new model_batchcode();
 			$batchdb->delete($batchid);
 			if ($this->activecodedb->delete_batch($batchid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("activecode", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("activecode", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

@@ -46,7 +46,7 @@ class application_admin_note extends application_base {
 			$notetypes[$v['notetypeid']] = $v['name'];
 		}
 		$show_date_js = 1;
-		include trig_func_common::admin_template('note');
+		include trig_mvc_template::admin_template('note');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class application_admin_note extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->notedb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("note", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("note", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -96,7 +96,7 @@ class application_admin_note extends application_base {
 		$show_editor = 1;
 		$notetypedb = new model_notetype();
 		$notetype_list = $notetypedb->get_list(100, 0, " notetypeid,name ", $where, "dateline DESC ");
-		include trig_func_common::admin_template('noteform');
+		include trig_mvc_template::admin_template('noteform');
 	}
 	
 	public function edit() {
@@ -128,7 +128,7 @@ class application_admin_note extends application_base {
 				}
 			}
 			if ($this->notedb->update($data, "noteid=" . $_POST['noteid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("note", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("note", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -143,14 +143,14 @@ class application_admin_note extends application_base {
 		
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_func_common::admin_template('noteform');
+		include trig_mvc_template::admin_template('noteform');
 	}
 	
 	public function delete() {
 		$noteid = $_GET['noteid'];
 		if (!empty($noteid)) {
 			if ($this->notedb->delete($noteid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("note", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("note", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

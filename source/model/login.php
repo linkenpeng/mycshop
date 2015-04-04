@@ -54,11 +54,11 @@ class model_login extends model_base {
                         $_SESSION['usertype'] = $user_info['usertype'];
                         $_SESSION['password'] = $user_info['password'];
                     } else {
-                        trig_func_common::ShowMsg(trig_func_common::lang('common','unlogin'),trig_func_common::get_uri("login"));
+                        trig_func_common::ShowMsg(trig_func_common::lang('common','unlogin'),trig_mvc_route::get_uri("login"));
                     }
                 }
             } else {
-                trig_func_common::ShowMsg(trig_func_common::lang('message','cookie_error'),trig_func_common::get_uri("login"));
+                trig_func_common::ShowMsg(trig_func_common::lang('message','cookie_error'),trig_mvc_route::get_uri("login"));
             }
         } else { //没有cookie的时候，还是要用到session变量            
             $uid = trig_uri::getSession('admin_uid');
@@ -68,10 +68,10 @@ class model_login extends model_base {
             if (!empty($uid)&&!empty($password)) {
                 $user_info = $this->db->get_one("select uid,username,password,usertype from ".$this->tname("user")." where uid='$uid' and password='$password' ");
                 if (empty($user_info)) {
-                    trig_func_common::ShowMsg(trig_func_common::lang('common','unlogin'),trig_func_common::get_uri("login"));
+                    trig_func_common::ShowMsg(trig_func_common::lang('common','unlogin'),trig_mvc_route::get_uri("login"));
                 }
             } else {
-                trig_func_common::ShowMsg(trig_func_common::lang('common','unlogin'),trig_func_common::get_uri("login"));
+                trig_func_common::ShowMsg(trig_func_common::lang('common','unlogin'),trig_mvc_route::get_uri("login"));
             }
         }
     }

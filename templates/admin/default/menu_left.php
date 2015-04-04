@@ -15,7 +15,7 @@ if(!defined('SYS_IN')) {
 			foreach ($topmenus as $k=>$v) { ?>
 				<li>
 				<img src="<?php echo ADMIN_TEMPLATE_URL?>/images/icon-<?php echo $v['ctrl']; ?>.gif" />
-				<a href="<?php echo trig_func_common::get_uri($v['ctrl'],$v['act']);?>" <?php if($_GET[C]==$v['ctrl']) {?> class="active"<?php }?>><?php echo $v['name']; ?>
+				<a href="<?php echo trig_mvc_route::get_uri($v['ctrl'],$v['act']);?>" <?php if($_GET[C]==$v['ctrl']) {?> class="active"<?php }?>><?php echo $v['name']; ?>
 				</a>
 				</li>
 			<?php } ?>			

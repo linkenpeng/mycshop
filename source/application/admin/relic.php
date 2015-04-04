@@ -25,8 +25,7 @@ class application_admin_relic extends application_base {
 		if (!empty($relicnum)) {
 			$where .= " and rel.`relicnum`='" . $relicnum . "' ";
 		}
-		// 分页
-		
+		// 分页		
 		$count = $this->relicdb->get_count($where);
 		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
 		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -44,7 +43,7 @@ class application_admin_relic extends application_base {
 			2 => '二级',
 			3 => '三级' 
 		);
-		include trig_func_common::admin_template('relic');
+		include trig_mvc_template::admin_template('relic');
 	}
 	
 	public function add() {
@@ -90,7 +89,7 @@ class application_admin_relic extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->relicdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("relic", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("relic", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -105,7 +104,7 @@ class application_admin_relic extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_func_common::admin_template('relicform');
+		include trig_mvc_template::admin_template('relicform');
 	}
 	
 	public function edit() {
@@ -161,7 +160,7 @@ class application_admin_relic extends application_base {
 				}
 			}
 			if ($this->relicdb->update($data, "relicid=" . $_POST['relicid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("relic", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("relic", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -169,17 +168,17 @@ class application_admin_relic extends application_base {
 		
 		$scenespotdb = new model_scenespot();
 		$field = "sp.scenespotid,sp.scenespotname";
-		$scenespot_list = $scenespotdb->get_list(10000, 0, $field, $where, " sp.dateline DESC ");
+		$scenespot_list = $scenespotdb->get_list(10000, 0, $field, '', " sp.dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_func_common::admin_template('relicform');
+		include trig_mvc_template::admin_template('relicform');
 	}
 	
 	public function delete() {
 		$relicid = $_GET['relicid'];
 		if (!empty($relicid)) {
 			if ($this->relicdb->delete($relicid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("relic", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("relic", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

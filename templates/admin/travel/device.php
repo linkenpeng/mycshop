@@ -1,15 +1,15 @@
 <?php
 $pagetitle="设备管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("device","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("device","add");?>">添加</a>
 </div>
 <div class="pageContent">
-  <form action="<?php echo trig_func_common::get_uri();?>" method="get">
+  <form action="<?php echo trig_mvc_route::get_uri();?>" method="get">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -66,5 +66,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

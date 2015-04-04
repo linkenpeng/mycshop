@@ -23,7 +23,7 @@ class application_admin_accounttype extends application_base {
 		// 获取分页后的数据
 		$list = $this->accounttypedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_func_common::admin_template('accounttype');
+		include trig_mvc_template::admin_template('accounttype');
 	}
 	
 	public function add() {
@@ -41,13 +41,13 @@ class application_admin_accounttype extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->accounttypedb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("accounttype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("accounttype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('accounttypeform');
+		include trig_mvc_template::admin_template('accounttypeform');
 	}
 	
 	public function edit() {
@@ -62,20 +62,20 @@ class application_admin_accounttype extends application_base {
 				'description' => $_POST['description'] 
 			);
 			if ($this->accounttypedb->update($data, "actypeid=" . $_POST['actypeid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("accounttype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("accounttype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('accounttypeform');
+		include trig_mvc_template::admin_template('accounttypeform');
 	}
 	
 	public function delete() {
 		$actypeid = $_GET['actypeid'];
 		if (!empty($actypeid)) {
 			if ($this->accounttypedb->delete($actypeid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("accounttype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("accounttype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

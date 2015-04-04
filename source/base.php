@@ -24,7 +24,7 @@ define('START_TIME', trig_func_common::mtime()); // 记录程序启动时间
 // 定义站点名称
 define('SITE_NAME', $_CTCONFIG['site_name']);
 // 定义站点url
-define('SITE_URL', trig_func_common::getsiteurl());
+define('SITE_URL', trig_uri::getsiteurl());
 
 // 定义默认省份
 define('DEFAULT_PROVINCE', $_CTCONFIG['province']);

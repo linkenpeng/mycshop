@@ -23,7 +23,7 @@ class application_admin_producttype extends application_base {
 		// 获取分页后的数据
 		$list = $this->producttypedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_func_common::admin_template('producttype');
+		include trig_mvc_template::admin_template('producttype');
 	}
 	
 	public function add() {
@@ -48,13 +48,13 @@ class application_admin_producttype extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->producttypedb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("producttype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("producttype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('producttypeform');
+		include trig_mvc_template::admin_template('producttypeform');
 	}
 	
 	public function edit() {
@@ -82,20 +82,20 @@ class application_admin_producttype extends application_base {
 				}
 			}
 			if ($this->producttypedb->update($data, "typeid=" . $_POST['typeid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("producttype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("producttype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('producttypeform');
+		include trig_mvc_template::admin_template('producttypeform');
 	}
 	
 	public function delete() {
 		$typeid = $_GET['typeid'];
 		if (!empty($typeid)) {
 			if ($this->producttypedb->delete($typeid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("producttype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("producttype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

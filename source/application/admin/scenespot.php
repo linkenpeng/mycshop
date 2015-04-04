@@ -69,7 +69,7 @@ class application_admin_scenespot extends application_base {
 			'2' => '3A以下' 
 		);
 		
-		include trig_func_common::admin_template('scenespot');
+		include trig_mvc_template::admin_template('scenespot');
 	}
 
 	public function add() {
@@ -115,7 +115,7 @@ class application_admin_scenespot extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->scenespotdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("scenespot", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("scenespot", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -131,7 +131,7 @@ class application_admin_scenespot extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_func_common::admin_template('scenespotform');
+		include trig_mvc_template::admin_template('scenespotform');
 	}
 
 	public function edit() {
@@ -186,7 +186,7 @@ class application_admin_scenespot extends application_base {
 				}
 			}
 			if ($this->scenespotdb->update($data, "scenespotid=" . $_POST['scenespotid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("scenespot", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("scenespot", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -195,14 +195,14 @@ class application_admin_scenespot extends application_base {
 		$parent_scenespot_list = $this->scenespotdb->get_parent_list(10000, 0, "scenespotid,parent_scenespotid,scenespotname", " WHERE parent_scenespotid=0 ", " dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_func_common::admin_template('scenespotform');
+		include trig_mvc_template::admin_template('scenespotform');
 	}
 
 	public function delete() {
 		$scenespotid = $_GET['scenespotid'];
 		if (!empty($scenespotid)) {
 			if ($this->scenespotdb->delete($scenespotid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("scenespot", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("scenespot", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

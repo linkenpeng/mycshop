@@ -57,7 +57,7 @@ class application_admin_article extends application_base {
 			$sc_list[$v['sceneid']] = $v['scenename'];
 		}
 		
-		include trig_func_common::admin_template('article');
+		include trig_mvc_template::admin_template('article');
 	}
 	
 	public function add() {
@@ -89,7 +89,7 @@ class application_admin_article extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->articledb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("article", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("article", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -104,7 +104,7 @@ class application_admin_article extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_func_common::admin_template('articleform');
+		include trig_mvc_template::admin_template('articleform');
 	}
 	
 	public function edit() {
@@ -139,7 +139,7 @@ class application_admin_article extends application_base {
 				}
 			}
 			if ($this->articledb->update($data, "aid=" . $_POST['aid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("article", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("article", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -155,7 +155,7 @@ class application_admin_article extends application_base {
 		$sceneids = explode(',', $value['sceneid']);
 		
 		$show_validator = 1;
-		include trig_func_common::admin_template('articleform');
+		include trig_mvc_template::admin_template('articleform');
 	}
 	
 	private function get_category_options($selectedid = 0) {
@@ -167,7 +167,7 @@ class application_admin_article extends application_base {
 		$aid = $_GET['aid'];
 		if (!empty($aid)) {
 			if ($this->articledb->delete($aid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("article", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("article", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

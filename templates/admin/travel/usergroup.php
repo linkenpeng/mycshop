@@ -1,11 +1,11 @@
 <?php
 $pagetitle="用户组管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("usergroup","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("usergroup","add");?>">添加</a>
 </div>
 <div class="pageContent">
   
@@ -24,9 +24,9 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo $value['description']; ?></td>
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("usergroup","edit","admin");?>&ugid=<?php echo $value['ugid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_func_common::get_uri("usergroup","delete","admin");?>&ugid=<?php echo $value['ugid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
-				<a href="<?php echo trig_func_common::get_uri("usergroup","permission","admin");?>&ugid=<?php echo $value['ugid']; ?>" >权限管理</a>
+				<a href="<?php echo trig_mvc_route::get_uri("usergroup","edit","admin");?>&ugid=<?php echo $value['ugid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("usergroup","delete","admin");?>&ugid=<?php echo $value['ugid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("usergroup","permission","admin");?>&ugid=<?php echo $value['ugid']; ?>" >权限管理</a>
 		  </td>
 		</tr>
 		<?php }} ?>
@@ -47,5 +47,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

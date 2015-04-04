@@ -28,7 +28,7 @@ class application_admin_account extends application_base {
 		foreach ($actype_list as $k => $v) {
 			$accounttype_list[$v['actypeid']] = $v['name'];
 		}
-		include trig_func_common::admin_template('account');
+		include trig_mvc_template::admin_template('account');
 	}
 
 	public function add() {
@@ -46,7 +46,7 @@ class application_admin_account extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->accountdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("account", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("account", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -55,7 +55,7 @@ class application_admin_account extends application_base {
 		$accounttypedb = new model_accounttype();
 		$actype_list = $accounttypedb->get_list(100, 0, " actypeid,name ", "", "actypeid ASC ");
 		$show_validator = 1;
-		include trig_func_common::admin_template('accountform');
+		include trig_mvc_template::admin_template('accountform');
 	}
 
 	public function edit() {
@@ -70,7 +70,7 @@ class application_admin_account extends application_base {
 				'description' => $_POST['description'] 
 			);
 			if ($this->accountdb->update($data, "accountid=" . $_POST['accountid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("account", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("account", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -79,14 +79,14 @@ class application_admin_account extends application_base {
 		$accounttypedb = new model_accounttype();
 		$actype_list = $accounttypedb->get_list(100, 0, " actypeid,name ", "", "actypeid ASC ");
 		$show_validator = 1;
-		include trig_func_common::admin_template('accountform');
+		include trig_mvc_template::admin_template('accountform');
 	}
 
 	public function delete() {
 		$accountid = $_GET['accountid'];
 		if (!empty($accountid)) {
 			if ($this->accountdb->delete($accountid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("account", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("account", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "添加修改文物信息";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -19,7 +19,7 @@ include trig_func_common::admin_template("header");
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
-<form action="<?php echo trig_func_common::get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
+<form action="<?php echo trig_mvc_route::get_uri();?>" method="post" id="dataForm" enctype="multipart/form-data">
     <input type="hidden" name="relicid" value="<?php echo $value['relicid']; ?>" />
     <input type="hidden" name="action" value="1" />
     <input type="hidden" name="oldimage" value="<?php echo $value['image']; ?>" />
@@ -58,9 +58,9 @@ include trig_func_common::admin_template("header");
       <td width="20%">文物级别</td>
       <td width="80%">
 			<select name="level" id="level">
-				<option value="1" <?php if($value['level']==1){ ?>selected="selected"<?php } ?>>一级</option>
-				<option value="2" <?php if($value['level']==2){ ?>selected="selected"<?php } ?>>二级</option>
-				<option value="3" <?php if($value['level']==3){ ?>selected="selected"<?php } ?>>三级</option>
+				<option value="1" <?php if(isset($value['level']) && $value['level']==1){ ?>selected="selected"<?php } ?>>一级</option>
+				<option value="2" <?php if(isset($value['level']) && $value['level']==2){ ?>selected="selected"<?php } ?>>二级</option>
+				<option value="3" <?php if(isset($value['level']) && $value['level']==3){ ?>selected="selected"<?php } ?>>三级</option>
 			</select>
 	  </td>
     </tr>
@@ -68,7 +68,7 @@ include trig_func_common::admin_template("header");
 	<tr>
       <td width="20%">文物缩略图</td>
       <td width="80%">
-              <?php if ($value['image']) {?>
+              <?php if (!empty($value['image'])) {?>
     		  <a href="<?php echo UPLOAD_URI.'/'.$value['image']; ?>" target="_blank">
     		  		<img src="<?php echo UPLOAD_URI.'/thumb/'.$value['image']; ?>" width="100" height="100"  /> 
     		  </a>
@@ -84,7 +84,7 @@ include trig_func_common::admin_template("header");
 	<tr>
       <td width="20%">中文播报mp3</td>
       <td width="80%">
-              <?php if ($value['cn_audio']) {?>
+              <?php if (!empty($value['cn_audio'])) {?>
     		  <a href="<?php echo UPLOAD_URI.'/'.$value['cn_audio']; ?>" target="_blank">
     		  		<?php echo $value['cn_audio']; ?>
     		  </a>
@@ -95,7 +95,7 @@ include trig_func_common::admin_template("header");
 	<tr>
       <td width="20%">English Play mp3</td>
       <td width="80%">
-              <?php if ($value['en_audio']) {?>
+              <?php if (!empty($value['en_audio'])) {?>
     		  <a href="<?php echo UPLOAD_URI.'/'.$value['en_audio']; ?>" target="_blank">
     		  		<?php echo $value['en_audio']; ?>
     		  </a>
@@ -112,5 +112,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

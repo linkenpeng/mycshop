@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "用户组权限管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -28,7 +28,7 @@ include trig_func_common::admin_template("header");
 <div class="pageMain">
 <div class="pageTitle">当前位置：<?php echo $pagetitle;?> </div>
 <div class="pageContent">
-<form action="<?php echo trig_func_common::get_uri();?>" method="post" id="dataForm">
+<form action="<?php echo trig_mvc_route::get_uri();?>" method="post" id="dataForm">
     <input type="hidden" name="ugid" value="<?php echo $value['ugid']; ?>" />
     <input type="hidden" name="action" value="1" />
   <table width="100%">
@@ -61,5 +61,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

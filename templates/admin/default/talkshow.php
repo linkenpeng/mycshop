@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "谈记录";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -52,14 +52,14 @@ include trig_func_common::admin_template("header");
 	  <div><?php echo $replyvalue['content']; ?></div>
 	  <?php echo $replyvalue['username']; ?> <?php echo date("Y-m-d H:i:s",$replyvalue['dateline']);?>
 	  <?php if(($replyvalue['uid']==$_SESSION['admin_uid'])||($_SESSION['admin_uid']==1)) { ?>
-	  <a href="<?php echo trig_func_common::get_uri("talkreply","delete","admin");?>&talkreplyid=<?php echo $replyvalue['talkreplyid']; ?>&talkid=<?php echo $replyvalue['talkid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+	  <a href="<?php echo trig_mvc_route::get_uri("talkreply","delete","admin");?>&talkreplyid=<?php echo $replyvalue['talkreplyid']; ?>&talkid=<?php echo $replyvalue['talkid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 	  <?php } ?>
 	  </td>
     </tr>
 	<?php }} ?>
     <tr>
       <td>
-			<form action="<?php echo trig_func_common::get_uri("talkreply","add");?>" method="post" id="dataForm">
+			<form action="<?php echo trig_mvc_route::get_uri("talkreply","add");?>" method="post" id="dataForm">
 			<input type="hidden" name="talkid" value="<?php echo $value['talkid']; ?>" />
 			<input type="hidden" name="action" value="1" />
 			<table border="0" width="100%">
@@ -81,5 +81,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

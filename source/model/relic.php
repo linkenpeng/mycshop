@@ -131,6 +131,7 @@ class model_relic extends model_base {
      * return @param string $relicnum
      */
 	private function fillZeros($num) {
+		$zero = '';
 		if(strlen($num) < self::numlength) {
 			$zeros = self::numlength - strlen($num);
 			for($i = 0; $i < $zeros; $i++) {

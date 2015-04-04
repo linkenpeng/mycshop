@@ -1,11 +1,11 @@
 <?php
 $pagetitle="文章分类";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("articlecat","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("articlecat","add");?>">添加</a>
 </div>
 <div class="pageContent">
   
@@ -33,7 +33,7 @@ include trig_func_common::admin_template("header");
 				<img src="<?php echo SITE_URL.'/statics/images/tree/t2.gif'?>" /> 
 		  <?php }?>
 		  
-		  <a href="<?php echo trig_func_common::get_uri("article","init","admin");?>&catid=<?php echo $value['catid']; ?>" >
+		  <a href="<?php echo trig_mvc_route::get_uri("article","init","admin");?>&catid=<?php echo $value['catid']; ?>" >
 		  <?php echo $value['name']; ?>
 		  </a>
 		  </td>
@@ -54,11 +54,11 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center"><?php echo $value['ordernum'];?></td>
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("articlecat","add","admin");?>&upid=<?php echo $value['catid']; ?>" >添加子类</a>
+				<a href="<?php echo trig_mvc_route::get_uri("articlecat","add","admin");?>&upid=<?php echo $value['catid']; ?>" >添加子类</a>
 				
-				<a href="<?php echo trig_func_common::get_uri("articlecat","edit","admin");?>&catid=<?php echo $value['catid']; ?>&upid=<?php echo $value['upid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("articlecat","edit","admin");?>&catid=<?php echo $value['catid']; ?>&upid=<?php echo $value['upid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
 				
-				<a href="<?php echo trig_func_common::get_uri("articlecat","delete","admin");?>&catid=<?php echo $value['catid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("articlecat","delete","admin");?>&catid=<?php echo $value['catid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
@@ -79,5 +79,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

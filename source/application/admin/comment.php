@@ -45,7 +45,7 @@ class application_admin_comment extends application_base {
 		// 获取分页后的数据
 		$list = $this->commentdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_func_common::admin_template('comment');
+		include trig_mvc_template::admin_template('comment');
 	}
 
 	public function add() {
@@ -75,7 +75,7 @@ class application_admin_comment extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->commentdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("comment", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("comment", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -89,7 +89,7 @@ class application_admin_comment extends application_base {
 		$show_editor = 1;
 		$commenttypedb = new model_commenttype();
 		$commenttype_list = $commenttypedb->get_list(100, 0, " comment_type,name ", $where, "dateline DESC ");
-		include trig_func_common::admin_template('commentform');
+		include trig_mvc_template::admin_template('commentform');
 	}
 	
 	public function edit() {
@@ -121,7 +121,7 @@ class application_admin_comment extends application_base {
 				}
 			}
 			if ($this->commentdb->update($data, "commentid=" . $_POST['commentid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("comment", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("comment", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -135,14 +135,14 @@ class application_admin_comment extends application_base {
 		$commenttype_list = $commenttypedb->get_list(100, 0, " comment_type,name ", $where, "dateline DESC ");
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_func_common::admin_template('commentform');
+		include trig_mvc_template::admin_template('commentform');
 	}
 	
 	public function delete() {
 		$commentid = $_GET['commentid'];
 		if (!empty($commentid)) {
 			if ($this->commentdb->delete($commentid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("comment", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("comment", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

@@ -23,7 +23,7 @@ class application_admin_usergroup extends application_base {
 		// 获取分页后的数据
 		$list = $this->usergroupdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "uid ASC ");
 		$show_zone = 1;
-		include trig_func_common::admin_template('usergroup');
+		include trig_mvc_template::admin_template('usergroup');
 	}
 
 	public function add() {
@@ -40,13 +40,13 @@ class application_admin_usergroup extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->usergroupdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("usergroup", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("usergroup", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('usergroupform');
+		include trig_mvc_template::admin_template('usergroupform');
 	}
 
 	public function edit() {
@@ -60,20 +60,20 @@ class application_admin_usergroup extends application_base {
 				'description' => $_POST['description'] 
 			);
 			if ($this->usergroupdb->update($data, "ugid=" . $_POST['ugid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("usergroup", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("usergroup", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('usergroupform');
+		include trig_mvc_template::admin_template('usergroupform');
 	}
 
 	public function delete() {
 		$ugid = $_GET['ugid'];
 		if (!empty($ugid)) {
 			if ($this->usergroupdb->delete($ugid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("usergroup", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("usergroup", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}
@@ -91,7 +91,7 @@ class application_admin_usergroup extends application_base {
 				'permission' => $permission 
 			);
 			if ($this->usergroupdb->update($data, "ugid=" . $_POST['ugid'])) {
-				trig_func_common::ShowMsg("权限设置成功!", trig_func_common::get_uri("usergroup", "init"));
+				trig_func_common::ShowMsg("权限设置成功!", trig_mvc_route::get_uri("usergroup", "init"));
 			} else {
 				trig_func_common::ShowMsg("权限设置失败!", -1);
 			}
@@ -109,7 +109,7 @@ class application_admin_usergroup extends application_base {
 			$menudb = new model_menu();
 			$list = $menudb->get_list(1000, 0, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 			$list = $menudb->make_tree_list($list);
-			include trig_func_common::admin_template('usergroup_permission');
+			include trig_mvc_template::admin_template('usergroup_permission');
 		} else {
 			trig_func_common::ShowMsg(trig_func_common::lang('message', 'param_error'), -1);
 		}

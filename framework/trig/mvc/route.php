@@ -52,4 +52,24 @@ class trig_mvc_route {
 			return $a;
 		}
 	}
+	
+	// 获取路由
+	public static function get_uri($c = '', $a = '', $m = '', $extra = '') {
+		global $_G;
+		$route_config = $_G['route'];
+		$c = !empty($c) ? $c : (!empty($_GET[C]) ? $_GET[C] : $route_config[C]);
+		$a = !empty($a) ? $a : (!empty($_GET[A]) ? $_GET[A] : '');
+		$m = !empty($m) ? $m : (!empty($_GET[M]) ? $_GET[M] : $route_config[M]);
+		$route = ROUTE . '?' . M . '=' . $m;
+		if (!empty($c)) {
+			$route .= '&' . C . '=' . $c;
+		}
+		if (!empty($a)) {
+			$route .= '&' . A . '=' . $a;
+		}
+		if (!empty($extra)) {
+			$route .= '&' . $extra;
+		}
+		return $route;
+	}
 }

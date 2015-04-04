@@ -9,7 +9,49 @@ class trig_mvc_template {
 
 	public function __construct() {
 	}
-
+	
+	public static function admin_template($name) {
+		$objfile = ADMIN_TEMPLATE_PATH . DS . $name . '.php';
+		return $objfile;
+	}
+	
+	/*
+	 * 模板调用 $name 模板名称 $template 模板目录
+	*/
+	public static function template($name, $templatedir = '') {
+		global $_CTCONFIG;
+		if (empty($templatedir)) {
+			$templatedir = $_CTCONFIG['template'];
+		}
+		$tpl = "templates/$templatedir/$name";
+		$objdir = ROOT_PATH . DS . 'caches/tpl_cache/' . $templatedir;
+		if (!is_dir($objdir)) {
+			mkdir($objdir);
+			chmod($objdir, 777);
+		}
+		$objfile = $objdir . DS . str_replace('/', '_', $tpl) . '.php';
+		if (!file_exists($objfile) || filemtime($objfile) < filemtime(ROOT_PATH . DS . './' . $tpl . '.htm')) {
+			self::parse_template($tpl, $templatedir);
+		}
+		return $objfile;
+	}
+	
+	// 子模板更新检查
+	public static function subtplcheck($subfiles, $mktime, $tpl, $templatedir) {
+		$subfiles = explode('|', $subfiles);
+		foreach ($subfiles as $subfile) {
+			$tplfile = ROOT_PATH . DS . $subfile . '.htm';
+			if (!file_exists($tplfile)) {
+				$tplfile = str_replace('/' . $this->tpls['template'] . '/', '/default/', $tplfile);
+			}
+			$submktime = filemtime($tplfile);
+			if ($submktime > $mktime) {
+				self::parse_template($tpl, $templatedir);
+				break;
+			}
+		}
+	}
+	
 	function parse_template($tpl, $templatedir = "") {
 		global $_G;
 		// 包含模板
@@ -27,7 +69,7 @@ class trig_mvc_template {
 		if (!file_exists($tplfile)) {
 			$tplfile = str_replace('/' . $this->tpls['template'] . '/', '/default/', $tplfile);
 		}
-		$template = sreadfile($tplfile);
+		$template = trig_func_common::sreadfile($tplfile);
 		if (empty($template)) {
 			exit("Template file : $tplfile Not found or have no access!");
 		}
@@ -79,7 +121,7 @@ class trig_mvc_template {
 		// 附加处理
 		$template = "<?php if(!defined('SYS_IN')) exit('Access Denied');?><?php subtplcheck('" . implode('|', $this->tpls['sub_tpls']) . "', '$_G[system][timestamp]', '$tpl','$templatedir');?>$template";
 		// write
-		if (!swritefile($objfile, $template)) {
+		if (!trig_func_common::swritefile($objfile, $template)) {
 			exit("File: $objfile can not be write!");
 		}
 	}
@@ -130,7 +172,7 @@ class trig_mvc_template {
 		$this->tpls['i']++;
 		$search = "<!--GETURI_TAG_{$this->tpls['i']}-->";
 		$this->tpls['block_search'][$this->tpls['i']] = $search;
-		$this->tpls['block_replace'][$this->tpls['i']] = "<?php echo trig_func_common::get_uri($parameter); ?>";
+		$this->tpls['block_replace'][$this->tpls['i']] = "<?php echo trig_mvc_route::get_uri($parameter); ?>";
 		return $search;
 	}
 
@@ -149,14 +191,14 @@ class trig_mvc_template {
 	}
 
 	function readtemplate($name) {
-		$tpl = strexists($name, '/') ? $name : "templates/" . $this->tpls['template'] . "/$name";
+		$tpl = trig_func_common::strexists($name, '/') ? $name : "templates/" . $this->tpls['template'] . "/$name";
 		$tplfile = ROOT_PATH . DS . $tpl . '.htm';
 		$this->tpls['sub_tpls'][] = $tpl;
 		
 		if (!file_exists($tplfile)) {
 			$tplfile = str_replace('/' . $this->tpls['template'] . '/', '/default/', $tplfile);
 		}
-		$content = sreadfile($tplfile);
+		$content = trig_func_common::sreadfile($tplfile);
 		return $content;
 	}
 }

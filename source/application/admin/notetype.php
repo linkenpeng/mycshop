@@ -23,7 +23,7 @@ class application_admin_notetype extends application_base {
 		// 获取分页后的数据
 		$list = $this->notetypedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_func_common::admin_template('notetype');
+		include trig_mvc_template::admin_template('notetype');
 	}
 	
 	public function add() {
@@ -41,13 +41,13 @@ class application_admin_notetype extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->notetypedb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("notetype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("notetype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('notetypeform');
+		include trig_mvc_template::admin_template('notetypeform');
 	}
 	
 	public function edit() {
@@ -61,20 +61,20 @@ class application_admin_notetype extends application_base {
 				'description' => $_POST['description'] 
 			);
 			if ($this->notetypedb->update($data, "notetypeid=" . $_POST['notetypeid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("notetype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("notetype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('notetypeform');
+		include trig_mvc_template::admin_template('notetypeform');
 	}
 	
 	public function delete() {
 		$notetypeid = $_GET['notetypeid'];
 		if (!empty($notetypeid)) {
 			if ($this->notetypedb->delete($notetypeid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("notetype", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("notetype", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

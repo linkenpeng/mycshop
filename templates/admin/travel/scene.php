@@ -1,6 +1,6 @@
 <?php
 $pagetitle="景区管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 
 <script type="text/javascript"> 
@@ -15,10 +15,10 @@ include trig_func_common::admin_template("header");
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("scene","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("scene","add");?>">添加</a>
 </div>
 <div class="pageContent">
-  <form action="<?php echo trig_func_common::get_uri();?>" method="get">
+  <form action="<?php echo trig_mvc_route::get_uri();?>" method="get">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -95,11 +95,11 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo $value['province'];?><br /> <?php echo $value['city'];?><br /> <?php echo $value['country'];?></td>
 		  <td><?php echo $value['address'];?></td>
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("scene","edit","admin");?>&sceneid=<?php echo $value['sceneid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_func_common::get_uri("scene","delete","admin");?>&sceneid=<?php echo $value['sceneid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("scene","edit","admin");?>&sceneid=<?php echo $value['sceneid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("scene","delete","admin");?>&sceneid=<?php echo $value['sceneid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 				
-				<br /> [<a href="<?php echo trig_func_common::get_uri("scenespot","add","admin","sceneid=".$value['sceneid']);?>">添加景点</a>]
-				<br /> [<a href="<?php echo trig_func_common::get_uri("article","add","admin","sceneid=".$value['sceneid']);?>">添加文章</a>]
+				<br /> [<a href="<?php echo trig_mvc_route::get_uri("scenespot","add","admin","sceneid=".$value['sceneid']);?>">添加景点</a>]
+				<br /> [<a href="<?php echo trig_mvc_route::get_uri("article","add","admin","sceneid=".$value['sceneid']);?>">添加文章</a>]
 		  </td>
 		</tr>
 		<?php }} ?>
@@ -120,5 +120,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

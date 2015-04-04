@@ -8,9 +8,9 @@ class application_admin_login extends application_base {
 
 	function init() {
 		if (!empty($_SESSION['admin_uid']) && ($_SESSION['admin_usertype'] == ADMIN_USER_TYPE)) {
-			header('location:' . trig_func_common::get_uri("index", "init"));
+			header('location:' . trig_mvc_route::get_uri("index", "init"));
 		} else {
-			include trig_func_common::admin_template('login');
+			include trig_mvc_template::admin_template('login');
 		}
 	}
 	
@@ -79,7 +79,7 @@ class application_admin_login extends application_base {
 				// 设置cookie
 				$session->ssetcookie('auth', $logininfo['uid'] . '|' . trig_func_common::password($password) . '|' . $logininfo['usertype'], $cookietime);
 				// 跳转
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'login_success'), trig_func_common::get_uri("index", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'login_success'), trig_mvc_route::get_uri("index", "init"));
 		}
 	}
 	/*
@@ -89,7 +89,7 @@ class application_admin_login extends application_base {
 		$session = new model_session();
 		$session->delete_session($_SESSION['admin_uid']);
 		$session->clearcookie('auth');
-		trig_func_common::ShowMsg(trig_func_common::lang('message', 'logout_success'), trig_func_common::get_uri("login", "init"));
+		trig_func_common::ShowMsg(trig_func_common::lang('message', 'logout_success'), trig_mvc_route::get_uri("login", "init"));
 	}
 	/*
 	 * 普通用户退出登录
@@ -98,7 +98,7 @@ class application_admin_login extends application_base {
 		$session = new model_session();
 		$session->delete_session($_SESSION['uid']);
 		$session->clearcookie('auth');
-		trig_func_common::ShowMsg(trig_func_common::lang('message', 'logout_success'), trig_func_common::get_uri("login", "init"));
+		trig_func_common::ShowMsg(trig_func_common::lang('message', 'logout_success'), trig_mvc_route::get_uri("login", "init"));
 	}
 }
 ?>

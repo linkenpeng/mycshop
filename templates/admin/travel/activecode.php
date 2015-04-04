@@ -1,6 +1,6 @@
 <?php
 $pagetitle="激活码管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -39,10 +39,10 @@ include trig_func_common::admin_template("header");
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("activecode","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("activecode","add");?>">添加</a>
 </div>
 <div class="pageContent">
-  <form action="<?php echo trig_func_common::get_uri();?>" method="get" id="searchform">
+  <form action="<?php echo trig_mvc_route::get_uri();?>" method="get" id="searchform">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -65,7 +65,7 @@ include trig_func_common::admin_template("header");
 	 </table>
   </form>
 	
-	 <form action="<?php echo trig_func_common::get_uri("activecode","batch","admin");?>" method="post">
+	 <form action="<?php echo trig_mvc_route::get_uri("activecode","batch","admin");?>" method="post">
 	 <table width="100%">
 		<tr id="order">
 		  <th width="20"><input type="checkbox" name="checkall" id="checkall" /></th>
@@ -115,7 +115,7 @@ include trig_func_common::admin_template("header");
 		  <td align="center">
 		  <?php echo isset($batlist[$value['batchid']]) ? : ''; ?>
 		  
-		  [<a href="<?php echo trig_func_common::get_uri("activecode","delbatch","admin");?>&batchid=<?php echo $value['batchid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');" >删除此批</a>]
+		  [<a href="<?php echo trig_mvc_route::get_uri("activecode","delbatch","admin");?>&batchid=<?php echo $value['batchid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');" >删除此批</a>]
 		  
 		  </td>
 		  <td align="center"><?php echo date("Y-m-d H:i",$value['dateline'])?></td>
@@ -149,5 +149,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

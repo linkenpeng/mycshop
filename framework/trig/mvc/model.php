@@ -80,4 +80,9 @@ class trig_mvc_model {
 		$value = $this->db->get_one($sql);
 		return $value['c'];
 	}
+	
+	function safe_sql($ParaName) {
+		$ParaName = trim(str_replace(" ", "", $ParaName));
+		return $ParaName;
+	}
 }

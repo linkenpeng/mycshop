@@ -20,7 +20,7 @@ class application_admin_system extends application_base {
 		);
 		$p = new trig_page($setarr);
 		$list = $this->systemdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where);
-		include trig_func_common::admin_template('system_index');
+		include trig_mvc_template::admin_template('system_index');
 	}
 
 	function add() {
@@ -36,13 +36,13 @@ class application_admin_system extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->systemdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("system", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("system", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('system_form');
+		include trig_mvc_template::admin_template('system_form');
 	}
 
 	public function edit() {
@@ -57,18 +57,18 @@ class application_admin_system extends application_base {
 				'name' => $_POST['name'] 
 			);
 			if ($this->systemdb->update($data, "sid=" . $_POST['sid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("system", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("system", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('system_form');
+		include trig_mvc_template::admin_template('system_form');
 	}
 
 	function cache() {
 		if ($this->systemdb->cache()) {
-			trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_cache_success'), trig_func_common::get_uri("system", "init"));
+			trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_cache_success'), trig_mvc_route::get_uri("system", "init"));
 		} else {
 			trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_cache_failure'), -1);
 		}

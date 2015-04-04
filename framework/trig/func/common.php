@@ -26,12 +26,6 @@ class trig_func_common {
 		$user_ip = preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $user_ip) ? $user_ip : 'Unknown';
 		return $user_ip;
 	}
-	
-	// 站点链接
-	public static function getsiteurl() {
-		$uri = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : ($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);
-		return 'http://' . $_SERVER['HTTP_HOST'] . substr($uri, 0, strrpos($uri, '/'));
-	}
 
 	public static function ShowMsg($msg, $gourl, $onlymsg = 0, $limittime = 0) {
 		global $_G;
@@ -125,52 +119,7 @@ class trig_func_common {
 			}
 			return $lang[$key];
 		}
-	}
-	/*
-	 * 模板调用 $name 模板名称 $template 模板目录
-	 */
-	public static function template($name, $templatedir = '') {
-		global $_CTCONFIG;
-		if (empty($templatedir)) {
-			$templatedir = $_CTCONFIG['template'];
-		}
-		$tpl = "templates/$templatedir/$name";
-		$objdir = ROOT_PATH . DS . 'caches/tpl_cache/' . $templatedir;
-		if (!is_dir($objdir)) {
-			mkdir($objdir);
-			chmod($objdir, 777);
-		}
-		$objfile = $objdir . DS . str_replace('/', '_', $tpl) . '.php';
-		if (!file_exists($objfile) || filemtime($objfile) < filemtime(ROOT_PATH . DS . './' . $tpl . '.htm')) {
-			$tpl_parse = new trig_mvc_template();
-			$tpl_parse->parse_template($tpl, $templatedir);
-		}
-		return $objfile;
-	}
-	
-	// 子模板更新检查
-	public static function subtplcheck($subfiles, $mktime, $tpl, $templatedir) {
-		$subfiles = explode('|', $subfiles);
-		foreach ($subfiles as $subfile) {
-			$tplfile = ROOT_PATH . DS . $subfile . '.htm';
-			if (!file_exists($tplfile)) {
-				$tplfile = str_replace('/' . $this->tpls['template'] . '/', '/default/', $tplfile);
-			}
-			$submktime = filemtime($tplfile);
-			if ($submktime > $mktime) {
-				$tpl_parse = new trig_mvc_template();
-				$tpl_parse->parse_template($tpl, $templatedir);
-				break;
-			}
-		}
-	}
-	/*
-	 * 后台模板调用 $name 模板名称
-	 */
-	public static function admin_template($name) {
-		$objfile = ADMIN_TEMPLATE_PATH . DS . $name . '.php';
-		return $objfile;
-	}
+	}	
 	
 	// 判断字符串是否存在
 	public static function strexists($haystack, $needle) {
@@ -235,6 +184,7 @@ class trig_func_common {
 		}
 		return $result;
 	}
+	
 	// $cutlength 为截取的长度(即字数)
 	public static function cn_substr($str, $length = 0, $append = false, $charset = '', $istrimhtml = 1) {
 		global $_G;
@@ -308,70 +258,7 @@ class trig_func_common {
 		} else {
 			echo '<font class=red><b>×</b></font>&nbsp;<font class=red>' . self::lang('common', 'unsupport') . '</font>';
 		}
-	}
-	// 获取路由
-	public static function get_uri($c = '', $a = '', $m = '', $extra = '') {
-		global $_G;
-		$route_config = $_G['route'];
-		$c = !empty($c) ? $c : (!empty($_GET[C]) ? $_GET[C] : $route_config[C]);
-		$a = !empty($a) ? $a : (!empty($_GET[A]) ? $_GET[A] : '');
-		$m = !empty($m) ? $m : (!empty($_GET[M]) ? $_GET[M] : $route_config[M]);
-		$route = ROUTE . '?' . M . '=' . $m;
-		if (!empty($c)) {
-			$route .= '&' . C . '=' . $c;
-		}
-		if (!empty($a)) {
-			$route .= '&' . A . '=' . $a;
-		}
-		if (!empty($extra)) {
-			$route .= '&' . $extra;
-		}
-		return $route;
-	}
-	// ajax 分页函数
-	public static function ajax_page($num, $perpage, $curpage, $mpurl, $ajaxdiv, $waitmsg) {
-		$maxpage = 10;
-		$page = 5;
-		$multipage = '';
-		$mpurl .= strpos($mpurl, '?') ? '&' : '?';
-		$realpages = 1;
-		if ($num > $perpage) {
-			$offset = 2;
-			$realpages = @ceil($num / $perpage);
-			$pages = $maxpage && $maxpage < $realpages ? $maxpage : $realpages;
-			if ($page > $pages) {
-				$from = 1;
-				$to = $pages;
-			} else {
-				$from = $curpage - $offset;
-				$to = $from + $page - 1;
-				if ($from < 1) {
-					$to = $curpage + 1 - $from;
-					$from = 1;
-					if ($to - $from < $page) {
-						$to = $page;
-					}
-				} elseif ($to > $pages) {
-					$from = $pages - $page + 1;
-					$to = $pages;
-				}
-			}
-			
-			$multipage = ($curpage - $offset > 1 && $pages > $page ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=1\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');" >1 ...</a>' : '') . ($curpage > 1 ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . ($curpage - 1) . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');" >&lt;&lt;</a>' : '');
-			for($i = $from; $i <= $to; $i ++) {
-				$multipage .= $i == $curpage ? '<strong class="pagercurrent">' . $i . '</strong>' : '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . $i . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');">' . $i . '</a>';
-			}
-			$multipage .= ($curpage < $pages ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . ($curpage + 1) . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');" >&gt;&gt;</a>' : '') . ($to < $pages ? '<a href="javascript:;" onclick="ajaxPageGet(\'' . $mpurl . 'page=' . $pages . '\',\'' . $ajaxdiv . '\',\'' . $waitmsg . '\');">... ' . $realpages . '</a>' : '');
-			$multipage = $multipage ? ('<a href="javascript:;">&nbsp;' . $num . '&nbsp;</a>' . $multipage) : '';
-		}
-		$maxpage = $realpages;
-		return $multipage;
-	}
-	// 过滤不安全的sql语句参数 用于过滤select中的where条件的参数，如：safesql($_GET['var'])
-	public static function safesql($ParaName) {
-		$ParaName = trim(str_replace(" ", "", $ParaName));
-		return $ParaName;
-	}
+	}	
 	
 	// 获取一串中文字符的拼音 ishead=0 时，输出全拼音 ishead=1时，输出拼音首字母
 	public static function getPinyin($str, $ishead = 0, $isclose = 1) {

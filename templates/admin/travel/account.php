@@ -1,11 +1,11 @@
 <?php
 $pagetitle="账目管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("account","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("account","add");?>">添加</a>
 </div>
 <div class="pageContent">
   
@@ -26,8 +26,8 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo $value['description']; ?></td>
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("account","edit","admin");?>&accountid=<?php echo $value['accountid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_func_common::get_uri("account","delete","admin");?>&accountid=<?php echo $value['accountid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("account","edit","admin");?>&accountid=<?php echo $value['accountid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("account","delete","admin");?>&accountid=<?php echo $value['accountid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
@@ -48,5 +48,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

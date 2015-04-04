@@ -38,13 +38,13 @@ class application_admin_talkreply extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->talkreplydb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("talk", "show", "admin", "talkid=" . $_POST['talkid']));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("talk", "show", "admin", "talkid=" . $_POST['talkid']));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		//include trig_func_common::admin_template('talkreplyform');
+		//include trig_mvc_template::admin_template('talkreplyform');
 	}
 	
 	public function edit() {
@@ -57,13 +57,13 @@ class application_admin_talkreply extends application_base {
 				'content' => $_POST['content'] 
 			);
 			if ($this->talkreplydb->update($data, "talkreplyid=" . $_POST['talkreplyid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("talkreply", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("talkreply", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		// include trig_func_common::admin_template('talkreplyform');
+		// include trig_mvc_template::admin_template('talkreplyform');
 	}
 	
 	public function delete() {
@@ -71,7 +71,7 @@ class application_admin_talkreply extends application_base {
 		$talkid = $_GET['talkid'];
 		if (!empty($talkreplyid) && !empty($talkid)) {
 			if ($this->talkreplydb->delete($talkreplyid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("talk", "show", "admin", "talkid=" . $_GET['talkid']));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("talk", "show", "admin", "talkid=" . $_GET['talkid']));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

@@ -39,7 +39,7 @@ class application_admin_talk extends application_base {
 		// 获取分页后的数据
 		$list = $this->talkdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_func_common::admin_template('talk');
+		include trig_mvc_template::admin_template('talk');
 	}
 	
 	public function add() {
@@ -69,7 +69,7 @@ class application_admin_talk extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->talkdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("talk", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("talk", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -81,7 +81,7 @@ class application_admin_talk extends application_base {
 		}
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_func_common::admin_template('talkform');
+		include trig_mvc_template::admin_template('talkform');
 	}
 	
 	public function edit() {
@@ -113,7 +113,7 @@ class application_admin_talk extends application_base {
 				}
 			}
 			if ($this->talkdb->update($data, "talkid=" . $_POST['talkid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("talk", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("talk", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -126,14 +126,14 @@ class application_admin_talk extends application_base {
 		
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_func_common::admin_template('talkform');
+		include trig_mvc_template::admin_template('talkform');
 	}
 	
 	public function delete() {
 		$talkid = $_GET['talkid'];
 		if (!empty($talkid)) {
 			if ($this->talkdb->delete($talkid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("talk", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("talk", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}
@@ -150,6 +150,6 @@ class application_admin_talk extends application_base {
 		// 获取分页后的数据
 		$talkreplylist = $talkreplydb->get_list(1000, 0, " * ", $where, "dateline DESC ");
 		$show_validator = 1;
-		include trig_func_common::admin_template('talkshow');
+		include trig_mvc_template::admin_template('talkshow');
 	}
 }

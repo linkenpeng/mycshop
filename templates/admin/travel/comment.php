@@ -1,13 +1,13 @@
 <?php
 $pagetitle="评论管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
 </div>
 <div class="pageContent">
-  <form action="<?php echo trig_func_common::get_uri();?>" method="get">
+  <form action="<?php echo trig_mvc_route::get_uri();?>" method="get">
 	  <input name="<?php echo M;?>" type="hidden" value="<?php echo $_GET[M];?>" />
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
@@ -49,7 +49,7 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo $value['username'];?></td>
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("comment","delete","admin");?>&commentid=<?php echo $value['commentid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("comment","delete","admin");?>&commentid=<?php echo $value['commentid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
@@ -70,5 +70,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>

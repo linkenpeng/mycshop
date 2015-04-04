@@ -41,7 +41,7 @@ class application_admin_articlecat extends application_base {
 			$sc_list[$v['sceneid']] = $v['scenename'];
 		}
 		
-		include trig_func_common::admin_template('articlecat');
+		include trig_mvc_template::admin_template('articlecat');
 	}
 
 	public function add() {
@@ -72,7 +72,7 @@ class application_admin_articlecat extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->articlecatdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("articlecat", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("articlecat", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -85,7 +85,7 @@ class application_admin_articlecat extends application_base {
 		$scene_list = $scenedb->get_list(100, 0, " sceneid,scenename ", "", "dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_func_common::admin_template('articlecatform');
+		include trig_mvc_template::admin_template('articlecatform');
 	}
 
 	public function edit() {
@@ -120,7 +120,7 @@ class application_admin_articlecat extends application_base {
 				}
 			}
 			if ($this->articlecatdb->update($data, "catid=" . $_POST['catid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("articlecat", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("articlecat", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -135,7 +135,7 @@ class application_admin_articlecat extends application_base {
 		$sceneids = explode(',', $value['sceneid']);
 		
 		$show_validator = 1;
-		include trig_func_common::admin_template('articlecatform');
+		include trig_mvc_template::admin_template('articlecatform');
 	}
 
 	/**
@@ -168,7 +168,7 @@ class application_admin_articlecat extends application_base {
 		$catid = $_GET['catid'];
 		if (!empty($catid)) {
 			if ($this->articlecatdb->delete($catid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("articlecat", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("articlecat", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

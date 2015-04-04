@@ -44,7 +44,7 @@ class application_admin_signin extends application_base {
 		// 获取分页后的数据
 		$list = $this->signindb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_func_common::admin_template('signin');
+		include trig_mvc_template::admin_template('signin');
 	}
 
 	public function add() {
@@ -74,7 +74,7 @@ class application_admin_signin extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->signindb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("signin", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("signin", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
@@ -88,7 +88,7 @@ class application_admin_signin extends application_base {
 		$show_editor = 1;
 		$signintypedb = new model_signintype();
 		$signintype_list = $signintypedb->get_list(100, 0, " signintypeid,name ", $where, "dateline DESC ");
-		include trig_func_common::admin_template('signinform');
+		include trig_mvc_template::admin_template('signinform');
 	}
 
 	public function edit() {
@@ -120,7 +120,7 @@ class application_admin_signin extends application_base {
 				}
 			}
 			if ($this->signindb->update($data, "signinid=" . $_POST['signinid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("signin", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("signin", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
@@ -134,14 +134,14 @@ class application_admin_signin extends application_base {
 		$signintype_list = $signintypedb->get_list(100, 0, " signintypeid,name ", $where, "dateline DESC ");
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_func_common::admin_template('signinform');
+		include trig_mvc_template::admin_template('signinform');
 	}
 
 	public function delete() {
 		$signinid = $_GET['signinid'];
 		if (!empty($signinid)) {
 			if ($this->signindb->delete($signinid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("signin", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("signin", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

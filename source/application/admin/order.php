@@ -22,7 +22,7 @@ class application_admin_order extends application_base {
 		$p = new trig_page($setarr);
 		// 获取分页后的数据
 		$list = $this->orderdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
-		include trig_func_common::admin_template('order');
+		include trig_mvc_template::admin_template('order');
 	}
 	
 	public function add() {
@@ -39,13 +39,13 @@ class application_admin_order extends application_base {
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->orderdb->insert($data)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_func_common::get_uri("order", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_success'), trig_mvc_route::get_uri("order", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('orderform');
+		include trig_mvc_template::admin_template('orderform');
 	}
 	
 	public function edit() {
@@ -59,20 +59,20 @@ class application_admin_order extends application_base {
 				'description' => $_POST['description'] 
 			);
 			if ($this->orderdb->update($data, "orderid=" . $_POST['orderid'])) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_func_common::get_uri("order", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("order", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
 		$show_validator = 1;
-		include trig_func_common::admin_template('orderform');
+		include trig_mvc_template::admin_template('orderform');
 	}
 	
 	public function delete() {
 		$orderid = $_GET['orderid'];
 		if (!empty($orderid)) {
 			if ($this->orderdb->delete($orderid)) {
-				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_func_common::get_uri("order", "init"));
+				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_success'), trig_mvc_route::get_uri("order", "init"));
 			} else {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'delete_failure'), -1);
 			}

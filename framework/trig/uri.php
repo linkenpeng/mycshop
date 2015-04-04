@@ -35,13 +35,6 @@ class trig_uri {
 		return $result;
 	}
 
-	public static function getValidator($name = NULL) {
-		if (is_null($name)) {
-			return self::getValidator(self::getAllParameters());
-		}
-		return new Soul_Validation_Validator(self::getParameter($name, array()));
-	}
-
 	public static function isGet() {
 		return self::getMethod() == 'GET';
 	}
@@ -167,6 +160,12 @@ class trig_uri {
 			}
 		}
 		return $result;
+	}
+	
+	// 站点链接
+	public static function getsiteurl() {
+		$uri = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : ($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);
+		return 'http://' . $_SERVER['HTTP_HOST'] . substr($uri, 0, strrpos($uri, '/'));
 	}
 
 	private static function getFrom($source, $name, $default = '') {

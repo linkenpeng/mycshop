@@ -1,10 +1,10 @@
 <?php
 $pagetitle="菜单管理";
-include trig_func_common::admin_template("header");
+include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_func_common::get_uri("menu","add");?>">添加</a>
+<a href="<?php echo trig_mvc_route::get_uri("menu","add");?>">添加</a>
 </div>
 <div class="pageContent">
   
@@ -27,9 +27,9 @@ include trig_func_common::admin_template("header");
 		  <td align="center"><?php echo $value['ctrl']; ?></td>
 		  <td align="center"><?php echo $value['act']; ?></td>
 		  <td align="center">
-				<a href="<?php echo trig_func_common::get_uri("menu","edit","admin");?>&menuid=<?php echo $value['menuid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_func_common::get_uri("menu","delete","admin");?>&menuid=<?php echo $value['menuid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
-				<a href="<?php echo trig_func_common::get_uri("menu","add","admin");?>&parentid=<?php echo $value['menuid']; ?>" >添加子菜单</a>
+				<a href="<?php echo trig_mvc_route::get_uri("menu","edit","admin");?>&menuid=<?php echo $value['menuid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("menu","delete","admin");?>&menuid=<?php echo $value['menuid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("menu","add","admin");?>&parentid=<?php echo $value['menuid']; ?>" >添加子菜单</a>
 		  </td>
 		</tr>
 		<?php if(is_array($value['subs'])) {
@@ -42,9 +42,9 @@ include trig_func_common::admin_template("header");
 				  <td align="center"><?php echo $val2['ctrl']; ?></td>
 				  <td align="center"><?php echo $val2['act']; ?></td>
 				  <td align="center">
-						<a href="<?php echo trig_func_common::get_uri("menu","edit","admin");?>&menuid=<?php echo $val2['menuid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-						<a href="<?php echo trig_func_common::get_uri("menu","delete","admin");?>&menuid=<?php echo $val2['menuid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
-						<a href="<?php echo trig_func_common::get_uri("menu","add","admin");?>&parentid=<?php echo $val2['menuid']; ?>" >添加子菜单</a>
+						<a href="<?php echo trig_mvc_route::get_uri("menu","edit","admin");?>&menuid=<?php echo $val2['menuid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+						<a href="<?php echo trig_mvc_route::get_uri("menu","delete","admin");?>&menuid=<?php echo $val2['menuid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+						<a href="<?php echo trig_mvc_route::get_uri("menu","add","admin");?>&parentid=<?php echo $val2['menuid']; ?>" >添加子菜单</a>
 				  </td>
 				</tr>
 		<?php 	} 
@@ -67,5 +67,5 @@ include trig_func_common::admin_template("header");
 </div>
 </div>
 <?php
-include trig_func_common::admin_template("footer");
+include trig_mvc_template::admin_template("footer");
 ?>
