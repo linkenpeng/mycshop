@@ -15,7 +15,7 @@ class model_user extends model_base {
 		$logininfo['uid'] = "0";
 		$logininfo['usertype'] = "";
 		if (!empty($username) && !empty($password)) {
-			$password_form = password($password);
+			$password_form = trig_func_common::password($password);
 			$where = " where username='$username' ";
 			if (!empty($usertype)) {
 				$where .= " and usertype='$usertype' ";
@@ -38,7 +38,7 @@ class model_user extends model_base {
 
 	function add_login_log($uid) {
 		if (!empty($uid)) {
-			$loginip = get_ip();
+			$loginip = trig_func_common::get_ip();
 			$logintime = time();
 			$sql = "update " . $this->tname($this->_table) . " set last_ip='$loginip',last_login='$logintime',logins=logins+1 where uid='$uid'";
 			$this->db->query($sql);
@@ -55,7 +55,7 @@ class model_user extends model_base {
 		$flag = false;
 		if (!empty($admin_uid) && !empty($password)) {
 			$this->db->update($this->tname($this->_table), 
-			array('password' => password($password)), "uid='$admin_uid'");
+			array('password' => trig_func_common::password($password)), "uid='$admin_uid'");
 			$flag = true;
 		}
 		return $flag;

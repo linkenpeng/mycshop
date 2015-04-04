@@ -10,7 +10,7 @@ class trig_checkcode {
 	}
 
 	function showcode($w = 50, $h = 25) {
-		$str = rands(4); // 随机生成的字符串
+		$str = trig_func_common::rands(4); // 随机生成的字符串
 		$width = empty($w) ? 50 : $w; // 验证码图片的宽度
 		$height = empty($h) ? 25 : $h; // 验证码图片的高度
 		header("Content-Type:image/png");

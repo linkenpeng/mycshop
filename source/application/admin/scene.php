@@ -59,12 +59,14 @@ class application_admin_scene extends application_base {
 		// 分类
 		$scenetypedb = new model_scenetype();
 		$pt_list = $scenetypedb->get_list(100, 0, " typeid,name ", "", "typeid ASC ");
+		$scenetype_list = array();
 		foreach ($pt_list as $k => $v) {
 			$scenetype_list[$v['typeid']] = $v['name'];
 		}
 		// 游玩主题
 		$traveltopicdb = new model_traveltopic();
 		$rt_list = $traveltopicdb->get_list(100, 0, " typeid,name ", "", "typeid ASC ");
+		$traveltopic_list = array();
 		foreach ($rt_list as $k => $v) {
 			$traveltopic_list[$v['typeid']] = $v['name'];
 		}
@@ -131,7 +133,7 @@ class application_admin_scene extends application_base {
 				'traveltopicid' => $_POST['traveltopicid'],
 				'province' => $_POST['province'],
 				'city' => $_POST['city'],
-				'cityen' => getPinyin(stripslashes($_POST['city'])),
+				'cityen' => trig_func_common::getPinyin(stripslashes($_POST['city'])),
 				'country' => $_POST['country'],
 				'address' => $_POST['address'],
 				'description' => $_POST['description'],
@@ -210,7 +212,7 @@ class application_admin_scene extends application_base {
 				'traveltopicid' => $_POST['traveltopicid'],
 				'province' => $_POST['province'],
 				'city' => $_POST['city'],
-				'cityen' => getPinyin(stripslashes($_POST['city'])),
+				'cityen' => trig_func_common::getPinyin(stripslashes($_POST['city'])),
 				'country' => $_POST['country'],
 				'address' => $_POST['address'],
 				'note' => $_POST['note'],

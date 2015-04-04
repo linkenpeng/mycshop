@@ -1,42 +1,42 @@
 <?php
 
-abstract class trig_db_driver {
+interface trig_db_driver {
 
-	abstract static function getInstance($config);
+	public static function getInstance($config);
 
-	abstract function dbconn();
+	function dbconn();
 
-	abstract function query($sql, $type = '');
+	function query($sql, $type = '');
 
-	abstract function update($table, $bind = array(), $where = '');
+	function update($table, $bind = array(), $where = '');
 
-	abstract function insert($table, $bind = array());
+	function insert($table, $bind = array());
 
-	abstract function insert_id();
+	function insert_id();
 
-	abstract function affected_rows();
+	function affected_rows();
 
-	abstract function fetch_fields($query);
+	function fetch_fields($query);
 
-	abstract function fetch_row($query);
+	function fetch_row($query);
 
-	abstract function fetch_array($query, $result_type = MYSQL_ASSOC);
+	function fetch_array($query, $result_type = MYSQL_ASSOC);
 
-	abstract function get_one($sql, $type = '');
+	function get_one($sql, $type = '');
 
-	abstract function get_list($sql, $type = '');
+	function get_list($sql, $type = '');
 
-	abstract function free_result($query);
+	function free_result($query);
 
-	abstract function escape_string($str);
+	function escape_string($str);
 
-	abstract function version();
+	function version();
 
-	abstract function error();
+	function error();
 
-	abstract function errno();
+	function errno();
 
-	abstract function close();
+	function close();
 
-	abstract function halt($message = '');
+	function halt($message = '');
 }

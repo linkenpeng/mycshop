@@ -26,11 +26,11 @@ class application_admin_login extends application_base {
 	 * 验证后台管理员登录
 	 */
 	function check_user_login() {
-		$username = trim(getPost('username'));
-		$password = trim(getPost('password'));
-		$usertype = trim(getPost('usertype'));
-		$checkcode = trim(getPost('checkcode'));
-		$cookietime = intval(getPost('cookietime'));
+		$username = trim(trig_uri::getForm('username'));
+		$password = trim(trig_uri::getForm('password'));
+		$usertype = trim(trig_uri::getForm('usertype'));
+		$checkcode = trim(trig_uri::getForm('checkcode'));
+		$cookietime = intval(trig_uri::getForm('cookietime'));
 		
 		$session = new model_session();
 		
@@ -38,7 +38,7 @@ class application_admin_login extends application_base {
 			trig_func_common::ShowMsg(trig_func_common::lang('message', 'checkcode_is_not_right'), "-1");
 		}
 		
-		$userdb = new user_model();
+		$userdb = new model_user();
 		$logininfo = $userdb->check_user_exist($username, $password);
 		switch ($logininfo['uid']) {
 			case "-2":
@@ -55,13 +55,13 @@ class application_admin_login extends application_base {
 				$_SESSION['uid'] = $logininfo['uid'];
 				$_SESSION['usertype'] = $logininfo['usertype'];
 				$_SESSION['username'] = $username;
-				$_SESSION['password'] = password($password);
+				$_SESSION['password'] = trig_func_common::password($password);
 				// ADMIN_USER_TYPE代表管理员后台身份
 				if ($usertype == ADMIN_USER_TYPE) {
 					$_SESSION['admin_uid'] = $logininfo['uid'];
 					$_SESSION['admin_usertype'] = $logininfo['usertype'];
 					$_SESSION['admin_username'] = $username;
-					$_SESSION['admin_password'] = password($password);
+					$_SESSION['admin_password'] = trig_func_common::password($password);
 				}
 				$usergroupdb = new model_usergroup();
 				$usergroup_info = $usergroupdb->get_one($logininfo['usertype']);
@@ -73,11 +73,11 @@ class application_admin_login extends application_base {
 				$session->insert_session(array(
 					'uid' => $logininfo['uid'],
 					'username' => $username,
-					'password' => password($password),
+					'password' => trig_func_common::password($password),
 					'usertype' => $logininfo['usertype'] 
 				));
 				// 设置cookie
-				$session->ssetcookie('auth', $logininfo['uid'] . '|' . password($password) . '|' . $logininfo['usertype'], $cookietime);
+				$session->ssetcookie('auth', $logininfo['uid'] . '|' . trig_func_common::password($password) . '|' . $logininfo['usertype'], $cookietime);
 				// 跳转
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'login_success'), trig_func_common::get_uri("index", "init"));
 		}

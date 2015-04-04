@@ -19,12 +19,14 @@ class trig_func_common {
 		}
 		return $string;
 	}
+	
 	// 获得用户IP
 	public static function get_ip() {
 		$user_ip = $_SERVER['REMOTE_ADDR'];
 		$user_ip = preg_match('/^([0-9]{1,3}\.){3}[0-9]{1,3}$/', $user_ip) ? $user_ip : 'Unknown';
 		return $user_ip;
 	}
+	
 	// 站点链接
 	public static function getsiteurl() {
 		$uri = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : ($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']);
@@ -35,7 +37,7 @@ class trig_func_common {
 		global $_G;
 		$charset = $_G['system']['charset'];
 		$htmlhead = "<html>\r\n<head>\r\n<title>" . SITE_NAME . self::lang("common", "sysnote") . "</title>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$charset\" />\r\n";
-		$htmlhead .= "<link rel='stylesheet' href='" . ADMIN_TEMPLATE_URL . "css/style.css' type='text/css' />\r\n";
+		$htmlhead .= "<link rel='stylesheet' href='" . ADMIN_TEMPLATE_URL . "/css/style.css' type='text/css' />\r\n";
 		$htmlhead .= "<base target='_self'/>\r\n</head>\r\n<body leftmargin='0' topmargin='0' bgcolor='#EBE9ED'>\r\n<center>\r\n<script>\r\n";
 		$htmlfoot = "</script>\r\n</center>\r\n</body>\r\n</html>\r\n";
 		
@@ -53,8 +55,8 @@ class trig_func_common {
 		if ($gourl == "" || $onlymsg == 1) {
 			$msg = "<script>alert(\"" . str_replace("\"", "“", $msg) . "\");</script>";
 		} else {
-			$func = "      var pgo=0;
-		  public static function JumpUrl(){
+			$func = " var pgo=0;
+		  function JumpUrl(){
 			if(pgo==0){ location='$gourl'; pgo=1; }
 		  }\r\n";
 			$rmsg = $func;
@@ -145,6 +147,7 @@ class trig_func_common {
 		}
 		return $objfile;
 	}
+	
 	// 子模板更新检查
 	public static function subtplcheck($subfiles, $mktime, $tpl, $templatedir) {
 		$subfiles = explode('|', $subfiles);
@@ -237,7 +240,7 @@ class trig_func_common {
 		global $_G;
 		$str = trim($str);
 		if (!empty($istrimhtml)) {
-			$str = trimhtml($str);
+			$str = self::trimhtml($str);
 		}
 		if (empty($charset)) {
 			$charset = $_G['system']['charset'];
@@ -281,7 +284,7 @@ class trig_func_common {
 	public static function shtmlspecialchars($string) {
 		if (is_array($string)) {
 			foreach ($string as $key => $val) {
-				$string[$key] = shtmlspecialchars($val);
+				$string[$key] = self::shtmlspecialchars($val);
 			}
 		} else {
 			$string = preg_replace('/&amp;((#(\d{3,5}|x[a-fA-F0-9]{4})|[a-zA-Z][a-z0-9]{2,5});)/', '&\\1', str_replace(array(
@@ -309,7 +312,7 @@ class trig_func_common {
 	// 获取路由
 	public static function get_uri($c = '', $a = '', $m = '', $extra = '') {
 		global $_G;
-		$route_config = $_G['system']['route'];
+		$route_config = $_G['route'];
 		$c = !empty($c) ? $c : (!empty($_GET[C]) ? $_GET[C] : $route_config[C]);
 		$a = !empty($a) ? $a : (!empty($_GET[A]) ? $_GET[A] : '');
 		$m = !empty($m) ? $m : (!empty($_GET[M]) ? $_GET[M] : $route_config[M]);
@@ -426,27 +429,5 @@ class trig_func_common {
 			print_r($var);
 		}
 		echo '</pre>';
-	}
-
-	public static function getSession($key, $defaultValue = '') {
-		$value = isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
-		return $value;
-	}
-
-	public static function getCookie($key, $defaultValue = '') {
-		$value = isset($_COOKIE[$key]) ? $_COOKIE[$key] : $defaultValue;
-		return $value;
-	}
-
-	public static function getParam($name, $defaultValue = '') {
-		return isset($_GET[$name]) ? $_GET[$name] : (isset($_POST[$name]) ? $_POST[$name] : $defaultValue);
-	}
-
-	public static function getQuery($name, $defaultValue = '') {
-		return isset($_GET[$name]) ? $_GET[$name] : $defaultValue;
-	}
-
-	public static function getPost($name, $defaultValue = '') {
-		return isset($_POST[$name]) ? $_POST[$name] : $defaultValue;
 	}
 }

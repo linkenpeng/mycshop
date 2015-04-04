@@ -50,6 +50,7 @@ class model_articlecat extends model_base {
 	public function sort_tree($sourcelist, &$tolist, $depth = 0) {
 		if(!empty($sourcelist)) {
 			foreach ($sourcelist as $k => $value) {
+				if(empty($value['name'])) continue;
 				$tolist[$k]['catid'] = $value['catid'];
 				$tolist[$k]['cattype'] = $value['cattype'];
 				$tolist[$k]['sceneid'] = $value['sceneid'];

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * route.class.php 路由分发类
+ * 路由分发类
  *
  */
 class trig_mvc_route {

@@ -19,11 +19,7 @@ class trig_mvc_application {
 	private function init() {
 		$controller = $this->load_controller();
 		if (method_exists($controller, ROUTE_A)) {
-			if (preg_match('/^[_]/i', ROUTE_A)) {
-				exit('You are visiting the action is to protect the private action');
-			} else {
-				call_user_func(array($controller, ROUTE_A));
-			}
+			call_user_func(array($controller, ROUTE_A));
 		} else {
 			exit('Action does not exist.');
 		}
@@ -37,13 +33,9 @@ class trig_mvc_application {
 	 * @return obj
 	 */
 	private function load_controller($classname = '', $m = '') {
-		if (empty($classname))
-			$classname = ROUTE_C;
-		if (empty($m))
-			$m = ROUTE_M;
-		
+		$classname = empty($classname) ? ROUTE_C : $classname;
+		$m = empty($m) ? ROUTE_M : $m;		
 		$class = 'application_'.$m.'_'.$classname;
-		
 		return new $class();
 	}
 }

@@ -2,113 +2,147 @@
 
 class trig_uri {
 
-	public function isAjax() {
+	public static function isAjax() {
 		return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 	}
 
-	public function getServerPort() {
+	public static function getServerPort() {
 		return $_SERVER['SERVER_PORT'];
 	}
 
-	public function getServerName() {
+	public static function getServerName() {
 		return $_SERVER['SERVER_NAME'];
 	}
 
-	public function getRemoteAddress() {
+	public static function getRemoteAddress() {
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
-	public function getUri() {
+	public static function getUri() {
 		return $_SERVER["REQUEST_URI"];
 	}
 
-	public function getMethod() {
+	public static function getMethod() {
 		return $_SERVER["REQUEST_METHOD"];
 	}
 
-	public function getHostName() {
-		$result = $this->getServerName();
-		$port = $this->getServerPort();
+	public static function getHostName() {
+		$result = self::getServerName();
+		$port = self::getServerPort();
 		if ($port != '80') {
 			return $result . ':' . $port;
 		}
 		return $result;
 	}
 
-	public function getValidator($name = NULL) {
+	public static function getValidator($name = NULL) {
 		if (is_null($name)) {
-			return $this->getValidator($this->getAllParameters());
+			return self::getValidator(self::getAllParameters());
 		}
-		return new Soul_Validation_Validator($this->getParameter($name, array()));
+		return new Soul_Validation_Validator(self::getParameter($name, array()));
 	}
 
-	public function isGet() {
-		return $this->getMethod() == 'GET';
+	public static function isGet() {
+		return self::getMethod() == 'GET';
 	}
 
-	public function isPost() {
-		return $this->getMethod() == 'POST';
+	public static function isPost() {
+		return self::getMethod() == 'POST';
 	}
 
-	public function getAllParameters() {
+	public static function getAllParameters() {
 		return $_REQUEST;
 	}
 
-	public function hasParameter($name) {
+	public static function hasParameter($name) {
 		if (array_key_exists($name, $_REQUEST)) {
 			return TRUE;
 		}
 		return FALSE;
 	}
 
-	public function getParameter($name, $default = '') {
-		return $this->getFrom($_REQUEST, $name, $default);
+	public static function getParameter($name, $default = '') {
+		return self::getFrom($_REQUEST, $name, $default);
 	}
 
-	public function getMultiParameter() {
+	public static function getMultiParameter() {
 		$result = array();
 		$args = func_get_args();
 		foreach ($args as $name) {
-			$result = $this->getParameter($name);
+			$result = self::getParameter($name);
 		}
 		return $result;
 	}
 
-	public function getAllForm() {
+	public static function getAllForm() {
 		return $_POST;
 	}
 
-	public function getForm($name, $default = '') {
-		return $this->getFrom($_POST, $name, $default);
+	public static function getForm($name, $default = '') {
+		return self::getFrom($_POST, $name, $default);
 	}
 
-	public function getMultiForm() {
+	public static function getMultiForm() {
 		$result = array();
 		$args = func_get_args();
 		foreach ($args as $name) {
-			$result = $this->getForm($name);
+			$result = self::getForm($name);
 		}
 		return $result;
 	}
 
-	public function getAllQuery() {
+	public static function getAllQuery() {
 		return $_GET;
 	}
 
-	public function getQuery($name, $default = '') {
-		return $this->getFrom($_GET, $name, $default);
+	public static function getQuery($name, $default = '') {
+		return self::getFrom($_GET, $name, $default);
 	}
 
-	public function getMultiQuery() {
+	public static function getMultiQuery() {
 		$result = array();
 		$args = func_get_args();
 		foreach ($args as $name) {
-			$result = $this->getQuery($name);
+			$result = self::getQuery($name);
+		}
+		return $result;
+	}
+	
+	public static function getAllSession() {
+		return $_SESSION;
+	}
+
+	public static function getSession($name, $default = '') {
+		return self::getFrom($_SESSION, $name, $default);
+	}
+
+	public static function getMultiSession() {
+		$result = array();
+		$args = func_get_args();
+		foreach ($args as $name) {
+			$result = self::getSession($name);
+		}
+		return $result;
+	}
+	
+	public static function getAllCookie() {
+		return $_COOKIE;
+	}
+
+	public static function getCookie($name, $default = '') {
+		return self::getFrom($_COOKIE, $name, $default);
+	}
+
+	public static function getMultiCookie() {
+		$result = array();
+		$args = func_get_args();
+		foreach ($args as $name) {
+			$result = self::getCookie($name);
 		}
 		return $result;
 	}
 
-	public function getFile($name) {
+	public static function getFile($name) {
 		if (!array_key_exists($name, $_FILES)) {
 			return NULL;
 		}
@@ -135,7 +169,7 @@ class trig_uri {
 		return $result;
 	}
 
-	private function getFrom($source, $name, $default = '') {
+	private static function getFrom($source, $name, $default = '') {
 		if (isset($source[$name]) && !empty($source[$name])) {
 			return $source[$name];
 		}

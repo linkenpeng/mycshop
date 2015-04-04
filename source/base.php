@@ -8,7 +8,7 @@ define('M', 'mod');
 define('C', 'c');
 define('A', 'a');
 
-// 框架路径
+// 应用路径
 define('SOURCE_PATH', str_replace("\\", "/", dirname(__FILE__)));
 
 // 加载配置信息
@@ -77,9 +77,11 @@ define('ADMIN_USER_TYPE', 1);
 // 获取用户组对应的菜单id
 $usergroupdb = new model_usergroup();
 $menuids = $usergroupdb->get_permission();
+
 // 检查当前菜单是否被赋予该用户组
 $menudb = new model_menu();
 $menudb->check_permission($menuids);
+
 // 获得用户组分配的主菜单
 $check_modules = array('admin');
 $topmenus = $menudb->get_top_menus($menuids, $check_modules);

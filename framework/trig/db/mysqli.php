@@ -1,6 +1,6 @@
 <?php
 
-class trig_db_mysqli extends trig_db_driver {
+class trig_db_mysqli implements trig_db_driver {
 	protected static $_instance = null;
 	protected $_config = array();
 	protected $_link = null;

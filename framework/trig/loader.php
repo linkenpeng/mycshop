@@ -11,7 +11,6 @@ class trig_loader {
 	public function autoLoad($class) {
 		$path = strpos($class, FRAME_NAME.'_') !== false ? self::$_autoload_paths['frame'] : self::$_autoload_paths['app'];
     	$classPath = $path . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-    	//echo $classPath.'<br />';
     	return include $classPath;
 	}
 }

@@ -89,8 +89,8 @@ include trig_func_common::admin_template("header");
     		  </a>
     		  <?php } ?>
 		  </td>
-		  <td align="center"><?php echo $scenetype_list[$value['typeid']]; ?></td>
-		  <td align="center"><?php echo $traveltopic_list[$value['traveltopicid']]; ?></td>
+		  <td align="center"><?php echo isset($scenetype_list[$value['typeid']]) ? : $scenetype_list[$value['typeid']]; ?></td>
+		  <td align="center"><?php echo isset($traveltopic_list[$value['traveltopicid']]) ? $traveltopic_list[$value['traveltopicid']] : ''; ?></td>
 		  <td align="center"><?php echo $value['level']; ?>A</td>
 		  <td align="center"><?php echo $value['province'];?><br /> <?php echo $value['city'];?><br /> <?php echo $value['country'];?></td>
 		  <td><?php echo $value['address'];?></td>
