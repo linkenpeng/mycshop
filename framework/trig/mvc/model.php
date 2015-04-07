@@ -7,8 +7,10 @@ class trig_mvc_model {
 	protected $_config = array();
 
 	function __construct($dbconfig = '') {
-		global $_G;
-		$this->_config = empty($dbconfig) ? $_G['db']['master'] : $_G['db'][$dbconfig];
+		$this->_config = $dbconfig;
+		if(empty($this->_config)) {
+			throw new trig_exception_system(2000);
+		}
 		$driver_name = "trig_db_" . $this->_config['driver'];
 		$this->db = $driver_name::getInstance($this->_config);
 	}
