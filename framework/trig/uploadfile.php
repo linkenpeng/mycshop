@@ -33,7 +33,7 @@ class trig_uploadfile {
 	/*
 	 * 构造函数 $path 保存路径 $format 文件格式(用逗号分开) $maxsize 文件最大限制 $over 复盖参数
 	 */
-	function upfile($format = '', $path = '', $maxsize = 0, $over = 0) {
+	function __construct($format = '', $path = '', $maxsize = 0, $over = 0) {
 		$this->ymd = date("Ymd");
 		if (empty($path)) {
 			$path = ROOT_PATH . '/' . $this->savepath;

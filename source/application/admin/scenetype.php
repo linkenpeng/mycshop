@@ -65,8 +65,7 @@ class application_admin_scenetype extends application_base {
 			$value = $this->scenetypedb->get_one($typeid);
 		}
 		if (!empty($_POST['action']) && !empty($_POST['typeid'])) {
-			if (!empty($_FILES['image']['name'])) {
-				
+			if (!empty($_FILES['image']['name'])) {				
 				$upfile = new trig_uploadfile("jpg,gif,bmp,png");
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
