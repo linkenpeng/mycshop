@@ -15,6 +15,11 @@ class trig_mvc_template {
 		return $objfile;
 	}
 	
+	public static function include_template($view) {
+		$objfile = ADMIN_TEMPLATE_PATH . DS . $view . '.php';
+		return $objfile;
+	}
+	
 	/*
 	 * 模板调用 $name 模板名称 $template 模板目录
 	*/

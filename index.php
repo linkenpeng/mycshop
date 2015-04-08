@@ -4,13 +4,14 @@
  */
 define('DEBUG', true);
 DEBUG && error_reporting(E_ALL & ~E_NOTICE); // & ~E_STRICT & ~E_DEPRECATED
-define('ROOT_PATH', str_replace("\\", "/", dirname(__FILE__)));
-$autoload_paths['app'] = ROOT_PATH . '/source';
-include ROOT_PATH . '/framework/index.php';
-include ROOT_PATH . '/source/base.php';
+define('ROOT_PATH', dirname(__FILE__));
+$autoload_paths['app'] = ROOT_PATH . DIRECTORY_SEPARATOR . 'source';
+include ROOT_PATH . DIRECTORY_SEPARATOR . 'framework' . DIRECTORY_SEPARATOR . 'trig' . DIRECTORY_SEPARATOR . 'index.php';
+include ROOT_PATH . DIRECTORY_SEPARATOR . 'source' . DIRECTORY_SEPARATOR . 'base.php';
 new trig_mvc_application();
 
 set_exception_handler('exceptionCallback');
+
 function exceptionCallback($e) {
 	$ret = array(
 		'code' => $e->getCode(),
