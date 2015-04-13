@@ -58,31 +58,6 @@ class trig_db_mysql implements trig_db_driver {
 		return $query;
 	}
 
-	function update($table, $bind = array(), $where = '') {
-		$set = array();
-		foreach ($bind as $col => $val) {
-			if (strpos($val, '+') !== false) {
-				$set[] = "$col = $val";
-			} else {
-				$set[] = "$col = '$val'";
-			}
-			unset($set[$col]);
-		}
-		$sql = "UPDATE " . $table . ' SET ' . implode(',', $set) . (($where) ? " WHERE $where" : '');
-		$this->query($sql);
-	}
-
-	function insert($table, $bind = array()) {
-		$set = array();
-		foreach ($bind as $col => $val) {
-			$set[] = "`$col`";
-			$vals[] = "'$val'";
-		}
-		$sql = "INSERT INTO " . $table . ' (' . implode(', ', $set) . ') ' . 'VALUES (' . implode(', ', $vals) . ')';
-		$this->query($sql);
-		return $this->insert_id();
-	}
-
 	function insert_id() {
 		return ($id = mysql_insert_id($this->link)) >= 0 ? $id : $this->result($this->query("SELECT last_insert_id()"), 0);
 	}

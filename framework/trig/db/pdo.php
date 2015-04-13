@@ -26,9 +26,91 @@ class trig_db_pdo implements trig_db_driver {
 		} catch (PDOException $e) {
 			$this->halt('Connection failed: ' . $e->getMessage());
 		}
+		
+		if ($this->version() > '4.1') {
+			if ($this->_config['charset'] != 'latin1') {
+				$this->_link->query("SET character_set_connection=" . $this->_config['charset'] . ", character_set_results=" . $this->_config['charset'] . ", character_set_client=binary");
+			}
+			if ($this->version() > '5.0.1') {
+				$this->_link->query("SET sql_mode=''");
+			}
+		}
+	}		
+
+	function query($sql, $type = '') {
+		return $this->execute($sql);
 	}
 
-	public function execute($sql, $query = '', $field = 0) {
+	function insert_id() {
+		return ($id = $this->_link->lastInsertId()) >= 0 ? $id : $this->execute("SELECT last_insert_id()", 'field', 0);
+	}
+
+	function affected_rows() {
+		if($this->_stmt != null) {
+			return $this->_stmt->rowCount();
+		}
+		return 0;
+	}
+
+	function fetch_fields($field = 0) {
+		return $this->execute($sql, 'field', $field);
+	}
+
+	function fetch_row($sql) {
+		return $this->execute($sql, 'row');
+	}
+
+	function fetch_array($sql, $result_type = MYSQL_ASSOC) {
+		return $this->execute($sql, 'select');
+	}
+
+	function get_one($sql, $type = '') {
+		if ($sql != "") {
+			if (!preg_match("/limit/is", $sql)) {
+				$sql = preg_replace("/(,|;)+?$/is", "", trim($sql)) . " limit 0,1;";
+			}
+		}
+		$rs = $this->fetch_row($sql);
+		$this->free_result($sql);
+		return $rs;
+	}
+
+	function get_list($sql, $type = '') {
+		$ret = $this->fetch_array($sql);
+		return $ret;
+	}
+
+	function free_result($query) {
+		if($this->_stmt != null) {
+			return $this->_stmt->closeCursor();
+		}
+		return null;
+	}
+
+	function escape_string($str) {
+		return $str;
+	}
+
+	function version() {
+		if (empty($this->_version)) {
+			$this->_version = $this->execute('SELECT VERSION()', 'field', 0);
+		}
+		return $this->_version;
+	}
+
+	function error() {
+		return $this->_link->errorInfo();
+	}
+
+	function errno() {
+		return $this->_link->errorCode();
+	}
+
+	function close() {
+		$this->_link = null;
+	}
+	
+	private function execute($sql, $query = '', $field = 0) {
 		$this->_stmt = $this->prepare($sql);
 		$result = $this->_stmt->execute();
 		if ($query == 'select') {
@@ -47,105 +129,9 @@ class trig_db_pdo implements trig_db_driver {
 			return $result;
 		}
 	}
-
-	public function prepare($sql, $driver_options = array()) {
+	
+	private function prepare($sql, $driver_options = array()) {
 		return $this->_link->prepare($sql, $driver_options);
-	}
-
-	function query($sql, $type = '') {
-		return $this->execute($sql);
-	}
-
-	function update($table, $bind = array(), $where = '') {
-		$set = array();
-		foreach ($bind as $col => $val) {
-			if (strpos($val, '+') !== false) {
-				$set[] = "$col = $val";
-			} else {
-				$set[] = "$col = '$val'";
-			}
-			unset($set[$col]);
-		}
-		$sql = "UPDATE " . $table . ' SET ' . implode(',', $set) . (($where) ? " WHERE $where" : '');
-		$this->query($sql);
-	}
-
-	function insert($table, $bind = array()) {
-		$set = array();
-		foreach ($bind as $col => $val) {
-			$set[] = "`$col`";
-			$vals[] = "'$val'";
-		}
-		$sql = "INSERT INTO " . $table . ' (' . implode(', ', $set) . ') ' . 'VALUES (' . implode(', ', $vals) . ')';
-		$this->query($sql);
-		return $this->insert_id();
-	}
-
-	function insert_id() {
-		return ($id = $this->_link->lastInsertId()) >= 0 ? $id : $this->result($this->execute("SELECT last_insert_id()"), 'column', 0);
-	}
-
-	function affected_rows() {
-		return null;
-	}
-
-	function fetch_fields($query) {
-		return $query->fetchColumn();
-	}
-
-	function fetch_row($query) {
-		return $query->fetch(PDO::FETCH_ASSOC);
-	}
-
-	function fetch_array($query, $result_type = PDO::FETCH_ASSOC) {
-		return $query->fetchAll($result_type);
-	}
-
-	function get_one($sql, $type = '') {
-		if ($sql != "") {
-			if (!preg_match("/limit/is", $sql)) {
-				$sql = preg_replace("/(,|;)+?$/is", "", trim($sql)) . " limit 0,1;";
-				$query = $this->query($sql, $type);
-			} else {
-				$query = $this->query($sql, $type);
-			}
-		}
-		$rs = $this->fetch_array($query);
-		$this->free_result($query);
-		return $rs;
-	}
-
-	function get_list($sql, $type = '') {
-		$ret = array();
-		$query = $this->query($sql, $type);
-		while ($rs = $this->fetch_array($query)) {
-			$ret[] = $rs;
-		}
-		return $ret;
-	}
-
-	function free_result($query) {
-		return null;
-	}
-
-	function escape_string($str) {
-		return $str;
-	}
-
-	function version() {
-		return null;
-	}
-
-	function error() {
-		return $this->_link->errorInfo();
-	}
-
-	function errno() {
-		return $this->_link->errorCode();
-	}
-
-	function close() {
-		return null;
 	}
 
 	function halt($message = '') {

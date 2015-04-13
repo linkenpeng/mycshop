@@ -19,21 +19,29 @@ class trig_mvc_model {
 		return empty($tname) ? '' : " `" . $this->_config['table_pre'] . $tname . "` ";
 	}
 
-	function insert($data) {
-		$flag = false;
-		if ($this->db->insert($this->tname($this->_table), $data)) {
-			$flag = true;
+	function insert($data, $last_id = true) {
+		$set = array();
+		foreach ($data as $col => $val) {
+			$set[] = "`$col`";
+			$vals[] = "'$val'";
 		}
-		return $flag;
+		$sql = "INSERT INTO " . $this->tname($this->_table) . ' (' . implode(', ', $set) . ') ' . 'VALUES (' . implode(', ', $vals) . ')';
+		$result = $this->db->query($sql);
+		return $last_id ? $this->db->insert_id() : $result;
 	}
 
 	function update($data, $where) {
-		$flag = false;
-		if (!empty($data) && !empty($where)) {
-			$this->db->update($this->tname($this->_table), $data, $where);
-			$flag = true;
+		$set = array();
+		foreach ($data as $col => $val) {
+			if (strpos($val, '+') !== false) {
+				$set[] = "$col = $val";
+			} else {
+				$set[] = "$col = '$val'";
+			}
+			unset($set[$col]);
 		}
-		return $flag;
+		$sql = "UPDATE " . $this->tname($this->_table) . ' SET ' . implode(',', $set) . (($where) ? " WHERE $where" : '');
+		return $this->db->query($sql);
 	}
 
 	function delete($primarykey) {

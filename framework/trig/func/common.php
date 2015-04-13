@@ -125,6 +125,7 @@ class trig_func_common {
 	public static function strexists($haystack, $needle) {
 		return !(strpos($haystack, $needle) === FALSE);
 	}
+	
 	// 获取文件内容
 	public static function sreadfile($filename) {
 		$content = '';
@@ -150,14 +151,49 @@ class trig_func_common {
 			return false;
 		}
 	}
+	
+	/**
+	 * 读取一个目录下的所有文件
+	 * @param string $folder
+	 * @param array $fileList
+	 * @param array $fileType
+	 */
+	public static function get_all_files($folder, $fileList = array(), $fileType = array()) {
+		$folder = empty($folder) ? dirname(__FILE__) : $folder;
+		$folder = str_replace('\\','/',$folder);
+		$fileList = empty($fileList) ? array() : $fileList;
+		$d = dir($folder);
+		while (false !== ($file = $d->read())) {
+			if($file != '.' && $file != '..') {
+				$f = $folder.'/'.$file;
+				if(is_dir($f)) {
+					self::_getAllFiles($f, $fileList ,$fileType);
+				} else {
+					if(!empty($fileType)) {
+						if(in_array(pathinfo($f, PATHINFO_EXTENSION), $fileType)) {
+							$fileList[] =  $f;
+						}
+					} else {
+						$fileList[] =  $f;
+					}
+				}
+			}
+		}
+		$d->close();
+	
+		return $fileList;
+	}
+	
 	// 连接字符
 	public static function simplode($ids) {
 		return "'" . implode("','", $ids) . "'";
 	}
+	
 	// 获取文件名后缀
 	public static function fileext($filename) {
 		return strtolower(trim(substr(strrchr($filename, '.'), 1)));
 	}
+	
 	// 时间格式化
 	public static function sgmdate($dateformat, $timestamp = '', $format = 0) {
 		global $_CTCONFIG;
@@ -217,6 +253,7 @@ class trig_func_common {
 		}
 		return $newstr;
 	}
+	
 	// 过滤html代码
 	public static function trimhtml($str) {
 		$search = array(
@@ -230,6 +267,7 @@ class trig_func_common {
 		$text = preg_replace($search, $replace, $str);
 		return $text;
 	}
+	
 	// 取消HTML代码
 	public static function shtmlspecialchars($string) {
 		if (is_array($string)) {
@@ -251,6 +289,7 @@ class trig_func_common {
 		}
 		return $string;
 	}
+	
 	// 是否支持
 	public static function showResult($v) {
 		if ($v == 1) {
@@ -258,7 +297,7 @@ class trig_func_common {
 		} else {
 			echo '<font class=red><b>×</b></font>&nbsp;<font class=red>' . self::lang('common', 'unsupport') . '</font>';
 		}
-	}	
+	}
 	
 	// 获取一串中文字符的拼音 ishead=0 时，输出全拼音 ishead=1时，输出拼音首字母
 	public static function getPinyin($str, $ishead = 0, $isclose = 1) {

@@ -38,7 +38,7 @@ class model_session extends model_base {
             $setarr['usertype'] = $usertype;
             $setarr['lastactivity'] = $this->time;
             $setarr['ip'] = $this->ip;
-            $this->db->insert($this->tname($this->_table),$setarr);
+            $this->insert($setarr);
         }
     }
     

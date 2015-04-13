@@ -12,7 +12,7 @@ $config = array(
 			'charset' => 'utf8',
 			'pconnect' => '0',
 			'table_pre' => 'hb_',
-			'driver' => 'mysqli' 
+			'driver' => 'pdo' 
 		) 
 	),
 	'memcache' => array(

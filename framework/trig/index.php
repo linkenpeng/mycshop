@@ -2,7 +2,7 @@
 /**
  * trig: the right framework
  * @version 1.0.0
- * @author collin.peng collin_linken@qq.com
+ * @author peng.zhenxian collin_linken@qq.com
  */
 define('FRAME_NAME', 'trig');
 define('FRAME_PATH',dirname(__FILE__));

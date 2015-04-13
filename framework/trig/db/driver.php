@@ -8,10 +8,6 @@ interface trig_db_driver {
 
 	function query($sql, $type = '');
 
-	function update($table, $bind = array(), $where = '');
-
-	function insert($table, $bind = array());
-
 	function insert_id();
 
 	function affected_rows();
