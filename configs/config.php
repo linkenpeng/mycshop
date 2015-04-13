@@ -61,6 +61,11 @@ $config = array(
 	'autoload' => array(
 		'/source',
 	),
+	'log' => array(
+		'size' => 1024, // MB
+		'path' => 'logs',
+		'is_log' => false
+	),
 	'module' => array(
 		"index",
 		"android",

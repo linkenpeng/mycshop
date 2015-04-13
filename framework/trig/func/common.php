@@ -184,6 +184,12 @@ class trig_func_common {
 		return $fileList;
 	}
 	
+	public static function make_dirs($folder) {
+		if(!file_exists($folder)) {
+			mkdir($folder, 0755, true);
+		}		
+	}
+	
 	// 连接字符
 	public static function simplode($ids) {
 		return "'" . implode("','", $ids) . "'";
@@ -346,8 +352,47 @@ class trig_func_common {
 		
 		return $restr;
 	}
+	
+	// 加密函数
+	public static function encode_text($txt, $key = FRAME_NAME) {
+		$txt = $txt.$key;
+		$chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-=+";
+		$nh = rand(0,64);
+		$ch = $chars[$nh];
+		$mdKey = md5($key.$ch);
+		$mdKey = substr($mdKey,$nh%8, $nh%8+7);
+		$txt = base64_encode($txt);
+		$tmp = '';
+		$i=0;$j=0;$k = 0;
+		for ($i=0; $i<strlen($txt); $i++) {
+			$k = $k == strlen($mdKey) ? 0 : $k;
+			$j = ($nh+strpos($chars,$txt[$i])+ord($mdKey[$k++]))%64;
+			$tmp .= $chars[$j];
+		}
+		return urlencode(base64_encode($ch.$tmp));
+	}
+	
+	// 解密函数
+	public static function decode_text($txt, $key = FRAME_NAME) {
+		$txt = base64_decode(urldecode($txt));
+		$chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-=+";
+		$ch = $txt[0];
+		$nh = strpos($chars,$ch);
+		$mdKey = md5($key.$ch);
+		$mdKey = substr($mdKey,$nh%8, $nh%8+7);
+		$txt = substr($txt,1);
+		$tmp = '';
+		$i=0;$j=0; $k = 0;
+		for ($i=0; $i<strlen($txt); $i++) {
+			$k = $k == strlen($mdKey) ? 0 : $k;
+			$j = strpos($chars,$txt[$i])-$nh - ord($mdKey[$k++]);
+			while ($j<0) $j+=64;
+			$tmp .= $chars[$j];
+		}
+		return trim(base64_decode($tmp),$key);
+	}
 
-	public static function debugEx($var, $isdump = false) {
+	public static function debug_arr($var, $isdump = false) {
 		echo '<pre>';
 		if ($isdump) {
 			var_dump($var);

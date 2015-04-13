@@ -57,6 +57,7 @@ class trig_mvc_model {
 		if (!empty($primarykey)) {
 			$where = "WHERE " . $this->_primarykey . "=" . $primarykey;
 			$sql = "SELECT * FROM " . $this->tname($this->_table) . " $where LIMIT 1";
+			trig_log::error($sql);
 			$value = $this->db->get_one($sql);
 			return $value;
 		} else {
@@ -94,5 +95,15 @@ class trig_mvc_model {
 	function safe_sql($ParaName) {
 		$ParaName = trim(str_replace(" ", "", $ParaName));
 		return $ParaName;
+	}
+	
+	function filter_sql($sql) {
+		if (empty ($sql)) {
+			return;
+		}
+		$key_words = 'select|insert | update | and | in | on | left | joins | delete |';
+		$key_words .= '\%|\=|\/\*|\*|\.\.\/|\.\/| union | from | where | group | into |load_file|outfile';
+		$sql = preg_replace('/'.$key_words.'/', '', $sql);
+		return htmlspecialchars($sql);
 	}
 }

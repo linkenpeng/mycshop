@@ -14,7 +14,9 @@ define('SOURCE_PATH', str_replace("\\", "/", dirname(__FILE__)));
 // 加载配置信息
 $_G = include ROOT_PATH . DS . 'configs' . DS . 'config.php'; // 系统配置
 $_CTCONFIG = include ROOT_PATH . DS . 'caches' . DS . 'customize_config.php'; // 自定义配置信息
-global $_G, $_CTCONFIG;
+
+// 日志存放路径
+$_G['log']['path'] = ROOT_PATH . DS . 'caches'. DS .'logs';
 
 // 设置时区
 date_default_timezone_set($_CTCONFIG['time_zone']);
