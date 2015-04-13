@@ -1,10 +1,23 @@
 <?php
 
 class trig_mvc_controller {
-	public function display($view, $data) {
-		foreach ($data as $key => $val) {
-			$$key = $val;
+	private $_vars = array();
+	
+	public function assign($variable, $value = null) {
+		$this->_vars[$variable] = $value;
+	}
+	
+	public function display($view, $variable = array()) {
+		$template_file = trig_mvc_template::include_template(view);
+		if(!file_exists($template_file)) {
+			throw new trig_exception_system(1003);
 		}
-		require trig_mvc_template::include_template(view);
+		if(!empty($variable)) {
+			foreach($variable as $var => $value) {
+				$this->_vars[$var] = $value;
+			}
+		}
+		empty($this->_vars) || extract($this->_vars);
+		include $template_file;
 	}
 }
