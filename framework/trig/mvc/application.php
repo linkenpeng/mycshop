@@ -1,10 +1,7 @@
 <?php
 
 class trig_mvc_application {
-
-	/**
-	 * 构造函数
-	 */
+	
 	public function __construct() {
 		$route = new trig_mvc_route();
 		define('ROUTE_M', $route->route_m());
@@ -21,7 +18,7 @@ class trig_mvc_application {
 		if (method_exists($controller, ROUTE_A)) {
 			call_user_func(array($controller, ROUTE_A));
 		} else {
-			exit('Action does not exist.');
+			throw new trig_exception_system(1001);
 		}
 	}
 
@@ -34,8 +31,13 @@ class trig_mvc_application {
 	 */
 	private function load_controller($classname = '', $m = '') {
 		$classname = empty($classname) ? ROUTE_C : $classname;
-		$m = empty($m) ? ROUTE_M : $m;		
-		$class = 'application_'.$m.'_'.$classname;
+		$m = empty($m) ? ROUTE_M : $m;
+		
+		if(!defined('APP_FOLDER')) {
+			throw new trig_exception_system(1002);
+		}
+		
+		$class = APP_FOLDER.'_'.$m.'_'.$classname;
 		return new $class();
 	}
 }
