@@ -7,7 +7,7 @@ class trig_curl_request {
 		if ('get' == $method && !empty($params)) {
 			$url = strpos($url, '?') !== false ? $url . '&' : $url . '?';
 			if (!empty($params)) {
-				$data = $urlencode ? http_build_query($params) : self::_http_build_query($params);
+				$data = $urlencode ? http_build_query($params) : self::http_build_query_def($params);
 				$url .= $data;
 			}
 		}
@@ -29,7 +29,7 @@ class trig_curl_request {
 	}
 	
 	// 自定义构建url参数函数，不进行urlencode操作
-	private static function _http_build_query($parameter) {
+	public static function http_build_query_def($parameter) {
 		$stringParams = '';
 		if (!empty($parameter)) {
 			$parameters = array();
