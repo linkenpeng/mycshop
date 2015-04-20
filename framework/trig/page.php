@@ -30,8 +30,8 @@ class trig_page {
 				$this->error(__FUNCTION__, 'need a param of total');
 			}
 			$total = intval($setarr['total_count']);			
-			$perpage = !isset($_REQUEST['pagesize']) && isset($setarr['default_page_size']) ? $setarr['default_page_size'] : $_REQUEST['pagesize'];			
-			$this->perpage = $perpage;
+			$perpage = empty($_REQUEST['pagesize']) && isset($setarr['default_page_size']) ? $setarr['default_page_size'] : $_REQUEST['pagesize'];			
+			$this->perpage = intval($perpage);
 			$nowindex = (array_key_exists('nowindex', $setarr)) ? intval($setarr['nowindex']) : '';
 			$url = (array_key_exists('url', $setarr)) ? $setarr['url'] : '';
 		} else {
@@ -40,10 +40,11 @@ class trig_page {
 			$nowindex = '';
 			$url = '';
 		}
-		if ((!is_int($total)) || ($total < 0)) {
+		
+		if ($total < 0) {
 			$this->error(__FUNCTION__, $total . ' is not a positive integer!');
 		}
-		if ((!is_int($perpage)) || ($perpage <= 0)) {
+		if ($perpage <= 0) {
 			$this->error(__FUNCTION__, $perpage . ' is not a positive integer!');
 		}
 		if (!empty($setarr['page_name'])) {
