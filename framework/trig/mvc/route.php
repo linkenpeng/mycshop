@@ -68,7 +68,7 @@ class trig_mvc_route {
 			$route .= '&' . A . '=' . $a;
 		}
 		if (!empty($extra)) {
-			$route .= '&' . $extra;
+			$route .= '&' . (is_array($extra) ? http_build_query($extra) : $extra);
 		}
 		return $route;
 	}

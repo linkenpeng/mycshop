@@ -12,16 +12,16 @@ class application_admin_scenetype extends application_base {
 	function init() {
 		$where = " WHERE 1 ";
 		// 分页		
-		$count = $this->scenetypedb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
+		$total = $this->scenetypedb->get_count($where);
+		
+		$perpage = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
+		$nowindex = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$setarr = array('total' => $total,'perpage' => $perpage,'nowindex' => $nowindex);
 		$p = new trig_page($setarr);
+		
 		// 获取分页后的数据
-		$list = $this->scenetypedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
+		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
+		
 		$show_zone = 1;
 		
 		include trig_mvc_template::admin_template('scenetype');

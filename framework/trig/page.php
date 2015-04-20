@@ -11,6 +11,7 @@ class trig_page {
 	var $format_left = '';
 	var $format_right = '';
 	var $is_ajax = false; // 是否支持AJAX分页模式
+	var $total = 0;
 	var $perpage = 10;
 	
 	/**
@@ -23,33 +24,41 @@ class trig_page {
 	var $url = ""; // url地址头
 	var $offset = 0;
 
-	function __construct($array) {
-		if (is_array($array)) {
-			if (!array_key_exists('total', $array))
+	function __construct($setarr) {
+		if (is_array($setarr)) {
+			if (!array_key_exists('total', $setarr)) {
 				$this->error(__FUNCTION__, 'need a param of total');
-			$total = intval($array['total']);
-			$perpage = (array_key_exists('perpage', $array)) ? intval($array['perpage']) : 10;
+			}
+			$total = intval($setarr['total']);
+			$perpage = (array_key_exists('perpage', $setarr)) ? intval($setarr['perpage']) : 10;
 			$this->perpage = $perpage;
-			$nowindex = (array_key_exists('nowindex', $array)) ? intval($array['nowindex']) : '';
-			$url = (array_key_exists('url', $array)) ? $array['url'] : '';
+			$nowindex = (array_key_exists('nowindex', $setarr)) ? intval($setarr['nowindex']) : '';
+			$url = (array_key_exists('url', $setarr)) ? $setarr['url'] : '';
 		} else {
-			$total = $array;
+			$total = $setarr;
 			$perpage = 10;
 			$nowindex = '';
 			$url = '';
 		}
-		if ((!is_int($total)) || ($total < 0))
+		if ((!is_int($total)) || ($total < 0)) {
 			$this->error(__FUNCTION__, $total . ' is not a positive integer!');
-		if ((!is_int($perpage)) || ($perpage <= 0))
+		}
+		if ((!is_int($perpage)) || ($perpage <= 0)) {
 			$this->error(__FUNCTION__, $perpage . ' is not a positive integer!');
-		if (!empty($array['page_name']))
-			$this->set('page_name', $array['page_name']); // 设置pagename
+		}
+		if (!empty($setarr['page_name'])) {
+			$this->set('page_name', $setarr['page_name']); // 设置pagename
+		}
 		$this->_set_nowindex($nowindex); // 设置当前页
 		$this->_set_url($url); // 设置链接地址
+		
+		$this->total = $total;
 		$this->totalpage = ceil($total / $perpage);
+		
 		$this->offset = ($this->nowindex - 1) * $this->perpage;
-		if (!empty($array['ajax']))
+		if (!empty($setarr['ajax'])) {
 			$this->open_ajax($array['ajax']); // 打开AJAX模式
+		}
 	}
 
 	/**
@@ -69,8 +78,7 @@ class trig_page {
 	/**
 	 * 打开倒AJAX模式
 	 *
-	 * @param string $action
-	 *        	默认ajax触发的动作。
+	 * @param string $action 默认ajax触发的动作。
 	 */
 	function open_ajax($action) {
 		$this->is_ajax = true;
@@ -220,8 +228,7 @@ class trig_page {
 	/**
 	 * 设置url头地址
 	 *
-	 * @param
-	 *        	: String $url
+	 * @param String $url
 	 * @return boolean
 	 */
 	function _set_url($url = "") {
@@ -257,8 +264,7 @@ class trig_page {
 	 */
 	function _set_nowindex($nowindex) {
 		if (empty($nowindex)) {
-			// 系统获取
-			
+			// 系统获取			
 			if (isset($_GET[$this->page_name])) {
 				$this->nowindex = intval($_GET[$this->page_name]);
 			}
