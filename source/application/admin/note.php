@@ -27,18 +27,12 @@ class application_admin_note extends application_base {
 		if (!empty($enddate)) {
 			$where .= " and dateline<" . (strtotime($enddate) + 24 * 3600 - 1);
 		}
-		// 分页
-		
+		// 分页		
 		$count = $this->notedb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
-		$list = $this->notedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
+		$list = $this->notedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
+		
 		$notetypedb = new model_notetype();
 		$notetype_list = $notetypedb->get_list(100, 0, " notetypeid,name ", "", "dateline DESC ");
 		$notetypes = array();
@@ -48,13 +42,7 @@ class application_admin_note extends application_base {
 		$show_date_js = 1;
 		include trig_mvc_template::admin_template('note');
 	}
-
-	/**
-	 * 添加
-	 *
-	 * @author Myron
-	 *         2011-5-27 上午11:57:59
-	 */
+	
 	public function add() {
 		if (!empty($_POST['action'])) {
 			if (empty($_POST['title'])) {

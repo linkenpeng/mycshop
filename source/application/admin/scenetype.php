@@ -12,12 +12,9 @@ class application_admin_scenetype extends application_base {
 	function init() {
 		$where = " WHERE 1 ";
 		// 分页		
-		$total = $this->scenetypedb->get_count($where);
+		$count = $this->scenetypedb->get_count($where);
 		
-		$perpage = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowindex = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array('total' => $total,'perpage' => $perpage,'nowindex' => $nowindex);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		
 		// 获取分页后的数据
 		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");

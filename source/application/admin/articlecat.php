@@ -18,16 +18,10 @@ class application_admin_articlecat extends application_base {
 		$where = " WHERE 1 ";
 		// 分页
 		$count = $this->articlecatdb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? self::pagesize : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => self::pagesize));
 		// 获取分页后的数据
 		$list = array();
-		$sourcelist = $this->articlecatdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "ordernum DESC, dateline DESC ");
+		$sourcelist = $this->articlecatdb->get_list($p->perpage, $p->offset, " * ", $where, "ordernum DESC, dateline DESC ");
 		$sourcelist = $this->articlecatdb->make_tree($sourcelist);
 		$this->articlecatdb->sort_tree($sourcelist, $list);
 		

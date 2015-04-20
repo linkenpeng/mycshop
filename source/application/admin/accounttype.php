@@ -13,15 +13,9 @@ class application_admin_accounttype extends application_base {
 		$where = " WHERE 1 ";
 		// 分页		
 		$count = $this->accounttypedb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
-		$list = $this->accounttypedb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
+		$list = $this->accounttypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_zone = 1;
 		include trig_mvc_template::admin_template('accounttype');
 	}

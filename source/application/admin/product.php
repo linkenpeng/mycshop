@@ -24,18 +24,11 @@ class application_admin_product extends application_base {
 		if (!empty($barcode)) {
 			$where .= " and `barcode` like '%" . $barcode . "%' ";
 		}
-		// 分页
-		
+		// 分页		
 		$count = $this->productdb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
-		$list = $this->productdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "dateline DESC ");
+		$list = $this->productdb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		// 分类
 		$producttypedb = new model_producttype();
 		$pt_list = $producttypedb->get_list(100, 0, " typeid,name ", "", "typeid ASC ");

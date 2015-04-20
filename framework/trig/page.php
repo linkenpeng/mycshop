@@ -26,11 +26,11 @@ class trig_page {
 
 	function __construct($setarr) {
 		if (is_array($setarr)) {
-			if (!array_key_exists('total', $setarr)) {
+			if (!array_key_exists('total_count', $setarr)) {
 				$this->error(__FUNCTION__, 'need a param of total');
 			}
-			$total = intval($setarr['total']);
-			$perpage = (array_key_exists('perpage', $setarr)) ? intval($setarr['perpage']) : 10;
+			$total = intval($setarr['total_count']);			
+			$perpage = !isset($_REQUEST['pagesize']) && isset($setarr['default_page_size']) ? $setarr['default_page_size'] : $_REQUEST['pagesize'];			
 			$this->perpage = $perpage;
 			$nowindex = (array_key_exists('nowindex', $setarr)) ? intval($setarr['nowindex']) : '';
 			$url = (array_key_exists('url', $setarr)) ? $setarr['url'] : '';
@@ -265,8 +265,8 @@ class trig_page {
 	function _set_nowindex($nowindex) {
 		if (empty($nowindex)) {
 			// 系统获取			
-			if (isset($_GET[$this->page_name])) {
-				$this->nowindex = intval($_GET[$this->page_name]);
+			if (isset($_REQUEST[$this->page_name])) {
+				$this->nowindex = intval($_REQUEST[$this->page_name]);
 			}
 		} else {
 			// 手动设置

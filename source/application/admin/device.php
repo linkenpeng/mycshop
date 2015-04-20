@@ -17,16 +17,10 @@ class application_admin_device extends application_base {
 		}
 		// 分页		
 		$count = $this->devicedb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "50" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 50));
 		$field = " * ";
 		// 获取分页后的数据
-		$list = $this->devicedb->get_list($pagesize, $pagesize * ($nowpage - 1), $field, $where, " loginnum DESC");
+		$list = $this->devicedb->get_list($p->perpage, $p->offset, $field, $where, " loginnum DESC");
 		
 		include trig_mvc_template::admin_template('device');
 	}

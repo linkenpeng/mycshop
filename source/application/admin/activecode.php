@@ -31,19 +31,12 @@ class application_admin_activecode extends application_base {
 		if (!empty($enddate)) {
 			$where .= " and a.`dateline`<='" . strtotime($enddate) . "' ";
 		}
-		// 分页
-		
+		// 分页		
 		$count = $this->activecodedb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "50" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 50));
 		$field = "a.*,s.scenename ";
 		// 获取分页后的数据
-		$list = $this->activecodedb->get_list($pagesize, $pagesize * ($nowpage - 1), $field, $where, " a.$orderby $order ");
+		$list = $this->activecodedb->get_list($p->perpage, $p->offset, $field, $where, " a.$orderby $order ");
 		
 		$batchdb = new model_batchcode();
 		$batchlist = $batchdb->get_list('batchid,batchname');

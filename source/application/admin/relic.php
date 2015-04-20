@@ -27,16 +27,10 @@ class application_admin_relic extends application_base {
 		}
 		// 分页		
 		$count = $this->relicdb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		$field = "rel.relicid,rel.scenespotid,rel.relicname,rel.relic_enname,rel.relicnum,rel.level,rel.image,s.scenespotname";
 		// 获取分页后的数据
-		$list = $this->relicdb->get_list($pagesize, $pagesize * ($nowpage - 1), $field, $where, " rel.dateline DESC ");
+		$list = $this->relicdb->get_list($p->perpage, $p->offset, $field, $where, " rel.dateline DESC ");
 		
 		$levels = array(
 			1 => '一级',

@@ -39,16 +39,10 @@ class application_admin_scenespot extends application_base {
 		}
 		// 分页
 		$count = $this->scenespotdb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		$field = "sp.scenespotid,sp.sceneid,sp.scenespotname,sp.scenespot_enname,sp.infocards,sp.image,s.scenename,s.typeid,s.traveltopicid,s.level";
 		// 获取分页后的数据
-		$list = $this->scenespotdb->get_list($pagesize, $pagesize * ($nowpage - 1), $field, $where, " sp.infocards ASC ");
+		$list = $this->scenespotdb->get_list($p->perpage, $p->offset, $field, $where, " sp.infocards ASC ");
 		// 分类
 		$scenetypedb = new model_scenetype();
 		$pt_list = $scenetypedb->get_list(100, 0, " typeid,name ", "", "typeid ASC ");

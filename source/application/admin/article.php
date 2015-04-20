@@ -24,19 +24,12 @@ class application_admin_article extends application_base {
 		if (!empty($title)) {
 			$where .= " and a.`title` like '%" . $title . "%' ";
 		}
-		// 分页
-		
+		// 分页		
 		$count = $this->articledb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		$field = "a.aid,a.sceneid,a.title,a.catid,a.image,a.content,a.ordernum,a.dateline,c.name ";
 		// 获取分页后的数据
-		$list = $this->articledb->get_list($pagesize, $pagesize * ($nowpage - 1), $field, $where, " a.ordernum DESC, a.dateline DESC ");
+		$list = $this->articledb->get_list($p->perpage, $p->offset, $field, $where, " a.ordernum DESC, a.dateline DESC ");
 		
 		// 分类
 		$articlecatdb = new model_articlecat();

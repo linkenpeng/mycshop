@@ -13,15 +13,9 @@ class application_admin_usergroup extends application_base {
 		$where = " WHERE 1 ";
 		// 分页
 		$count = $this->usergroupdb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
-		$list = $this->usergroupdb->get_list($pagesize, $pagesize * ($nowpage - 1), " * ", $where, "uid ASC ");
+		$list = $this->usergroupdb->get_list($p->perpage, $p->offset, " * ", $where, "uid ASC ");
 		$show_zone = 1;
 		include trig_mvc_template::admin_template('usergroup');
 	}
@@ -107,7 +101,7 @@ class application_admin_usergroup extends application_base {
 			// 获取菜单信息
 			$where = '';
 			$menudb = new model_menu();
-			$list = $menudb->get_list(1000, 0, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
+			$list = $menudb->get_all(" * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 			$list = $menudb->make_tree_list($list);
 			include trig_mvc_template::admin_template('usergroup_permission');
 		} else {
