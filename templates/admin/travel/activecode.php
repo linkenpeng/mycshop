@@ -115,7 +115,7 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center">
 		  <?php echo isset($batlist[$value['batchid']]) ? : ''; ?>
 		  
-		  [<a href="<?php echo trig_mvc_route::get_uri("activecode","delbatch","admin");?>&batchid=<?php echo $value['batchid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');" >删除此批</a>]
+		  [<a href="<?php echo trig_mvc_route::get_uri("activecode","delbatch","admin", array('batchid'=>$value['batchid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');" >删除此批</a>]
 		  
 		  </td>
 		  <td align="center"><?php echo date("Y-m-d H:i",$value['dateline'])?></td>

@@ -13,8 +13,7 @@ include trig_mvc_template::admin_template("header");
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
 	  <table width="100%" border="0" cellpadding="0" cellspacing="0">
-	  <tr>
-		
+	  <tr>		
 		<td align="right" >
 			 <span id="zone"></span>
 			 <select id="typeid" name="typeid">
@@ -81,16 +80,16 @@ include trig_mvc_template::admin_template("header");
 		  </td>
 		  <td align="center">
 		  <?php echo $value['scenename']; ?> <br />
-		  [<a href="<?php echo trig_mvc_route::get_uri("scenespot","add","admin","sceneid=".$value['sceneid']);?>">添加景点</a>]
+		  [<a href="<?php echo trig_mvc_route::get_uri("scenespot","add","admin",array('sceneid'=>$value['sceneid']));?>">添加景点</a>]
 		  </td>
 		  <td align="center"><?php echo $scenetype_list[$value['typeid']]; ?></td>
 		  <td align="center"><?php echo $traveltopic_list[$value['traveltopicid']]; ?></td>
 		  <td align="center"><?php echo $value['level']; ?>A</td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("scenespot","edit","admin");?>&scenespotid=<?php echo $value['scenespotid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("scenespot","delete","admin");?>&scenespotid=<?php echo $value['scenespotid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("scenespot","edit","admin",array('scenespotid'=>$value['scenespotid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("scenespot","delete","admin",array('scenespotid'=>$value['scenespotid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 				 <br />
-				[<a href="<?php echo trig_mvc_route::get_uri("relic","add","admin","scenespotid=".$value['scenespotid']);?>">添加文物</a>]
+				[<a href="<?php echo trig_mvc_route::get_uri("relic","add","admin",array('scenespotid'=>$value['scenespotid']));?>">添加文物</a>]
 		  </td>
 		</tr>
 		<?php }} ?>

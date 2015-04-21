@@ -95,11 +95,11 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center"><?php echo $value['province'];?><br /> <?php echo $value['city'];?><br /> <?php echo $value['country'];?></td>
 		  <td><?php echo $value['address'];?></td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("scene","edit","admin");?>&sceneid=<?php echo $value['sceneid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("scene","delete","admin");?>&sceneid=<?php echo $value['sceneid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("scene","edit","admin",array('sceneid'=>$value['sceneid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("scene","delete","admin",array('sceneid'=>$value['sceneid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 				
-				<br /> [<a href="<?php echo trig_mvc_route::get_uri("scenespot","add","admin","sceneid=".$value['sceneid']);?>">添加景点</a>]
-				<br /> [<a href="<?php echo trig_mvc_route::get_uri("article","add","admin","sceneid=".$value['sceneid']);?>">添加文章</a>]
+				<br /> [<a href="<?php echo trig_mvc_route::get_uri("scenespot","add","admin",array('sceneid'=>$value['sceneid']));?>">添加景点</a>]
+				<br /> [<a href="<?php echo trig_mvc_route::get_uri("article","add","admin",array('sceneid'=>$value['sceneid']));?>">添加文章</a>]
 		  </td>
 		</tr>
 		<?php }} ?>

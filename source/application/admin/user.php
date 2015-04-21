@@ -42,18 +42,11 @@ class application_admin_user extends application_base {
 		if (!empty($keyword)) {
 			$where .= " and `username` like '%" . $keyword . "%' ";
 		}
-		// 分页
-		
+		// 分页		
 		$count = $this->userdb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "15" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
-		$list = $this->userdb->get_list($pagesize, $pagesize * ($nowpage - 1), "*", $where, "uid DESC ");
+		$list = $this->userdb->get_list($p->perpage, $p->offset, "*", $where, "uid DESC ");
 		$usergroupdb = new model_usergroup();
 		$usergroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", "", "uid ASC ");
 		foreach ($usergroup_list as $k => $v) {
@@ -167,7 +160,7 @@ class application_admin_user extends application_base {
 			if ($password != $password1) {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'tow_password_is_not_match'), -1);
 			}
-			if (password($oldpassword) != $user_info['password']) {
+			if (trig_func_common::password($oldpassword) != $user_info['password']) {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'old_password_is_wrong'), -1);
 			} else {
 				if ($this->userdb->update_password($admin_uid, $password)) {
@@ -175,7 +168,7 @@ class application_admin_user extends application_base {
 					$session->my_session_start();
 					$session->delete_session($_SESSION['admin_uid']);
 					$session->clearcookie('auth');
-					trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_password_success'), ROUTE . "?" . M . "=admin&" . C . "=login");
+					trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_password_success'), trig_mvc_route::get_uri("login","init","admin"));
 				} else {
 					trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_password_failure'), -1);
 				}

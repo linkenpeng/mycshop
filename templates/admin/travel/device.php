@@ -14,8 +14,7 @@ include trig_mvc_template::admin_template("header");
 	  <input name="<?php echo C;?>" type="hidden" value="<?php echo $_GET[C];?>" />
 	  <input name="<?php echo A;?>" type="hidden" value="<?php echo $_GET[A];?>" />	  
 	  <table width="100%" border="0" cellpadding="0" cellspacing="0">
-	  <tr>
-		
+	  <tr>		
 		<td align="right" >
 		品牌:<input name="brand" type="text" size="12" value="<?php echo $brand?>" />
 		<input type="submit" name="Submit" value="<?php echo trig_func_common::lang("action","search")?>" /></td>

@@ -3,24 +3,19 @@ $pagetitle="管理后台首页";
 include trig_mvc_template::admin_template("header");
 ?>
 <div class="pageMain">
-
-<div class="indexpageContent">
-<div class="index_block">
-	<div class="pageTitle">
-		<div class="pageTitle_left"></div>
-		最新景区
-	</div>
-	<ul class="index_ul">
-		<?php if(is_array($scene_list)) { 
-			foreach ($scene_list as $value) {
-		?>
-		<li><?php echo $value['scenename']; ?></li>
-		<?php }} ?>
-	</ul>
-</div>
-<div class="index_block">
-	<div class="pageTitle">
-	<div class="pageTitle_left"></div>最新景点</div>
+	<div class="indexpageContent">
+		<div class="index_block">
+			<div class="pageTitle"><div class="pageTitle_left"></div>最新景区</div>
+			<ul class="index_ul">
+				<?php if(is_array($scene_list)) { 
+					foreach ($scene_list as $value) {
+				?>
+				<li><?php echo $value['scenename']; ?></li>
+				<?php }} ?>
+			</ul>
+		</div>
+		<div class="index_block">
+			<div class="pageTitle"><div class="pageTitle_left"></div>最新景点</div>
 			<ul class="index_ul">
 				<?php if(is_array($scenespot_list)) { 
 					foreach ($scenespot_list as $value) {
@@ -28,10 +23,9 @@ include trig_mvc_template::admin_template("header");
 				<li><font color="#CCCCCC">[<?php echo $value['scenespotname']; ?>]</font> <?php echo $value['scenespotname']; ?></li>
 				<?php }} ?>
 			</ul>
-</div>
-<div class="index_block">
-	<div class="pageTitle">
-<div class="pageTitle_left"></div>最新评论</div>
+		</div>
+		<div class="index_block">
+			<div class="pageTitle"><div class="pageTitle_left"></div>最新评论</div>
 			<ul class="index_ul">
 				<?php if(is_array($comment_list)) { 
 					foreach ($comment_list as $value) {
@@ -41,12 +35,11 @@ include trig_mvc_template::admin_template("header");
 				<?php echo $value['commented_title']; ?></li>
 				<?php }} ?>
 			</ul>
-</div>
-<div class="index_block">
-	<div class="pageTitle">
-<div class="pageTitle_left"></div>最新签到</div>
+		</div>
+		<div class="index_block">
+			<div class="pageTitle"><div class="pageTitle_left"></div>最新签到</div>
 			<ul class="index_ul">
-				<?php if(is_array($signin_list)) { 
+				<?php if(is_array($signin_list)) {
 					foreach ($signin_list as $value) {
 				?>
 				<li>
@@ -55,8 +48,8 @@ include trig_mvc_template::admin_template("header");
 				</li>
 				<?php }} ?>
 			</ul>
-</div>
-</div>
+		</div>
+	</div>
 </div>
 <?php
 include trig_mvc_template::admin_template("footer");

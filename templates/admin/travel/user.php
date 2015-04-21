@@ -51,9 +51,9 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['regtime']);?></td>
 		  <?php if($_SESSION['usertype']==ADMIN_USER_TYPE) {?>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("user","edit","admin");?>&uid=<?php echo $value['uid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("user","edit","admin",array('uid'=>$value['uid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
 				<?php if($value['uid']!=1) {?>
-				<a href="<?php echo trig_mvc_route::get_uri("user","delete","admin");?>&uid=<?php echo $value['uid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("user","delete","admin",array('uid'=>$value['uid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 				<?php }?>
 		  </td>
 		  <?php }?>

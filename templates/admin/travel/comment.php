@@ -49,7 +49,7 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center"><?php echo $value['username'];?></td>
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("comment","delete","admin");?>&commentid=<?php echo $value['commentid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("comment","delete","admin",array('commentid'=>$value['commentid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>

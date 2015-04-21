@@ -1,8 +1,3 @@
-<?php
-if(!defined('SYS_IN')) {
-	exit('Access Denied');
-}
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,6 +6,7 @@ if(!defined('SYS_IN')) {
 <meta content="<?php echo $pagetitle?>" name="keywords">
 <meta content="<?php echo $pagetitle?>" name="description">
 <link href="<?php echo ADMIN_TEMPLATE_URL?>/css/style.css" rel="stylesheet" type="text/css" />
+
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/jquery.min.js" type="text/javascript"></script>
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/cookie.js" type="text/javascript"></script>
 <?php if(isset($show_validator)) { ?>
@@ -30,7 +26,6 @@ if(!defined('SYS_IN')) {
 <?php if(isset($show_map)) { ?>
 <script src="http://app.mapabc.com/apis?&t=flashmap&v=2.2&key=<?php echo MAPABC_KEY; ?>" type="text/javascript"></script> 
 <?php } ?>
-
 <script language="javascript" src="<?php echo ADMIN_TEMPLATE_URL?>/js/common.js" type="text/javascript"></script>
 <script language="javascript">
 $().ready(function(){

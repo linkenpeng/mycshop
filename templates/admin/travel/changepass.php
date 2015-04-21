@@ -1,7 +1,4 @@
 <?php
-if(!defined('SYS_IN')) {
-	exit('Access Denied');
-}
 $pagetitle = "修改密码";
 include trig_mvc_template::admin_template("header");
 ?>
@@ -10,7 +7,7 @@ include trig_mvc_template::admin_template("header");
 <div class="pageTitle_left"></div>当前位置：修改密码 </div>
 <div class="pageContent">
   <table width="100%">
-    <form action="<?php echo ROUTE;?>?<?php echo M;?>=admin&<?php echo C;?>=user&<?php echo A;?>=save_admin_pass" method="post" name="articleForm" id="articleForm">
+    <form action="<?php echo trig_mvc_route::get_uri("user","save_admin_pass","admin");?>" method="post" name="articleForm" id="articleForm">
     <input type="hidden" name="uid" value="<?php echo $user_info['uid']; ?>" />
     <tr>
       <td width="20%">用户名</td>

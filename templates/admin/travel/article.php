@@ -2,7 +2,6 @@
 $pagetitle="文章管理";
 include trig_mvc_template::admin_template("header");
 ?>
-
 <div class="pageMain">
 <div class="pageTitle">
 <div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
@@ -75,8 +74,8 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center"><?php echo $value['ordernum'];?></td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("article","edit","admin");?>&aid=<?php echo $value['aid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("article","delete","admin");?>&aid=<?php echo $value['aid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("article","edit","admin",array('aid'=>$value['aid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("article","delete","admin",array('aid'=>$value['aid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>

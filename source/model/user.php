@@ -54,8 +54,7 @@ class model_user extends model_base {
 	function update_password($admin_uid, $password) {
 		$flag = false;
 		if (!empty($admin_uid) && !empty($password)) {
-			$this->db->update($this->tname($this->_table), 
-			array('password' => trig_func_common::password($password)), "uid='$admin_uid'");
+			$this->update(array('password' => trig_func_common::password($password)), "uid='$admin_uid'");
 			$flag = true;
 		}
 		return $flag;

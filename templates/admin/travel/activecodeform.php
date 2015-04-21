@@ -1,7 +1,4 @@
 <?php
-if(!defined('SYS_IN')) {
-	exit('Access Denied');
-}
 $pagetitle = "批量生成激活码";
 include trig_mvc_template::admin_template("header");
 ?>

@@ -44,22 +44,16 @@ include trig_mvc_template::admin_template("header");
 		  </a>
 		</td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("talk","show","admin");?>&talkid=<?php echo $value['talkid']; ?>" >查看</a>
-				<a href="<?php echo trig_mvc_route::get_uri("talk","edit","admin");?>&talkid=<?php echo $value['talkid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("talk","delete","admin");?>&talkid=<?php echo $value['talkid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("talk","show","admin",array('talkid'=>$value['talkid']));?>" >查看</a>
+				<a href="<?php echo trig_mvc_route::get_uri("talk","edit","admin",array('talkid'=>$value['talkid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("talk","delete","admin",array('talkid'=>$value['talkid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
 		<tr>
 			<td colspan=8 align="center">
-				<div class="page">
-					<?php echo trig_func_common::lang("page","total")?><b><?php echo $count?></b><?php echo trig_func_common::lang("page","item")?> <b><?php echo $nowpage?>/<?php echo $p->totalpage?></b><?php echo trig_func_common::lang("page","page")?> <?php echo $p->show(); ?>
-				</div>
-			<?php
-				$endTime = trig_func_common::mtime();
-				$totaltime = sprintf("%.3f",($endTime - START_TIME));
-				echo trig_func_common::lang("page","thispage").trig_func_common::lang("common","excute").trig_func_common::lang("common","time").($totaltime).trig_func_common::lang("common","second");
-			?>
+				<div class="page"><?= trig_helper_html::page_info($p) ?></div>
+				<div class="run-info"><?= trig_helper_html::run_info(array('startTime' => START_TIME, 'endTime' => trig_func_common::mtime())) ?></div>
 			</td>
 		</tr>
 	</table>

@@ -24,9 +24,9 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center"><?php echo $value['description']; ?></td>
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("usergroup","edit","admin");?>&ugid=<?php echo $value['ugid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("usergroup","delete","admin");?>&ugid=<?php echo $value['ugid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("usergroup","permission","admin");?>&ugid=<?php echo $value['ugid']; ?>" >权限管理</a>
+				<a href="<?php echo trig_mvc_route::get_uri("usergroup","edit","admin",array('ugid'=>$value['ugid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("usergroup","delete","admin",array('ugid'=>$value['ugid'])); ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("usergroup","permission","admin",array('ugid'=>$value['ugid'])); ?>" >权限管理</a>
 		  </td>
 		</tr>
 		<?php }} ?>

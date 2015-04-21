@@ -1,8 +1,3 @@
-<?php
-if(!defined('SYS_IN')) {
-	exit('Access Denied');
-}
-?>
 <div id="navbar">
 	<div class="lefttitle"></div>	
 	<div class="leftmenu">

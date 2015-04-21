@@ -53,7 +53,7 @@ include trig_mvc_template::admin_template("header");
 	  <div><?php echo $replyvalue['content']; ?></div>
 	  <?php echo $replyvalue['username']; ?> <?php echo date("Y-m-d H:i:s",$replyvalue['dateline']);?>
 	  <?php if(($replyvalue['uid']==$_SESSION['admin_uid'])||($_SESSION['admin_uid']==1)) { ?>
-	  <a href="<?php echo trig_mvc_route::get_uri("talkreply","delete","admin");?>&talkreplyid=<?php echo $replyvalue['talkreplyid']; ?>&talkid=<?php echo $replyvalue['talkid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+	  <a href="<?php echo trig_mvc_route::get_uri("talkreply","delete","admin",array('talkreplyid'=>$replyvalue['talkreplyid'],'talkid'=>$replyvalue['talkid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 	  <?php } ?>
 	  </td>
     </tr>

@@ -54,11 +54,9 @@ include trig_mvc_template::admin_template("header");
 		  <td align="center"><?php echo date("Y-m-d H:i:s",$value['dateline']);?></td>
 		  <td align="center"><?php echo $value['ordernum'];?></td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("articlecat","add","admin");?>&upid=<?php echo $value['catid']; ?>" >添加子类</a>
-				
-				<a href="<?php echo trig_mvc_route::get_uri("articlecat","edit","admin");?>&catid=<?php echo $value['catid']; ?>&upid=<?php echo $value['upid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				
-				<a href="<?php echo trig_mvc_route::get_uri("articlecat","delete","admin");?>&catid=<?php echo $value['catid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("articlecat","add","admin",array('upid'=>$value['catid']));?>" >添加子类</a>				
+				<a href="<?php echo trig_mvc_route::get_uri("articlecat","edit","admin",array('catid'=>$value['catid'],'upid'=>$value['upid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>				
+				<a href="<?php echo trig_mvc_route::get_uri("articlecat","delete","admin", array('catid'=>$value['catid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>

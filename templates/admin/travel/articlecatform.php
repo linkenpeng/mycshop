@@ -1,7 +1,4 @@
 <?php
-if(!defined('SYS_IN')) {
-	exit('Access Denied');
-}
 $pagetitle = "添加修改文章分类";
 include trig_mvc_template::admin_template("header");
 ?>

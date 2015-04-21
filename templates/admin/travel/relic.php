@@ -53,11 +53,11 @@ include trig_mvc_template::admin_template("header");
 		  </td>
 		  <td align="center">
 		  <?php echo $value['scenespotname']; ?> <br />
-		  [<a href="<?php echo trig_mvc_route::get_uri("relic","add","admin","scenespotid=".$value['scenespotid']);?>">添加文物</a>]
+		  [<a href="<?php echo trig_mvc_route::get_uri("relic","add","admin",array('scenespotid'=>$value['scenespotid']));?>">添加文物</a>]
 		  </td>
 		  <td align="center">
-				<a href="<?php echo trig_mvc_route::get_uri("relic","edit","admin");?>&relicid=<?php echo $value['relicid']; ?>" ><?php echo trig_func_common::lang("action","edit")?></a>
-				<a href="<?php echo trig_mvc_route::get_uri("relic","delete","admin");?>&relicid=<?php echo $value['relicid']; ?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("relic","edit","admin",array('relicid'=>$value['relicid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+				<a href="<?php echo trig_mvc_route::get_uri("relic","delete","admin",array('relicid'=>$value['relicid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
 		  </td>
 		</tr>
 		<?php }} ?>
