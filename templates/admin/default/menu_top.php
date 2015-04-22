@@ -1,8 +1,3 @@
-<?php
-if(!defined('SYS_IN')) {
-	exit('Access Denied');
-}
-?>
 <div id="topbar">
 	<span style="float:right;margin-right:10px;">
 		欢迎你：<?php echo $_SESSION['admin_username'];?> 你的身份是：<?php echo $_SESSION['usergroupname'];?>
