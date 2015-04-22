@@ -8,7 +8,7 @@ return array (
   'province' => '广东省',
   'city' => '广州市',
   'template' => 'default',
-  'admin_template' => 'travel',
+  'admin_template' => 'default',
   'online_time' => '1800',
   'upload_image_file_types' => 'jpg,gif,bmp,png',
   'upload_audio_file_types' => 'mp3',
