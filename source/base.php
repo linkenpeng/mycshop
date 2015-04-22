@@ -45,16 +45,6 @@ define('MAPABC_KEY', $_CTCONFIG['mapabc_key']);
 define('CHARSET', $_G['system']['charset']);
 // 输出页面字符集
 header('Content-type: text/html; charset=' . CHARSET);
-
-// 定义后台模板
-$admin_tpl = 'templates' . DS . 'admin' . DS . $_CTCONFIG['admin_template'];
-define('ADMIN_TEMPLATE_URL', SITE_URL . DS . $admin_tpl);
-define('ADMIN_TEMPLATE_PATH', ROOT_PATH . DS . $admin_tpl);
-// 定义前台模板
-$front_tpl = 'templates' . DS . 'front' . DS . $_CTCONFIG['template'];
-define('TEMPLATE_URL', SITE_URL . DS . $front_tpl);
-define('TEMPLATE_PATH', ROOT_PATH . DS . $front_tpl);
-
 // 定义站点gzip
 define('GZIP', $_G['system']['gzip']);
 // 来源

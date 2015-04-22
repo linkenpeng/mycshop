@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_usergroup extends application_base {
+class application_admin_usergroup extends application_admin_base {
 	private $usergroupdb;
 
 	function __construct() {
@@ -17,7 +17,7 @@ class application_admin_usergroup extends application_base {
 		// 获取分页后的数据
 		$list = $this->usergroupdb->get_list($p->perpage, $p->offset, " * ", $where, "uid ASC ");
 		$show_zone = 1;
-		include trig_mvc_template::admin_template('usergroup');
+		include trig_mvc_template::view('usergroup');
 	}
 
 	public function add() {
@@ -40,7 +40,7 @@ class application_admin_usergroup extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('usergroupform');
+		include trig_mvc_template::view('usergroupform');
 	}
 
 	public function edit() {
@@ -60,7 +60,7 @@ class application_admin_usergroup extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('usergroupform');
+		include trig_mvc_template::view('usergroupform');
 	}
 
 	public function delete() {
@@ -103,7 +103,7 @@ class application_admin_usergroup extends application_base {
 			$menudb = new model_menu();
 			$list = $menudb->get_all(" * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 			$list = $menudb->make_tree_list($list);
-			include trig_mvc_template::admin_template('usergroup_permission');
+			include trig_mvc_template::view('usergroup_permission');
 		} else {
 			trig_func_common::ShowMsg(trig_func_common::lang('message', 'param_error'), -1);
 		}

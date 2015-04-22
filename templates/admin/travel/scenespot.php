@@ -1,6 +1,6 @@
 <?php
 $pagetitle="景点管理";
-include trig_mvc_template::admin_template("header");
+include trig_mvc_template::view("header");
 ?>
 
 <div class="pageMain">
@@ -104,5 +104,5 @@ include trig_mvc_template::admin_template("header");
 </div>
 </div>
 <?php
-include trig_mvc_template::admin_template("footer");
+include trig_mvc_template::view("footer");
 ?>

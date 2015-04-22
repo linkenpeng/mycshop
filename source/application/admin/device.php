@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_device extends application_base {
+class application_admin_device extends application_admin_base {
 	private $devicedb;
 
 	function __construct() {
@@ -22,6 +22,6 @@ class application_admin_device extends application_base {
 		// 获取分页后的数据
 		$list = $this->devicedb->get_list($p->perpage, $p->offset, $field, $where, " loginnum DESC");
 		
-		include trig_mvc_template::admin_template('device');
+		include trig_mvc_template::view('device');
 	}
 }

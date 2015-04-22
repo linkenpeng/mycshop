@@ -5,7 +5,7 @@
 <title><?php echo $pagetitle?></title>
 <meta content="<?php echo $pagetitle?>" name="keywords">
 <meta content="<?php echo $pagetitle?>" name="description">
-<link href="<?php echo ADMIN_TEMPLATE_URL?>/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo TEMPLATE_URL?>/css/style.css" rel="stylesheet" type="text/css" />
 
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/jquery.min.js" type="text/javascript"></script>
 <script language="javascript" src="<?php echo SITE_URL?>/statics/js/cookie.js" type="text/javascript"></script>
@@ -26,7 +26,7 @@
 <?php if(isset($show_map)) { ?>
 <script src="http://app.mapabc.com/apis?&t=flashmap&v=2.2&key=<?php echo MAPABC_KEY; ?>" type="text/javascript"></script> 
 <?php } ?>
-<script language="javascript" src="<?php echo ADMIN_TEMPLATE_URL?>/js/common.js" type="text/javascript"></script>
+<script language="javascript" src="<?php echo TEMPLATE_URL?>/js/common.js" type="text/javascript"></script>
 <script language="javascript">
 $().ready(function(){
 	showleftmenu(getCookie("ctvalue"));

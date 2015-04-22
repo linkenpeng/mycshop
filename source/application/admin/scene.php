@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_scene extends application_base {
+class application_admin_scene extends application_admin_base {
 	private $scenedb;
 
 	function __construct() {
@@ -71,7 +71,7 @@ class application_admin_scene extends application_base {
 			'2' => '3A以下' 
 		);
 		$show_zone = 1;
-		include trig_mvc_template::admin_template('scene');
+		include trig_mvc_template::view('scene');
 	}
 
 	public function add() {
@@ -158,7 +158,7 @@ class application_admin_scene extends application_base {
 		
 		$value['scenenum'] = $this->scenedb->get_auto_scenenum();
 		
-		include trig_mvc_template::admin_template('sceneform');
+		include trig_mvc_template::view('sceneform');
 	}
 
 	public function edit() {
@@ -266,7 +266,7 @@ class application_admin_scene extends application_base {
 		$show_zone = 1;
 		// $show_map = 1;
 		
-		include trig_mvc_template::admin_template('sceneform');
+		include trig_mvc_template::view('sceneform');
 	}
 
 	public function delete() {

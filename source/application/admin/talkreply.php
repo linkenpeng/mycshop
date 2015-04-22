@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_talkreply extends application_base {
+class application_admin_talkreply extends application_admin_base {
 	private $talkreplydb;
 
 	function __construct() {
@@ -38,7 +38,7 @@ class application_admin_talkreply extends application_base {
 			}
 		}
 		$show_validator = 1;
-		//include trig_mvc_template::admin_template('talkreplyform');
+		//include trig_mvc_template::view('talkreplyform');
 	}
 	
 	public function edit() {
@@ -57,7 +57,7 @@ class application_admin_talkreply extends application_base {
 			}
 		}
 		$show_validator = 1;
-		// include trig_mvc_template::admin_template('talkreplyform');
+		// include trig_mvc_template::view('talkreplyform');
 	}
 	
 	public function delete() {

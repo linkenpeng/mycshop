@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_comment extends application_base {
+class application_admin_comment extends application_admin_base {
 	private $commentdb;
 
 	function __construct() {
@@ -38,7 +38,7 @@ class application_admin_comment extends application_base {
 		// 获取分页后的数据
 		$list = $this->commentdb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_mvc_template::admin_template('comment');
+		include trig_mvc_template::view('comment');
 	}
 
 	public function add() {
@@ -82,7 +82,7 @@ class application_admin_comment extends application_base {
 		$show_editor = 1;
 		$commenttypedb = new model_commenttype();
 		$commenttype_list = $commenttypedb->get_list(100, 0, " comment_type,name ", $where, "dateline DESC ");
-		include trig_mvc_template::admin_template('commentform');
+		include trig_mvc_template::view('commentform');
 	}
 	
 	public function edit() {
@@ -128,7 +128,7 @@ class application_admin_comment extends application_base {
 		$commenttype_list = $commenttypedb->get_list(100, 0, " comment_type,name ", $where, "dateline DESC ");
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::admin_template('commentform');
+		include trig_mvc_template::view('commentform');
 	}
 	
 	public function delete() {

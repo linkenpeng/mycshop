@@ -158,7 +158,7 @@ div
 	<div id="header"><?php echo SITE_NAME;?></div>
 	<div id="title">管理员登录</div>
 	<div id="content">
-			<div id="content_left"><img src="<?php echo ADMIN_TEMPLATE_URL;?>/images/splash.jpg" width="179" height="229" /></div>
+			<div id="content_left"><img src="<?php echo TEMPLATE_URL;?>/images/splash.jpg" width="179" height="229" /></div>
 			<div id="content_right">
 			<form action="<?php echo trig_mvc_route::get_uri("login","check_user_login","admin");?>" method="post" name="admin_login" onsubmit="return checkvalid(document.admin_login);">
 				<input type="hidden" name="usertype" value="<?php echo ADMIN_USER_TYPE;?>" />

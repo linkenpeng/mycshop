@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_article extends application_base {
+class application_admin_article extends application_admin_base {
 	private $articledb;
 
 	function __construct() {
@@ -50,7 +50,7 @@ class application_admin_article extends application_base {
 			$sc_list[$v['sceneid']] = $v['scenename'];
 		}
 		
-		include trig_mvc_template::admin_template('article');
+		include trig_mvc_template::view('article');
 	}
 	
 	public function add() {
@@ -97,7 +97,7 @@ class application_admin_article extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::admin_template('articleform');
+		include trig_mvc_template::view('articleform');
 	}
 	
 	public function edit() {
@@ -148,7 +148,7 @@ class application_admin_article extends application_base {
 		$sceneids = explode(',', $value['sceneid']);
 		
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('articleform');
+		include trig_mvc_template::view('articleform');
 	}
 	
 	private function get_category_options($selectedid = 0) {

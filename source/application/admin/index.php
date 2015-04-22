@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_admin_index extends application_base {
+class application_admin_index extends application_admin_base {
     function __construct() {
        parent::__construct();
     }
@@ -21,7 +21,7 @@ class application_admin_index extends application_base {
 		$signindb =new model_signin();
 		$signin_list = $signindb->get_list(10,0," * ","","dateline DESC ");
 		
-        include trig_mvc_template::admin_template('index');
+        include trig_mvc_template::view('index');
     }
 }
 ?>

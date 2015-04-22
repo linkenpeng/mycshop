@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_activecode extends application_base {
+class application_admin_activecode extends application_admin_base {
 	private $activecodedb;
 
 	function __construct() {
@@ -47,7 +47,7 @@ class application_admin_activecode extends application_base {
 		
 		$show_date_js = 1;
 		
-		include trig_mvc_template::admin_template('activecode');
+		include trig_mvc_template::view('activecode');
 	}
 
 	public function add() {
@@ -109,7 +109,7 @@ class application_admin_activecode extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::admin_template('activecodeform');
+		include trig_mvc_template::view('activecodeform');
 	}
 
 	public function batch() {

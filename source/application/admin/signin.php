@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_signin extends application_base {
+class application_admin_signin extends application_admin_base {
 	private $signindb;
 
 	function __construct() {
@@ -38,7 +38,7 @@ class application_admin_signin extends application_base {
 		// 获取分页后的数据
 		$list = $this->signindb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_mvc_template::admin_template('signin');
+		include trig_mvc_template::view('signin');
 	}
 
 	public function add() {
@@ -82,7 +82,7 @@ class application_admin_signin extends application_base {
 		$show_editor = 1;
 		$signintypedb = new model_signintype();
 		$signintype_list = $signintypedb->get_list(100, 0, " signintypeid,name ", $where, "dateline DESC ");
-		include trig_mvc_template::admin_template('signinform');
+		include trig_mvc_template::view('signinform');
 	}
 
 	public function edit() {
@@ -128,7 +128,7 @@ class application_admin_signin extends application_base {
 		$signintype_list = $signintypedb->get_list(100, 0, " signintypeid,name ", $where, "dateline DESC ");
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::admin_template('signinform');
+		include trig_mvc_template::view('signinform');
 	}
 
 	public function delete() {

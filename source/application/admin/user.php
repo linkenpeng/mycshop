@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_user extends application_base {
+class application_admin_user extends application_admin_base {
 	private $userdb;
 
 	function __construct() {
@@ -29,7 +29,7 @@ class application_admin_user extends application_base {
 		foreach ($usergroup_list as $k => $v) {
 			$ugroup_list[$v['ugid']] = $v['name'];
 		}
-		include trig_mvc_template::admin_template('user');
+		include trig_mvc_template::view('user');
 	}
 
 	function ajax_userlist() {
@@ -52,7 +52,7 @@ class application_admin_user extends application_base {
 		foreach ($usergroup_list as $k => $v) {
 			$ugroup_list[$v['ugid']] = $v['name'];
 		}
-		include trig_mvc_template::admin_template('ajax_userlist');
+		include trig_mvc_template::view('ajax_userlist');
 	}
 
 	public function add() {
@@ -86,7 +86,7 @@ class application_admin_user extends application_base {
 		$where = '';
 		$usergroupdb = new model_usergroup();
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");
-		include trig_mvc_template::admin_template('userform');
+		include trig_mvc_template::view('userform');
 	}
 
 	public function edit() {
@@ -122,7 +122,7 @@ class application_admin_user extends application_base {
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");
 		$show_zone = 1;
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('userform');
+		include trig_mvc_template::view('userform');
 	}
 
 	public function delete() {
@@ -143,7 +143,7 @@ class application_admin_user extends application_base {
 	 */
 	function editpass() {
 		$user_info = $this->userdb->get_user_info($_SESSION['admin_uid']);
-		include trig_mvc_template::admin_template('changepass');
+		include trig_mvc_template::view('changepass');
 	}
 	
 	/*

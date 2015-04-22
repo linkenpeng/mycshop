@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_menu extends application_base {
+class application_admin_menu extends application_admin_base {
 	private $menudb;
 
 	function __construct() {
@@ -17,7 +17,7 @@ class application_admin_menu extends application_base {
 		$list = $this->menudb->get_list($p->perpage, $p->offset, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 		$list = $this->menudb->make_tree_list($list);
 		
-		include trig_mvc_template::admin_template('menu');
+		include trig_mvc_template::view('menu');
 	}
 
 	public function add() {
@@ -46,7 +46,7 @@ class application_admin_menu extends application_base {
 		$value['ctrl'] = $value_parent['ctrl'];
 		$value['parent_name'] = $value_parent['name'];
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('menuform');
+		include trig_mvc_template::view('menuform');
 	}
 
 	public function edit() {
@@ -69,7 +69,7 @@ class application_admin_menu extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('menuform');
+		include trig_mvc_template::view('menuform');
 	}
 
 	public function delete() {

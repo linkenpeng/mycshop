@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_scenespot extends application_base {
+class application_admin_scenespot extends application_admin_base {
 	private $scenespotdb;
 
 	function __construct() {
@@ -63,7 +63,7 @@ class application_admin_scenespot extends application_base {
 			'2' => '3A以下' 
 		);
 		
-		include trig_mvc_template::admin_template('scenespot');
+		include trig_mvc_template::view('scenespot');
 	}
 
 	public function add() {
@@ -125,7 +125,7 @@ class application_admin_scenespot extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::admin_template('scenespotform');
+		include trig_mvc_template::view('scenespotform');
 	}
 
 	public function edit() {
@@ -189,7 +189,7 @@ class application_admin_scenespot extends application_base {
 		$parent_scenespot_list = $this->scenespotdb->get_parent_list(10000, 0, "scenespotid,parent_scenespotid,scenespotname", " WHERE parent_scenespotid=0 ", " dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('scenespotform');
+		include trig_mvc_template::view('scenespotform');
 	}
 
 	public function delete() {

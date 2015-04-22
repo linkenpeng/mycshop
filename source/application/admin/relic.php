@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_relic extends application_base {
+class application_admin_relic extends application_admin_base {
 	private $relicdb;
 
 	function __construct() {
@@ -37,7 +37,7 @@ class application_admin_relic extends application_base {
 			2 => '二级',
 			3 => '三级' 
 		);
-		include trig_mvc_template::admin_template('relic');
+		include trig_mvc_template::view('relic');
 	}
 	
 	public function add() {
@@ -98,7 +98,7 @@ class application_admin_relic extends application_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::admin_template('relicform');
+		include trig_mvc_template::view('relicform');
 	}
 	
 	public function edit() {
@@ -165,7 +165,7 @@ class application_admin_relic extends application_base {
 		$scenespot_list = $scenespotdb->get_list(10000, 0, $field, '', " sp.dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('relicform');
+		include trig_mvc_template::view('relicform');
 	}
 	
 	public function delete() {

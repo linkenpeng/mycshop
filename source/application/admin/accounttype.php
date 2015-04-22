@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_accounttype extends application_base {
+class application_admin_accounttype extends application_admin_base {
 	private $accounttypedb;
 
 	function __construct() {
@@ -17,7 +17,7 @@ class application_admin_accounttype extends application_base {
 		// 获取分页后的数据
 		$list = $this->accounttypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_mvc_template::admin_template('accounttype');
+		include trig_mvc_template::view('accounttype');
 	}
 	
 	public function add() {
@@ -41,7 +41,7 @@ class application_admin_accounttype extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('accounttypeform');
+		include trig_mvc_template::view('accounttypeform');
 	}
 	
 	public function edit() {
@@ -62,7 +62,7 @@ class application_admin_accounttype extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('accounttypeform');
+		include trig_mvc_template::view('accounttypeform');
 	}
 	
 	public function delete() {

@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_articlecat extends application_base {
+class application_admin_articlecat extends application_admin_base {
 	private $articlecatdb;
 	const pagesize = 100;
 	public $cattypes = array(
@@ -35,7 +35,7 @@ class application_admin_articlecat extends application_base {
 			$sc_list[$v['sceneid']] = $v['scenename'];
 		}
 		
-		include trig_mvc_template::admin_template('articlecat');
+		include trig_mvc_template::view('articlecat');
 	}
 
 	public function add() {
@@ -79,7 +79,7 @@ class application_admin_articlecat extends application_base {
 		$scene_list = $scenedb->get_list(100, 0, " sceneid,scenename ", "", "dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('articlecatform');
+		include trig_mvc_template::view('articlecatform');
 	}
 
 	public function edit() {
@@ -129,7 +129,7 @@ class application_admin_articlecat extends application_base {
 		$sceneids = explode(',', $value['sceneid']);
 		
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('articlecatform');
+		include trig_mvc_template::view('articlecatform');
 	}
 
 	/**

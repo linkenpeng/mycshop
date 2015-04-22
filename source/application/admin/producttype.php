@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_producttype extends application_base {
+class application_admin_producttype extends application_admin_base {
 	private $producttypedb;
 
 	function __construct() {
@@ -17,7 +17,7 @@ class application_admin_producttype extends application_base {
 		// 获取分页后的数据
 		$list = $this->producttypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_mvc_template::admin_template('producttype');
+		include trig_mvc_template::view('producttype');
 	}
 	
 	public function add() {
@@ -48,7 +48,7 @@ class application_admin_producttype extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('producttypeform');
+		include trig_mvc_template::view('producttypeform');
 	}
 	
 	public function edit() {
@@ -82,7 +82,7 @@ class application_admin_producttype extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('producttypeform');
+		include trig_mvc_template::view('producttypeform');
 	}
 	
 	public function delete() {

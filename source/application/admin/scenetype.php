@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_scenetype extends application_base {
+class application_admin_scenetype extends application_admin_base {
 	private $scenetypedb;
 
 	function __construct() {
@@ -12,16 +12,15 @@ class application_admin_scenetype extends application_base {
 	function init() {
 		$where = " WHERE 1 ";
 		// 分页		
-		$count = $this->scenetypedb->get_count($where);
-		
-		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
-		
+		$count = $this->scenetypedb->get_count($where);		
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));		
 		// 获取分页后的数据
-		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
+		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");		
+		$show_zone = 1;		
 		
-		$show_zone = 1;
+		$this->display('scenetype', array('p'=>$p,'list'=>$list,'show_zone'=>$show_zone));
 		
-		include trig_mvc_template::admin_template('scenetype');
+		//include trig_mvc_template::view('scenetype');
 	}
 	
 	public function add() {
@@ -53,7 +52,7 @@ class application_admin_scenetype extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('scenetypeform');
+		include trig_mvc_template::view('scenetypeform');
 	}
 	
 	public function edit() {
@@ -87,7 +86,7 @@ class application_admin_scenetype extends application_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('scenetypeform');
+		include trig_mvc_template::view('scenetypeform');
 	}
 	
 	public function delete() {

@@ -31,7 +31,7 @@ class trig_func_common {
 		global $_G;
 		$charset = $_G['system']['charset'];
 		$htmlhead = "<html>\r\n<head>\r\n<title>" . SITE_NAME . self::lang("common", "sysnote") . "</title>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=$charset\" />\r\n";
-		$htmlhead .= "<link rel='stylesheet' href='" . ADMIN_TEMPLATE_URL . "/css/style.css' type='text/css' />\r\n";
+		$htmlhead .= "<link rel='stylesheet' href='" . TEMPLATE_URL . "/css/style.css' type='text/css' />\r\n";
 		$htmlhead .= "<base target='_self'/>\r\n</head>\r\n<body leftmargin='0' topmargin='0' bgcolor='#EBE9ED'>\r\n<center>\r\n<script>\r\n";
 		$htmlfoot = "</script>\r\n</center>\r\n</body>\r\n</html>\r\n";
 		

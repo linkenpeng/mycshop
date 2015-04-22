@@ -11,12 +11,12 @@ class trig_mvc_template {
 	}
 	
 	public static function admin_template($name) {
-		$objfile = ADMIN_TEMPLATE_PATH . DS . $name . '.php';
+		$objfile = TEMPLATE_PATH . DS . $name . '.php';
 		return $objfile;
 	}
 	
-	public static function include_template($view) {
-		$objfile = ADMIN_TEMPLATE_PATH . DS . $view . '.php';
+	public static function view($view) {
+		$objfile = TEMPLATE_PATH . DS . $view . '.php';
 		return $objfile;
 	}
 	

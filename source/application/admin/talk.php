@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_talk extends application_base {
+class application_admin_talk extends application_admin_base {
 	private $talkdb;
 
 	function __construct() {
@@ -33,7 +33,7 @@ class application_admin_talk extends application_base {
 		// 获取分页后的数据
 		$list = $this->talkdb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_mvc_template::admin_template('talk');
+		include trig_mvc_template::view('talk');
 	}
 	
 	public function add() {
@@ -75,7 +75,7 @@ class application_admin_talk extends application_base {
 		}
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::admin_template('talkform');
+		include trig_mvc_template::view('talkform');
 	}
 	
 	public function edit() {
@@ -120,7 +120,7 @@ class application_admin_talk extends application_base {
 		
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::admin_template('talkform');
+		include trig_mvc_template::view('talkform');
 	}
 	
 	public function delete() {
@@ -144,6 +144,6 @@ class application_admin_talk extends application_base {
 		// 获取分页后的数据
 		$talkreplylist = $talkreplydb->get_list(1000, 0, " * ", $where, "dateline DESC ");
 		$show_validator = 1;
-		include trig_mvc_template::admin_template('talkshow');
+		include trig_mvc_template::view('talkshow');
 	}
 }

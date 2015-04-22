@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_login extends application_base {
+class application_admin_login extends application_admin_base {
 
 	function __construct() {
 	}
@@ -10,7 +10,7 @@ class application_admin_login extends application_base {
 		if (!empty($_SESSION['admin_uid']) && ($_SESSION['admin_usertype'] == ADMIN_USER_TYPE)) {
 			header('location:' . trig_mvc_route::get_uri("index", "init"));
 		} else {
-			include trig_mvc_template::admin_template('login');
+			include trig_mvc_template::view('login');
 		}
 	}
 	

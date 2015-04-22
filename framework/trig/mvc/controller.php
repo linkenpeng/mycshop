@@ -8,7 +8,7 @@ class trig_mvc_controller {
 	}
 	
 	public function display($view, $variable = array()) {
-		$template_file = trig_mvc_template::include_template(view);
+		$template_file = trig_mvc_template::view($view);
 		if(!file_exists($template_file)) {
 			throw new trig_exception_system(1003);
 		}

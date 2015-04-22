@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "用户组权限管理";
-include trig_mvc_template::admin_template("header");
+include trig_mvc_template::view("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -61,5 +61,5 @@ include trig_mvc_template::admin_template("header");
 </div>
 </div>
 <?php
-include trig_mvc_template::admin_template("footer");
+include trig_mvc_template::view("footer");
 ?>

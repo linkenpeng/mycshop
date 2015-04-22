@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_admin_product extends application_base {
+class application_admin_product extends application_admin_base {
 	private $productdb;
 
 	function __construct() {
@@ -35,7 +35,7 @@ class application_admin_product extends application_base {
 		foreach ($pt_list as $k => $v) {
 			$producttype_list[$v['typeid']] = $v['name'];
 		}
-		include trig_mvc_template::admin_template('product');
+		include trig_mvc_template::view('product');
 	}
 
 	public function add() {
@@ -78,7 +78,7 @@ class application_admin_product extends application_base {
 		$show_editor = 1;
 		$producttypedb = new model_producttype();
 		$producttype_list = $producttypedb->get_list(100, 0, " typeid,name ", $where, "typeid ASC ");
-		include trig_mvc_template::admin_template('productform');
+		include trig_mvc_template::view('productform');
 	}
 
 	public function edit() {
@@ -125,7 +125,7 @@ class application_admin_product extends application_base {
 		$producttype_list = $producttypedb->get_list(100, 0, " typeid,name ", $where, "typeid ASC ");
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::admin_template('productform');
+		include trig_mvc_template::view('productform');
 	}
 
 	public function delete() {
