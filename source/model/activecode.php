@@ -9,13 +9,6 @@ class model_activecode extends model_base {
         parent::__construct();
     }
     
-    
-    /**
-     * 
-     * 删除一条信息
-     * @param array $ids
-     * return Boolean $flag
-     */
     function delete($ids) {
         $flag = false;
 		if(empty($ids)) return $flag; 
@@ -41,15 +34,6 @@ class model_activecode extends model_base {
         return $flag;
     }
 	
-    /**
-     * 获取一组信息
-     * @param int $num
-     * @param int $offset
-     * @param string $field
-     * @param stirng $where
-     * @param string $orderby
-     * reunt <array> $list
-     */
     function get_list($num = 10, $offset, $field = '', $where = '', $oderbye = '') {
         $num = intval($num);
         $offset = (empty($offset)||$offset<0) ? 0 : intval($offset);
@@ -67,11 +51,6 @@ class model_activecode extends model_base {
         return $list;
     }
 	
-    /**
-     * 获取总数
-     * @param stirng $where
-     * return @param int $count
-     */
     function get_count($where = '') {
         $where = empty($where) ? ' WHERE 1 ' : $where;
         $sql = "SELECT COUNT(*) as c FROM ".$this->tname($this->_table)." 
@@ -81,12 +60,7 @@ class model_activecode extends model_base {
         $value = $this->db->get_one($sql);
         return $value['c'];
     }
-	
-	 /**
-     * 
-     * 得到activecode对应的景点id
-	 * @param string $activecode
-     */
+    
     function get_sceneid($activecode = "") {
         if(!empty($activecode)) {
 			$where = " WHERE activecode='".$activecode."'";
@@ -97,8 +71,7 @@ class model_activecode extends model_base {
 			return '';
 		}
     }
-	
-	//更新验证码使用次数
+    
 	function update_usednum($activecode) {
 		$sql = "UPDATE ".$this->tname($this->_table)." SET usednum=usednum+1 WHERE activecode='$activecode'";
 		$this->db->query($sql);
