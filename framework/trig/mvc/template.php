@@ -10,14 +10,27 @@ class trig_mvc_template {
 	public function __construct() {
 	}
 	
-	public static function admin_template($name) {
-		$objfile = TEMPLATE_PATH . DS . $name . '.php';
-		return $objfile;
+	public static function view_file($view_name) {
+		$view_file = TEMPLATE_PATH . DS . $view_name . '.php';
+		return $view_file;
 	}
 	
-	public static function view($view) {
-		$objfile = TEMPLATE_PATH . DS . $view . '.php';
-		return $objfile;
+	public static function render($view_file, $_data_ = null, $return = false)
+	{
+		if(is_array($_data_) && !empty($_data_)) {
+			extract($_data_,EXTR_PREFIX_SAME,'data');
+		} else {
+			$data = $_data_;
+		}
+		
+		if($return) {
+			ob_start();
+			ob_implicit_flush(false);
+			require($view_file);
+			return ob_get_clean();
+		} else {
+			require($view_file);
+		}
 	}
 	
 	/*

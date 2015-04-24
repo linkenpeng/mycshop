@@ -14,7 +14,7 @@ class application_admin_system extends application_admin_base {
 		$count = $this->systemdb->get_count($where);
 		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		$list = $this->systemdb->get_list($p->perpage, $p->offset, " * ", $where);
-		include trig_mvc_template::view('system_index');
+		include trig_mvc_template::view_file('system_index');
 	}
 
 	function add() {
@@ -36,7 +36,7 @@ class application_admin_system extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('system_form');
+		include trig_mvc_template::view_file('system_form');
 	}
 
 	public function edit() {
@@ -57,7 +57,7 @@ class application_admin_system extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('system_form');
+		include trig_mvc_template::view_file('system_form');
 	}
 
 	function cache() {

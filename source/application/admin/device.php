@@ -22,6 +22,6 @@ class application_admin_device extends application_admin_base {
 		// 获取分页后的数据
 		$list = $this->devicedb->get_list($p->perpage, $p->offset, $field, $where, " loginnum DESC");
 		
-		include trig_mvc_template::view('device');
+		include trig_mvc_template::view_file('device');
 	}
 }

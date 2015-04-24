@@ -17,7 +17,7 @@ class application_admin_notetype extends application_admin_base {
 		// 获取分页后的数据
 		$list = $this->notetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_mvc_template::view('notetype');
+		include trig_mvc_template::view_file('notetype');
 	}
 	
 	public function add() {
@@ -41,7 +41,7 @@ class application_admin_notetype extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('notetypeform');
+		include trig_mvc_template::view_file('notetypeform');
 	}
 	
 	public function edit() {
@@ -61,7 +61,7 @@ class application_admin_notetype extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('notetypeform');
+		include trig_mvc_template::view_file('notetypeform');
 	}
 	
 	public function delete() {

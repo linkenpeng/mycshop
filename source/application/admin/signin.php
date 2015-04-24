@@ -38,7 +38,7 @@ class application_admin_signin extends application_admin_base {
 		// 获取分页后的数据
 		$list = $this->signindb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_date_js = 1;
-		include trig_mvc_template::view('signin');
+		include trig_mvc_template::view_file('signin');
 	}
 
 	public function add() {
@@ -82,7 +82,7 @@ class application_admin_signin extends application_admin_base {
 		$show_editor = 1;
 		$signintypedb = new model_signintype();
 		$signintype_list = $signintypedb->get_list(100, 0, " signintypeid,name ", $where, "dateline DESC ");
-		include trig_mvc_template::view('signinform');
+		include trig_mvc_template::view_file('signinform');
 	}
 
 	public function edit() {
@@ -128,7 +128,7 @@ class application_admin_signin extends application_admin_base {
 		$signintype_list = $signintypedb->get_list(100, 0, " signintypeid,name ", $where, "dateline DESC ");
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::view('signinform');
+		include trig_mvc_template::view_file('signinform');
 	}
 
 	public function delete() {

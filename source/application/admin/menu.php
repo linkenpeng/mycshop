@@ -17,7 +17,7 @@ class application_admin_menu extends application_admin_base {
 		$list = $this->menudb->get_list($p->perpage, $p->offset, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 		$list = $this->menudb->make_tree_list($list);
 		
-		include trig_mvc_template::view('menu');
+		include trig_mvc_template::view_file('menu');
 	}
 
 	public function add() {
@@ -46,7 +46,7 @@ class application_admin_menu extends application_admin_base {
 		$value['ctrl'] = $value_parent['ctrl'];
 		$value['parent_name'] = $value_parent['name'];
 		$show_validator = 1;
-		include trig_mvc_template::view('menuform');
+		include trig_mvc_template::view_file('menuform');
 	}
 
 	public function edit() {
@@ -69,7 +69,7 @@ class application_admin_menu extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('menuform');
+		include trig_mvc_template::view_file('menuform');
 	}
 
 	public function delete() {

@@ -50,7 +50,7 @@ class application_admin_article extends application_admin_base {
 			$sc_list[$v['sceneid']] = $v['scenename'];
 		}
 		
-		include trig_mvc_template::view('article');
+		include trig_mvc_template::view_file('article');
 	}
 	
 	public function add() {
@@ -97,7 +97,7 @@ class application_admin_article extends application_admin_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::view('articleform');
+		include trig_mvc_template::view_file('articleform');
 	}
 	
 	public function edit() {
@@ -148,7 +148,7 @@ class application_admin_article extends application_admin_base {
 		$sceneids = explode(',', $value['sceneid']);
 		
 		$show_validator = 1;
-		include trig_mvc_template::view('articleform');
+		include trig_mvc_template::view_file('articleform');
 	}
 	
 	private function get_category_options($selectedid = 0) {

@@ -47,7 +47,7 @@ class application_admin_activecode extends application_admin_base {
 		
 		$show_date_js = 1;
 		
-		include trig_mvc_template::view('activecode');
+		include trig_mvc_template::view_file('activecode');
 	}
 
 	public function add() {
@@ -109,7 +109,7 @@ class application_admin_activecode extends application_admin_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::view('activecodeform');
+		include trig_mvc_template::view_file('activecodeform');
 	}
 
 	public function batch() {

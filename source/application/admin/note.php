@@ -40,7 +40,7 @@ class application_admin_note extends application_admin_base {
 			$notetypes[$v['notetypeid']] = $v['name'];
 		}
 		$show_date_js = 1;
-		include trig_mvc_template::view('note');
+		include trig_mvc_template::view_file('note');
 	}
 	
 	public function add() {
@@ -84,7 +84,7 @@ class application_admin_note extends application_admin_base {
 		$show_editor = 1;
 		$notetypedb = new model_notetype();
 		$notetype_list = $notetypedb->get_list(100, 0, " notetypeid,name ", $where, "dateline DESC ");
-		include trig_mvc_template::view('noteform');
+		include trig_mvc_template::view_file('noteform');
 	}
 	
 	public function edit() {
@@ -131,7 +131,7 @@ class application_admin_note extends application_admin_base {
 		
 		$show_validator = 1;
 		$show_editor = 1;
-		include trig_mvc_template::view('noteform');
+		include trig_mvc_template::view_file('noteform');
 	}
 	
 	public function delete() {

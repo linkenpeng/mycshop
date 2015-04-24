@@ -35,7 +35,7 @@ class application_admin_articlecat extends application_admin_base {
 			$sc_list[$v['sceneid']] = $v['scenename'];
 		}
 		
-		include trig_mvc_template::view('articlecat');
+		include trig_mvc_template::view_file('articlecat');
 	}
 
 	public function add() {
@@ -79,7 +79,7 @@ class application_admin_articlecat extends application_admin_base {
 		$scene_list = $scenedb->get_list(100, 0, " sceneid,scenename ", "", "dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_mvc_template::view('articlecatform');
+		include trig_mvc_template::view_file('articlecatform');
 	}
 
 	public function edit() {
@@ -129,7 +129,7 @@ class application_admin_articlecat extends application_admin_base {
 		$sceneids = explode(',', $value['sceneid']);
 		
 		$show_validator = 1;
-		include trig_mvc_template::view('articlecatform');
+		include trig_mvc_template::view_file('articlecatform');
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 $pagetitle="账目管理";
-include trig_mvc_template::view("header");
+include trig_mvc_template::view_file("header");
 ?>
 <div class="pageMain">
 <div class="pageTitle">
@@ -42,5 +42,5 @@ include trig_mvc_template::view("header");
 </div>
 </div>
 <?php
-include trig_mvc_template::view("footer");
+include trig_mvc_template::view_file("footer");
 ?>

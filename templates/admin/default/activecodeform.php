@@ -1,6 +1,6 @@
 <?php
 $pagetitle = "批量生成激活码";
-include trig_mvc_template::view("header");
+include trig_mvc_template::view_file("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -67,5 +67,5 @@ include trig_mvc_template::view("header");
 </div>
 </div>
 <?php
-include trig_mvc_template::view("footer");
+include trig_mvc_template::view_file("footer");
 ?>

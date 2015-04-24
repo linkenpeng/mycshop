@@ -8,16 +8,17 @@ class trig_mvc_controller {
 	}
 	
 	public function display($view, $variable = array()) {
-		$template_file = trig_mvc_template::view($view);
-		if(!file_exists($template_file)) {
+		$view_file = trig_mvc_template::view_file($view);
+		if(!file_exists($view_file)) {
 			throw new trig_exception_system(1003);
 		}
+		
 		if(!empty($variable)) {
 			foreach($variable as $var => $value) {
 				$this->_vars[$var] = $value;
 			}
 		}
-		empty($this->_vars) || extract($this->_vars);
-		include $template_file;
+		
+		echo trig_mvc_template::render($view_file, $this->_vars, true);
 	}
 }

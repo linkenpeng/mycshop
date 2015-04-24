@@ -21,7 +21,7 @@ class application_admin_index extends application_admin_base {
 		$signindb =new model_signin();
 		$signin_list = $signindb->get_list(10,0," * ","","dateline DESC ");
 		
-        include trig_mvc_template::view('index');
+        include trig_mvc_template::view_file('index');
     }
 }
 ?>

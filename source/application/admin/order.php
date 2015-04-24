@@ -16,7 +16,7 @@ class application_admin_order extends application_admin_base {
 		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
 		$list = $this->orderdb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
-		include trig_mvc_template::view('order');
+		include trig_mvc_template::view_file('order');
 	}
 	
 	public function add() {
@@ -39,7 +39,7 @@ class application_admin_order extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('orderform');
+		include trig_mvc_template::view_file('orderform');
 	}
 	
 	public function edit() {
@@ -59,7 +59,7 @@ class application_admin_order extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('orderform');
+		include trig_mvc_template::view_file('orderform');
 	}
 	
 	public function delete() {

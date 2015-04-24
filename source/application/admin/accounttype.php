@@ -17,7 +17,7 @@ class application_admin_accounttype extends application_admin_base {
 		// 获取分页后的数据
 		$list = $this->accounttypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		$show_zone = 1;
-		include trig_mvc_template::view('accounttype');
+		include trig_mvc_template::view_file('accounttype');
 	}
 	
 	public function add() {
@@ -41,7 +41,7 @@ class application_admin_accounttype extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('accounttypeform');
+		include trig_mvc_template::view_file('accounttypeform');
 	}
 	
 	public function edit() {
@@ -62,7 +62,7 @@ class application_admin_accounttype extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('accounttypeform');
+		include trig_mvc_template::view_file('accounttypeform');
 	}
 	
 	public function delete() {

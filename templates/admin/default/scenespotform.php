@@ -3,7 +3,7 @@ if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
 $pagetitle = "添加修改景点信息";
-include trig_mvc_template::view("header");
+include trig_mvc_template::view_file("header");
 ?>
 <script type="text/javascript"> 
 <!--
@@ -110,5 +110,5 @@ include trig_mvc_template::view("header");
 </div>
 </div>
 <?php
-include trig_mvc_template::view("footer");
+include trig_mvc_template::view_file("footer");
 ?>

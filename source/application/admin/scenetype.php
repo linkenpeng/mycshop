@@ -19,8 +19,6 @@ class application_admin_scenetype extends application_admin_base {
 		$show_zone = 1;		
 		
 		$this->display('scenetype', array('p'=>$p,'list'=>$list,'show_zone'=>$show_zone));
-		
-		//include trig_mvc_template::view('scenetype');
 	}
 	
 	public function add() {
@@ -29,8 +27,7 @@ class application_admin_scenetype extends application_admin_base {
 				trig_func_common::ShowMsg("分类名不能为空!", -1);
 			}
 			$_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
-			if (!empty($_FILES['image']['name'])) {
-				
+			if (!empty($_FILES['image']['name'])) {				
 				$upfile = new trig_uploadfile("jpg,gif,bmp,png");
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
@@ -52,7 +49,7 @@ class application_admin_scenetype extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('scenetypeform');
+		include trig_mvc_template::view_file('scenetypeform');
 	}
 	
 	public function edit() {
@@ -86,7 +83,7 @@ class application_admin_scenetype extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view('scenetypeform');
+		include trig_mvc_template::view_file('scenetypeform');
 	}
 	
 	public function delete() {

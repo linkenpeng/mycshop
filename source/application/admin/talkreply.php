@@ -38,7 +38,7 @@ class application_admin_talkreply extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		//include trig_mvc_template::view('talkreplyform');
+		//include trig_mvc_template::view_file('talkreplyform');
 	}
 	
 	public function edit() {
@@ -57,7 +57,7 @@ class application_admin_talkreply extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		// include trig_mvc_template::view('talkreplyform');
+		// include trig_mvc_template::view_file('talkreplyform');
 	}
 	
 	public function delete() {

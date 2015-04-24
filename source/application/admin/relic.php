@@ -37,7 +37,7 @@ class application_admin_relic extends application_admin_base {
 			2 => '二级',
 			3 => '三级' 
 		);
-		include trig_mvc_template::view('relic');
+		include trig_mvc_template::view_file('relic');
 	}
 	
 	public function add() {
@@ -98,7 +98,7 @@ class application_admin_relic extends application_admin_base {
 		
 		$show_validator = 1;
 		
-		include trig_mvc_template::view('relicform');
+		include trig_mvc_template::view_file('relicform');
 	}
 	
 	public function edit() {
@@ -165,7 +165,7 @@ class application_admin_relic extends application_admin_base {
 		$scenespot_list = $scenespotdb->get_list(10000, 0, $field, '', " sp.dateline DESC ");
 		
 		$show_validator = 1;
-		include trig_mvc_template::view('relicform');
+		include trig_mvc_template::view_file('relicform');
 	}
 	
 	public function delete() {

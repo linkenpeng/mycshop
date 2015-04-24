@@ -71,7 +71,7 @@ class application_admin_scene extends application_admin_base {
 			'2' => '3A以下' 
 		);
 		$show_zone = 1;
-		include trig_mvc_template::view('scene');
+		include trig_mvc_template::view_file('scene');
 	}
 
 	public function add() {
@@ -158,7 +158,7 @@ class application_admin_scene extends application_admin_base {
 		
 		$value['scenenum'] = $this->scenedb->get_auto_scenenum();
 		
-		include trig_mvc_template::view('sceneform');
+		include trig_mvc_template::view_file('sceneform');
 	}
 
 	public function edit() {
@@ -266,7 +266,7 @@ class application_admin_scene extends application_admin_base {
 		$show_zone = 1;
 		// $show_map = 1;
 		
-		include trig_mvc_template::view('sceneform');
+		include trig_mvc_template::view_file('sceneform');
 	}
 
 	public function delete() {
