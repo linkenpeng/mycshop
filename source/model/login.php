@@ -61,9 +61,9 @@ class model_login extends model_base {
                 trig_func_common::ShowMsg(trig_func_common::lang('message','cookie_error'),trig_mvc_route::get_uri("login"));
             }
         } else { //没有cookie的时候，还是要用到session变量            
-            $uid = trig_uri::getSession('admin_uid');
-			$usertype = trig_uri::getSession('admin_usertype');
-            $password = trig_uri::getSession('admin_password');
+            $uid = trig_http_request::getSession('admin_uid');
+			$usertype = trig_http_request::getSession('admin_usertype');
+            $password = trig_http_request::getSession('admin_password');
             //验证session表是否存在登录用户
             if (!empty($uid)&&!empty($password)) {
                 $user_info = $this->db->get_one("select uid,username,password,usertype from ".$this->tname("user")." where uid='$uid' and password='$password' ");

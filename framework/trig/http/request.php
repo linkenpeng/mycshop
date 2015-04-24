@@ -1,6 +1,6 @@
 <?php
 
-class trig_uri {
+class trig_http_request {
 
 	public static function isAjax() {
 		return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
@@ -141,7 +141,7 @@ class trig_uri {
 		}
 		
 		if (!is_array($_FILES[$name]['name'])) {
-			return new Soul_Web_Http_File($_FILES[$name]);
+			return new trig_http_file($_FILES[$name]);
 		}
 		
 		$result = array();
@@ -149,7 +149,7 @@ class trig_uri {
 		if (!empty($arr['name'][0])) {
 			for($i = 0; $i < count($arr['name']); $i++) {
 				if (!empty($arr['name'][$i])) {
-					$result[] = new Soul_Web_Http_File(array(
+					$result[] = new trig_http_file(array(
 						'name' => $arr['name'][$i],
 						'type' => $arr['type'][$i],
 						'tmp_name' => $arr['tmp_name'][$i],

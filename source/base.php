@@ -3,7 +3,7 @@ define('SYS_IN', true);
 define('DS', '/');
 
 // 定义路由路径名称
-define('ROUTE', 'index.php');
+define('ROUTE', '');
 define('M', 'mod');
 define('C', 'c');
 define('A', 'a');
@@ -26,7 +26,7 @@ define('START_TIME', trig_func_common::mtime()); // 记录程序启动时间
 // 定义站点名称
 define('SITE_NAME', $_CTCONFIG['site_name']);
 // 定义站点url
-define('SITE_URL', trig_uri::getsiteurl());
+define('SITE_URL', trig_http_request::getsiteurl());
 
 // 定义默认省份
 define('DEFAULT_PROVINCE', $_CTCONFIG['province']);

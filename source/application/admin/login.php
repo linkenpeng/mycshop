@@ -4,6 +4,7 @@ defined('SYS_IN') or exit('Access Denied.');
 class application_admin_login extends application_admin_base {
 
 	function __construct() {
+		parent::__construct(false);
 	}
 
 	function init() {
@@ -26,11 +27,11 @@ class application_admin_login extends application_admin_base {
 	 * 验证后台管理员登录
 	 */
 	function check_user_login() {
-		$username = trim(trig_uri::getForm('username'));
-		$password = trim(trig_uri::getForm('password'));
-		$usertype = trim(trig_uri::getForm('usertype'));
-		$checkcode = trim(trig_uri::getForm('checkcode'));
-		$cookietime = intval(trig_uri::getForm('cookietime'));
+		$username = trim(trig_http_request::getForm('username'));
+		$password = trim(trig_http_request::getForm('password'));
+		$usertype = trim(trig_http_request::getForm('usertype'));
+		$checkcode = trim(trig_http_request::getForm('checkcode'));
+		$cookietime = intval(trig_http_request::getForm('cookietime'));
 		
 		$session = new model_session();
 		
