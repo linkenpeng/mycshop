@@ -3,6 +3,7 @@
 class trig_mvc_controller {
 	private $_vars = array();
 	protected $layout = '';
+	public $pageTitle = '';
 	
 	public function assign($variable, $value = null) {
 		$this->_vars[$variable] = $value;
@@ -20,6 +21,12 @@ class trig_mvc_controller {
 			}
 		}
 		
-		echo trig_mvc_template::render($view_file, $this->_vars, true);
+		if(!empty($this->layout)) {
+			$layout_file = trig_mvc_template::view_file($this->layout);
+			$content = trig_mvc_template::render($view_file, $this->_vars, true);
+			echo trig_mvc_template::render($layout_file, array('content' => $content, 'pageTitle' => $this->pageTitle), true);
+		} else {
+			echo trig_mvc_template::render($view_file, $this->_vars, true);
+		}
 	}
 }

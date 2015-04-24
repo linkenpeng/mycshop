@@ -16,7 +16,9 @@ class application_admin_scenetype extends application_admin_base {
 		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));		
 		// 获取分页后的数据
 		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");		
-		$show_zone = 1;		
+		$show_zone = 1;
+		
+		$this->pageTitle = '景区分类';
 		
 		$this->display('scenetype', array('p'=>$p,'list'=>$list,'show_zone'=>$show_zone));
 	}

@@ -1,14 +1,11 @@
 <?php
 $pagetitle="景区分类";
-include trig_mvc_template::view_file("header");
 ?>
-<div class="pageMain">
 <div class="pageTitle">
-<div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
-<a href="<?php echo trig_mvc_route::get_uri("scenetype","add");?>">添加</a>
+	<div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
+	<a href="<?php echo trig_mvc_route::get_uri("scenetype","add");?>">添加</a>
 </div>
-<div class="pageContent">
-  
+<div class="pageContent">  
 	  <table width="100%">
 		<tr>
 		  <th width="200">分类名</th>
@@ -49,9 +46,4 @@ include trig_mvc_template::view_file("header");
 			</td>
 		</tr>
 	</table>
-
 </div>
-</div>
-<?php
-include trig_mvc_template::view_file("footer");
-?>

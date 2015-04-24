@@ -1,7 +1,8 @@
 <?php
 
 class application_admin_base extends trig_mvc_controller {
-
+	protected $layout = 'layout_main';
+	
 	function __construct($check_login = true) {
 		global $_CTCONFIG;
 		
