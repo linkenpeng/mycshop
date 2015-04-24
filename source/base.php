@@ -3,7 +3,7 @@ define('SYS_IN', true);
 define('DS', '/');
 
 // 定义路由路径名称
-define('ROUTE', '');
+define('ROUTE', 'index.php');
 define('M', 'mod');
 define('C', 'c');
 define('A', 'a');
