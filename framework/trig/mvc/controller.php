@@ -2,6 +2,7 @@
 
 class trig_mvc_controller {
 	private $_vars = array();
+	protected $layout = '';
 	
 	public function assign($variable, $value = null) {
 		$this->_vars[$variable] = $value;
