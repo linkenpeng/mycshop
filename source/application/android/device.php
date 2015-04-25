@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_device {
+class application_android_device extends application_android_base {
     function __construct() {
         
     }
@@ -19,7 +19,7 @@ class application_android_device {
 		$deviceInfo['android_version'] = $_POST['android_version'];
 		$deviceInfo['network'] = $_POST['network'];		
 		$deviceInfo['lasttime'] = date('Y-m-d H:i:s', time());
-		$deviceInfo['lastip'] = get_ip();
+		$deviceInfo['lastip'] = trig_func_common::get_ip();
 		
 		$devicedb = new model_device();
 		if($devicedb->isExists(array('mac'=>$deviceInfo['mac']))) {
@@ -30,8 +30,7 @@ class application_android_device {
 			$deviceInfo['loginnum'] = 1;			
 			$devicedb->insert($deviceInfo);
 		}
-		
-		//echo json_encode($deviceInfo);
+		trig_helper_html::json_success(1);
 	}
 }
 ?>

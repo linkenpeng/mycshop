@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_scenespot {
+class application_android_scenespot extends application_android_base {
     private $scenespotdb;
     function __construct() {
         $this->scenespotdb = new model_scenespot();
@@ -9,7 +9,7 @@ class application_android_scenespot {
 	public function getone() {
 		$scenespotid = empty($_GET['scenespotid']) ? "" : intval($_GET['scenespotid']);
 		$value = $this->scenespotdb->get_one($scenespotid);
-		exit(json_encode($value));
+		trig_helper_html::json_success($value);
 	}
 	
 	public function getlist() {
@@ -22,39 +22,32 @@ class application_android_scenespot {
 		 if (!empty($sceneid)) {
             $where .= " and sp.`sceneid`=".$sceneid." ";
         }
-        //分页       
-        
+        //分页               
         $count = $this->scenespotdb->get_count($where);
-        $pagesize = !isset($_GET['pagesize']) ? "100" : $_GET['pagesize'];
-        $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $setarr = array(
-            'total'=>$count,
-            'perpage'=>$pagesize
-        );
-        $p = new trig_page($setarr);
+        $p = new trig_page(array('total_count' => $count,'default_page_size' => 100));
         $field = "sp.scenespotid,sp.parent_scenespotid,sp.sceneid,sp.scenespotname,sp.scenespot_enname,sp.infocards,
         sp.image,sp.description, sp.cn_audio, sp.en_audio, sp.sign_num,s.scenename,s.typeid,s.traveltopicid,s.level";
         //获取分页后的数据
-        $list = $this->scenespotdb->get_list($pagesize,$pagesize*($nowpage-1),$field,$where,"sp.infocards ASC ");
+        $list = $this->scenespotdb->get_list($p->perpage, $p->offset,$field,$where,"sp.infocards ASC ");
         
 		foreach($list as $k=>$v) {
-			$list[$k]['description'] = cn_substr($v['description'], 36);
+			$list[$k]['description'] = trig_func_common::cn_substr($v['description'], 36);
 		}
 		
-		exit(json_encode($list));
+		trig_helper_html::json_success($list);
 	}
 
 	
 	public function getinfobynum() {
 		$infocards = empty($_GET['infocards']) ? "" : trim($_GET['infocards']);
 		$value = $this->scenespotdb->get_one_byparam(array('infocards'=>$infocards));
-		exit(json_encode($value));
+		trig_helper_html::json_success($value);
 	}
 	
 	public function getinfobyid() {
 		$scenespotid = empty($_GET['scenespotid']) ? "" : intval($_GET['scenespotid']);
 		$value = $this->scenespotdb->get_one($scenespotid);
-		exit(json_encode($value));
+		trig_helper_html::json_success($value);
 	}
 	
 }

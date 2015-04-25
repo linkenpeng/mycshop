@@ -37,6 +37,8 @@ $lang = array(
 	'support' => '支持',
 	'unsupport' => '不支持',
 	'index' => '首页',
-	'and' => '和' 
+	'and' => '和',
+	'request_success' => '请求成功',
+	'system_exception' => '系统异常', 
 );
 ?>

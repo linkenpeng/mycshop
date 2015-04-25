@@ -11,25 +11,28 @@ class application_admin_scenetype extends application_admin_base {
 
 	function init() {
 		$where = " WHERE 1 ";
-		// 分页		
-		$count = $this->scenetypedb->get_count($where);		
-		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));		
+		// 分页
+		$count = $this->scenetypedb->get_count($where);
+		$p = new trig_page(array(
+			'total_count' => $count,
+			'default_page_size' => 15 
+		));
 		// 获取分页后的数据
-		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");		
-		$show_zone = 1;
-		
-		$this->pageTitle = '景区分类';
-		
-		$this->display('scenetype', array('p'=>$p,'list'=>$list,'show_zone'=>$show_zone));
+		$list = $this->scenetypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
+		$this->display('scenetype', array(
+			'p' => $p,
+			'list' => $list,
+			'show_zone' => 1 
+		));
 	}
-	
+
 	public function add() {
 		if (!empty($_POST['action'])) {
 			if (empty($_POST['name'])) {
 				trig_func_common::ShowMsg("分类名不能为空!", -1);
 			}
 			$_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
-			if (!empty($_FILES['image']['name'])) {				
+			if (!empty($_FILES['image']['name'])) {
 				$upfile = new trig_uploadfile("jpg,gif,bmp,png");
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
@@ -53,14 +56,14 @@ class application_admin_scenetype extends application_admin_base {
 		$show_validator = 1;
 		include trig_mvc_template::view_file('scenetypeform');
 	}
-	
+
 	public function edit() {
 		$typeid = $_GET['typeid'];
 		if (!empty($typeid)) {
 			$value = $this->scenetypedb->get_one($typeid);
 		}
 		if (!empty($_POST['action']) && !empty($_POST['typeid'])) {
-			if (!empty($_FILES['image']['name'])) {				
+			if (!empty($_FILES['image']['name'])) {
 				$upfile = new trig_uploadfile("jpg,gif,bmp,png");
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
@@ -87,7 +90,7 @@ class application_admin_scenetype extends application_admin_base {
 		$show_validator = 1;
 		include trig_mvc_template::view_file('scenetypeform');
 	}
-	
+
 	public function delete() {
 		$typeid = $_GET['typeid'];
 		if (!empty($typeid)) {

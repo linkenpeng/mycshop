@@ -1,8 +1,10 @@
 <?php
-$pagetitle="景区分类";
+trig_mvc_template::$title = "景区分类";
+trig_mvc_template::$keywords = "景区分类";
+trig_mvc_template::$description = "景区分类";
 ?>
 <div class="pageTitle">
-	<div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
+	<div class="pageTitle_left"></div>当前位置：<?php echo trig_mvc_template::$title;?> 
 	<a href="<?php echo trig_mvc_route::get_uri("scenetype","add");?>">添加</a>
 </div>
 <div class="pageContent">  

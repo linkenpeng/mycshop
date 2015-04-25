@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_articlecat {
+class application_android_articlecat extends application_android_base {
     private $articlecatdb;
     function __construct() {
         $this->articlecatdb = new model_articlecat();
@@ -9,7 +9,7 @@ class application_android_articlecat {
 	public function getone() {
 		$catid = empty($_GET['catid']) ? "" : intval($_GET['catid']);
 		$value = $this->articlecatdb->get_one($catid);
-		exit(json_encode($value));
+		trig_helper_html::json_success($value);
 	}
 	
 	public function getlist() {
@@ -22,26 +22,13 @@ class application_android_articlecat {
 		if (!empty($sceneid)) {
             $where .= " and `sceneid`=".$sceneid;
         }
-        //分页       
-        
+        //分页               
         $count = $this->articlecatdb->get_count($where);
-        $pagesize = !isset($_GET['pagesize']) ? "100" : $_GET['pagesize'];
-        $nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        $setarr = array(
-            'total'=>$count,
-            'perpage'=>$pagesize
-        );
-        $p = new trig_page($setarr);
+        $p = new trig_page(array('total_count' => $count,'default_page_size' => 100));
         //获取分页后的数据
 		$list = array();
-        $sourcelist = $this->articlecatdb->get_list($pagesize,$pagesize*($nowpage-1)," * ",$where,"ordernum DESC, dateline DESC ");
-		/*
-        $sourcelist = $this->articlecatdb->make_tree($sourcelist);		
-		$this->articlecatdb->sort_tree($sourcelist, $list);		
-		$list = array_merge($list, array());		
-		print_r($list);
-		*/
-		exit(json_encode($sourcelist));
+        $sourcelist = $this->articlecatdb->get_list($p->perpage, $p->offset," * ",$where,"ordernum DESC, dateline DESC ");
+        trig_helper_html::json_success($sourcelist);
 	}	
 }
 ?>

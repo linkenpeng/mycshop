@@ -15,7 +15,7 @@ class model_usergroup extends model_base {
      * @param int $ugid
      */
     function get_permission() {
-		global $session;
+		$session = new model_session();
 		if($session) {
 			$cookie = $session->sgetcookie('auth');
 			if (!empty($cookie)) {

@@ -4,7 +4,7 @@
  */
 define('DEBUG', true);
 DEBUG && error_reporting(E_ALL & ~E_NOTICE); // & ~E_STRICT & ~E_DEPRECATED
-define('ROOT_PATH', dirname(__FILE__));
+define('ROOT_PATH', __DIR__);
 define('APP_FOLDER', 'application');
 
 $autoload_paths['app'] = ROOT_PATH . DIRECTORY_SEPARATOR . 'source';

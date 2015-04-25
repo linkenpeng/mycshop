@@ -17,7 +17,7 @@ class model_session extends model_base {
         $this->time = $_G['system']['timestamp'];
     }
     
-    function my_session_start() {
+    function start() {
         return session_start();
     }
     

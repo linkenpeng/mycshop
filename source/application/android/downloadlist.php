@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_downloadlist {
+class application_android_downloadlist extends application_android_base {
 	
 	public function init() {
 		$list = array();
@@ -43,9 +43,7 @@ class application_android_downloadlist {
 			}
 		}
 		
-		//debugEx($list);
-        
-		exit(json_encode($list));
+		trig_helper_html::json_success($list);
 	}
 }
 ?>

@@ -165,7 +165,7 @@ class application_admin_user extends application_admin_base {
 			} else {
 				if ($this->userdb->update_password($admin_uid, $password)) {
 					$session = new model_session();
-					$session->my_session_start();
+					$session->start();
 					$session->delete_session($_SESSION['admin_uid']);
 					$session->clearcookie('auth');
 					trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_password_success'), trig_mvc_route::get_uri("login","init","admin"));

@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_android_article {
+class application_android_article extends application_android_base {
 	private $articledb;
 
 	function __construct() {
@@ -11,7 +11,7 @@ class application_android_article {
 	public function getone() {
 		$aid = empty($_GET['aid']) ? "" : intval($_GET['aid']);
 		$value = $this->articledb->get_one($aid, "a.aid,a.sceneid,a.catid,a.title,a.image,a.content,a.dateline");
-		exit(json_encode($value));
+		trig_helper_html::json_success($value);
 	}
 
 	public function getlist() {
@@ -26,18 +26,11 @@ class application_android_article {
 		}
 		// 分页
 		$count = $this->articledb->get_count($where);
-		$pagesize = !isset($_GET['pagesize']) ? "100" : $_GET['pagesize'];
-		$nowpage = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		$setarr = array(
-			'total' => $count,
-			'perpage' => $pagesize 
-		);
-		$p = new trig_page($setarr);
+		$p = new trig_page(array('total_count' => $count,'default_page_size' => 100));
 		// 获取分页后的数据
 		$list = array();
-		$list = $this->articledb->get_list($pagesize, $pagesize * ($nowpage - 1), " a.aid,a.sceneid,a.catid,a.title,a.image,a.dateline ", $where, "a.ordernum DESC ");
-		
-		exit(json_encode($list));
+		$list = $this->articledb->get_list($p->perpage, $p->offset, " a.aid,a.sceneid,a.catid,a.title,a.image,a.dateline ", $where, "a.ordernum DESC ");
+		trig_helper_html::json_success($list);
 	}
 }
 ?>

@@ -15,4 +15,27 @@ class trig_helper_html {
 		$page_info .= trig_func_common::lang("page","page").$p->show();
 		return $page_info;
 	}
+	
+	public static function json_success($data, $options = 0)
+	{
+		$ret = array(
+			'code' => 200,
+			'msg' => trig_func_common::lang("common", "request_success"),
+			'result' => $data
+		);
+		echo json_encode($ret, $options);
+	}
+	
+	public static function json_error($e)
+	{
+		$ret = array(
+			'code' => $e->getCode(),
+			'msg' => $e->getMessage(),
+		);
+		if (!($e instanceof trig_exception_driver)) {
+			$ret['code'] = 12306;
+			$ret['msg'] = trig_func_common::lang("common", "system_exception");
+		}
+		echo json_encode($ret);
+	}
 }
