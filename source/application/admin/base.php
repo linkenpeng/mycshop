@@ -1,7 +1,7 @@
 <?php
 
 class application_admin_base extends trig_mvc_controller {
-	protected $layout = 'layout_main';
+	protected $layout = 'layouts/main';
 	public $menus = array();
 	
 	function __construct($check_login = true) {
