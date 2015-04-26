@@ -25,7 +25,7 @@
         <div class="admin-navbar">
             <span class="float-right">
             	<a class="button button-little bg-main" href="/" target="_blank">前台首页</a>
-                <a class="button button-little bg-yellow" href="login.html">注销登录</a>
+                <a class="button button-little bg-yellow" href="<?php echo trig_mvc_route::get_uri('login','admin_logout');?>">注销登录</a>
             </span>
             <ul class="nav nav-inline admin-nav">
                 <li class="active"><a href="index.html" class="icon-home"> 开始</a>

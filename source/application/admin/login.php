@@ -11,7 +11,7 @@ class application_admin_login extends application_admin_base {
 		if (!empty($_SESSION['admin_uid']) && ($_SESSION['admin_usertype'] == ADMIN_USER_TYPE)) {
 			header('location:' . trig_mvc_route::get_uri("index", "init"));
 		} else {
-			$this->layout = '';
+			$this->layout = 'layouts/login';
 			$this->display('login');
 		}
 	}
