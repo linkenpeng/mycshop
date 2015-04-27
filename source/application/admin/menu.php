@@ -12,12 +12,18 @@ class application_admin_menu extends application_admin_base {
 	function init() {
 		$where = " WHERE 1 ";
 		$count = $this->menudb->get_count($where);
-		$p = new trig_page(array('total_count' => $count,'default_page_size' => 100));
+		$p = new trig_page(array(
+			'total_count' => $count,
+			'default_page_size' => 100 
+		));
 		// 获取分页后的数据
 		$list = $this->menudb->get_list($p->perpage, $p->offset, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 		$list = $this->menudb->make_tree_list($list);
 		
-		include trig_mvc_template::view_file('menu');
+		$this->display('menu', array(
+			'p' => $p,
+			'list' => $list
+		));
 	}
 
 	public function add() {
@@ -46,13 +52,19 @@ class application_admin_menu extends application_admin_base {
 		$value['ctrl'] = $value_parent['ctrl'];
 		$value['parent_name'] = $value_parent['name'];
 		$show_validator = 1;
-		include trig_mvc_template::view_file('menuform');
+		
+		$this->display('menuform', array(
+			'value' => $value,
+			'value_parent' => $value_parent,
+			'show_validator' => $show_validator 
+		));
 	}
 
 	public function edit() {
 		$menuid = $_GET['menuid'];
 		if (!empty($menuid)) {
 			$value = $this->menudb->get_one($menuid);
+			$value_parent = $this->menudb->get_one($value['parentid']);
 		}
 		if (!empty($_POST['action']) && !empty($_POST['menuid'])) {
 			$data = array(
@@ -69,7 +81,12 @@ class application_admin_menu extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view_file('menuform');
+		
+		$this->display('menuform', array(
+			'value' => $value,
+			'value_parent' => $value_parent,
+			'show_validator' => $show_validator 
+		));
 	}
 
 	public function delete() {

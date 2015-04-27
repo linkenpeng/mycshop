@@ -1,10 +1,9 @@
 <?php
-$pagetitle="账目管理";
-include trig_mvc_template::view_file("header");
+trig_mvc_template::$title = "账目管理";
 ?>
 <div class="pageMain">
 <div class="pageTitle">
-<div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> 
+<div class="pageTitle_left"></div>当前位置：<?php echo trig_mvc_template::$title;?> 
 <a href="<?php echo trig_mvc_route::get_uri("account","add");?>">添加</a>
 </div>
 <div class="pageContent">
@@ -41,6 +40,3 @@ include trig_mvc_template::view_file("header");
 
 </div>
 </div>
-<?php
-include trig_mvc_template::view_file("footer");
-?>

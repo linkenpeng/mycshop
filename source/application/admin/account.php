@@ -22,7 +22,12 @@ class application_admin_account extends application_admin_base {
 		foreach ($actype_list as $k => $v) {
 			$accounttype_list[$v['actypeid']] = $v['name'];
 		}
-		include trig_mvc_template::view_file('account');
+		
+		$this->display('account', array(
+			'actype_list' => $actype_list,
+			'accounttype_list' => $accounttype_list,
+			'p' => $p,
+		));
 	}
 
 	public function add() {
@@ -48,8 +53,11 @@ class application_admin_account extends application_admin_base {
 		// 分类
 		$accounttypedb = new model_accounttype();
 		$actype_list = $accounttypedb->get_list(100, 0, " actypeid,name ", "", "actypeid ASC ");
-		$show_validator = 1;
-		include trig_mvc_template::view_file('accountform');
+		
+		$this->display('accountform', array(
+			'actype_list' => $actype_list,
+			'show_validator' => 1,
+		));
 	}
 
 	public function edit() {
@@ -72,8 +80,12 @@ class application_admin_account extends application_admin_base {
 		// 分类
 		$accounttypedb = new model_accounttype();
 		$actype_list = $accounttypedb->get_list(100, 0, " actypeid,name ", "", "actypeid ASC ");
-		$show_validator = 1;
-		include trig_mvc_template::view_file('accountform');
+		
+		$this->display('accountform', array(
+			'value' => $value,
+			'actype_list' => $actype_list,
+			'show_validator' => 1,
+		));
 	}
 
 	public function delete() {

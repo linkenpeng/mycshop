@@ -29,7 +29,13 @@ class application_admin_user extends application_admin_base {
 		foreach ($usergroup_list as $k => $v) {
 			$ugroup_list[$v['ugid']] = $v['name'];
 		}
-		include trig_mvc_template::view_file('user');
+		
+		$this->display('user', array(
+			'list' => $list,
+			'usergroup_list' => $usergroup_list,
+			'ugroup_list' => $ugroup_list, 
+			'p' => $p,
+		));
 	}
 
 	function ajax_userlist() {
@@ -52,7 +58,13 @@ class application_admin_user extends application_admin_base {
 		foreach ($usergroup_list as $k => $v) {
 			$ugroup_list[$v['ugid']] = $v['name'];
 		}
-		include trig_mvc_template::view_file('ajax_userlist');
+		
+		$this->display('ajax_userlist', array(
+			'list' => $list,
+			'p' => $p,
+			'ugroup_list' => $ugroup_list,
+			'usergroup_list' => $usergroup_list
+		));
 	}
 
 	public function add() {
@@ -80,13 +92,16 @@ class application_admin_user extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		$show_zone = 1;
 		
 		$where = '';
 		$usergroupdb = new model_usergroup();
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");
-		include trig_mvc_template::view_file('userform');
+		
+		$this->display('userform', array(
+			'ugroup_list' => $ugroup_list,
+			'show_validator' => 1,
+			'show_zone' => 1,
+		));
 	}
 
 	public function edit() {
@@ -120,9 +135,13 @@ class application_admin_user extends application_admin_base {
 		$where = '';
 		$usergroupdb = new model_usergroup();
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");
-		$show_zone = 1;
-		$show_validator = 1;
-		include trig_mvc_template::view_file('userform');
+		
+		$this->display('userform', array(
+			'value' => $value,
+			'ugroup_list' => $ugroup_list,
+			'show_validator' => 1,
+			'show_zone' => 1,
+		));
 	}
 
 	public function delete() {
@@ -143,7 +162,9 @@ class application_admin_user extends application_admin_base {
 	 */
 	function editpass() {
 		$user_info = $this->userdb->get_user_info($_SESSION['admin_uid']);
-		include trig_mvc_template::view_file('changepass');
+		$this->display('changepass', array(
+			'user_info' => $user_info
+		));
 	}
 	
 	/*

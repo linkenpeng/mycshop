@@ -36,7 +36,7 @@ class model_menu extends model_base {
 		$list = array();
 		if(!empty($menuids)) {
 			$menuids = explode(",",$menuids);
-			$list = $this->get_list($num = 100,0, $field = 'menuid,model,ctrl,act,name', "WHERE parentid=0 ","sort_order ASC");
+			$list = $this->get_all($field = 'menuid,model,ctrl,act,name', "WHERE parentid=0 ","sort_order ASC");
 			foreach ($list as $k=>$v) {
 				if(!in_array($v['menuid'],$menuids)) {
 					unset($list[$k]);

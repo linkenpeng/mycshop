@@ -1,6 +1,5 @@
 <?php
-$pagetitle = "添加修改账目";
-include trig_mvc_template::view_file("header");
+trig_mvc_template::$title = "添加修改账目";
 ?>
 <script type="text/javascript"> 
 <!--
@@ -12,7 +11,7 @@ include trig_mvc_template::view_file("header");
 </script>
 <div class="pageMain">
 <div class="pageTitle">
-<div class="pageTitle_left"></div>当前位置：<?php echo $pagetitle;?> </div>
+<div class="pageTitle_left"></div>当前位置：<?php echo trig_mvc_template::$title;?> </div>
 <div class="pageContent">
   <table width="100%">
     <form action="<?php echo trig_mvc_route::get_uri();?>" method="post" id="dataForm">
@@ -43,6 +42,3 @@ include trig_mvc_template::view_file("header");
 </table>
 </div>
 </div>
-<?php
-include trig_mvc_template::view_file("footer");
-?>
