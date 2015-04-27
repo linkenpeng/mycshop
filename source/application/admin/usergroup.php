@@ -16,8 +16,12 @@ class application_admin_usergroup extends application_admin_base {
 		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		// 获取分页后的数据
 		$list = $this->usergroupdb->get_list($p->perpage, $p->offset, " * ", $where, "uid ASC ");
-		$show_zone = 1;
-		include trig_mvc_template::view_file('usergroup');
+		
+		$this->display('usergroup', array(
+			'list' => $list,
+			'p' => $p,
+			'show_zone' => 1
+		));
 	}
 
 	public function add() {
@@ -40,7 +44,10 @@ class application_admin_usergroup extends application_admin_base {
 			}
 		}
 		$show_validator = 1;
-		include trig_mvc_template::view_file('usergroupform');
+		
+		$this->display('usergroupform', array(
+			'show_validator' => 1
+		));
 	}
 
 	public function edit() {
@@ -59,8 +66,10 @@ class application_admin_usergroup extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		include trig_mvc_template::view_file('usergroupform');
+		$this->display('usergroupform', array(
+			'show_validator' => 1,
+			'value' => $value
+		));
 	}
 
 	public function delete() {
@@ -103,7 +112,12 @@ class application_admin_usergroup extends application_admin_base {
 			$menudb = new model_menu();
 			$list = $menudb->get_all(" * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 			$list = $menudb->make_tree_list($list);
-			include trig_mvc_template::view_file('usergroup_permission');
+			
+			$this->display('usergroup_permission', array(
+				'value' => $value,
+				'permissions' => $permissions,
+				'list' => $list
+			));
 		} else {
 			trig_func_common::ShowMsg(trig_func_common::lang('message', 'param_error'), -1);
 		}

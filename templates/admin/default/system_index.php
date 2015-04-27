@@ -1,6 +1,5 @@
 <?php
-$pagetitle="系统配置管理";
-include trig_mvc_template::view_file("header");
+trig_mvc_template::$title = "系统配置管理";
 ?>
 <div class="pageMain">
 <div class="pageTitle">
@@ -39,6 +38,3 @@ include trig_mvc_template::view_file("header");
 </form>
 </div>
 </div>
-<?php
-include trig_mvc_template::view_file("footer");
-?>

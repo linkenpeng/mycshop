@@ -1,6 +1,5 @@
 <?php
-$pagetitle="管理后台首页";
-include trig_mvc_template::view_file("header");
+trig_mvc_template::$title = "管理后台首页";
 ?>
 <div class="pageMain">
 <div class="pageTitle">
@@ -102,6 +101,3 @@ include trig_mvc_template::view_file("header");
 
 </div>
 </div>
-<?php
-include trig_mvc_template::view_file("footer");
-?>

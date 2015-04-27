@@ -2,8 +2,7 @@
 if(!defined('SYS_IN')) {
 	exit('Access Denied');
 }
-$pagetitle = "添加修改用户分类";
-include trig_mvc_template::view_file("header");
+trig_mvc_template::$title = "添加修改用户分类";
 ?>
 <script type="text/javascript"> 
 <!--
@@ -36,6 +35,3 @@ include trig_mvc_template::view_file("header");
 </table>
 </div>
 </div>
-<?php
-include trig_mvc_template::view_file("footer");
-?>

@@ -14,7 +14,10 @@ class application_admin_system extends application_admin_base {
 		$count = $this->systemdb->get_count($where);
 		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
 		$list = $this->systemdb->get_list($p->perpage, $p->offset, " * ", $where);
-		include trig_mvc_template::view_file('system_index');
+		$this->display('system_index', array(
+			'list' => $list,
+			'p' => $p,
+		));
 	}
 
 	function add() {
@@ -35,8 +38,10 @@ class application_admin_system extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		include trig_mvc_template::view_file('system_form');
+		
+		$this->display('system_form', array(
+			'show_validator' => 1,
+		));
 	}
 
 	public function edit() {
@@ -56,8 +61,11 @@ class application_admin_system extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		include trig_mvc_template::view_file('system_form');
+		
+		$this->display('system_form', array(
+			'show_validator' => 1,
+			'value' => $value
+		));
 	}
 
 	function cache() {
