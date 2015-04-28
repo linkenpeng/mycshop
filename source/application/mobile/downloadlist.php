@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_downloadlist extends application_android_base {
+class application_mobile_downloadlist extends application_mobile_base {
 	
 	public function init() {
 		$list = array();

@@ -1,7 +1,5 @@
 <?php
-if (!defined('SYS_IN')) {
-	exit('Access Denied');
-}
+if (!defined('SYS_IN')) {exit('Access Denied');}
 $config = array(
 	'db' => array(
 		'master' => array(
@@ -67,7 +65,7 @@ $config = array(
 		'is_log' => false
 	),
 	'module' => array(
-		"index",
+		"front",
 		"android",
 		"admin",
 		"spider" 

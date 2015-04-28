@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_scene extends application_android_base {
+class application_mobile_scene extends application_mobile_base {
     private $scenedb;
     function __construct() {
         $this->scenedb = new model_scene();
