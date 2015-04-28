@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_relic extends application_android_base {
+class application_mobile_relic extends application_mobile_base {
     private $relicdb;
     function __construct() {
         $this->relicdb = new model_relic();

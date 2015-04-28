@@ -67,7 +67,7 @@ $config = array(
 		'is_log' => false
 	),
 	'module' => array(
-		"index",
+		"front",
 		"android",
 		"admin",
 		"spider" 

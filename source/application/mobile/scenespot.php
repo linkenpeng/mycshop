@@ -1,6 +1,6 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-class application_android_scenespot extends application_android_base {
+class application_mobile_scenespot extends application_mobile_base {
     private $scenespotdb;
     function __construct() {
         $this->scenespotdb = new model_scenespot();

@@ -1,7 +1,7 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 
-class application_android_api extends application_android_base {
+class application_mobile_api extends application_mobile_base {
 
 	function __construct() {
 	}
