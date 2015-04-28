@@ -50,9 +50,32 @@ trig_mvc_template::$title = "菜单管理";
 						<a href="<?php echo trig_mvc_route::get_uri("menu","add","admin",array('parentid'=>$val2['menuid']));?>" >添加子菜单</a>
 				  </td>
 				</tr>
-		<?php 	} 
-			  } ?>
-		<?php }} ?>
+				<?php if(!empty($val2['subs'])) {
+						foreach ($val2['subs'] as $val3) {
+				?>						
+						<tr>
+						  <td align="center"><?php echo $val3['menuid']; ?>/<?php echo $val3['parentid']; ?></td>
+						  <td>--------<?php echo $val3['name']; ?></td>
+						  <td align="center"><?php echo $val3['model']; ?></td>
+						  <td align="center"><?php echo $val3['ctrl']; ?></td>
+						  <td align="center"><?php echo $val3['act']; ?></td>
+						  <td align="center"></td>
+						  <td align="center">
+								<a href="<?php echo trig_mvc_route::get_uri("menu","edit","admin",array('menuid'=>$val3['menuid']));?>" ><?php echo trig_func_common::lang("action","edit")?></a>
+								<a href="<?php echo trig_mvc_route::get_uri("menu","delete","admin",array('menuid'=>$val3['menuid']));?>" onclick="return confirm('<?php echo trig_func_common::lang("action","isdelete")?>?');"><?php echo trig_func_common::lang("action","delete")?></a>
+								<a href="<?php echo trig_mvc_route::get_uri("menu","add","admin",array('parentid'=>$val3['menuid']));?>" >添加子菜单</a>
+						  </td>
+						</tr>				
+		<?php 	
+						} // end level 3
+					} // end level 3 if
+					
+				} //end level 2 
+			  } // end level 2 if
+			  
+		  } // end level 1
+		} // end level 1 if		
+		?>
 		<tr>
 			<td colspan=8 align="right">
 				<input type="submit" name="" value="更新排序" />

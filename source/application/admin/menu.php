@@ -3,7 +3,8 @@ defined('SYS_IN') or exit('Access Denied.');
 
 class application_admin_menu extends application_admin_base {
 	private $menudb;
-
+	public $levels = array(1, 2, 3);
+	
 	function __construct() {
 		parent::__construct();
 		$this->menudb = new model_menu();
@@ -35,10 +36,12 @@ class application_admin_menu extends application_admin_base {
 			$_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
 			$data = array(
 				'parentid' => $_POST['parentid'],
+				'level' => $_POST['level'],
 				'model' => $_POST['model'],
 				'ctrl' => $_POST['ctrl'],
 				'act' => $_POST['act'],
 				'name' => $_POST['name'],
+				'icon' => $_POST['icon'],
 				'dateline' => $_POST['dateline'] 
 			);
 			if ($this->menudb->insert($data)) {
@@ -51,12 +54,17 @@ class application_admin_menu extends application_admin_base {
 		$value['model'] = $value_parent['model'];
 		$value['ctrl'] = $value_parent['ctrl'];
 		$value['parent_name'] = $value_parent['name'];
-		$show_validator = 1;
+		$up_menus = array();
+		if(!empty($value_parent)) {
+			$up_menus = $this->menudb->get_up_menus($value['level']+1);
+		}
 		
 		$this->display('menuform', array(
 			'value' => $value,
 			'value_parent' => $value_parent,
-			'show_validator' => $show_validator 
+			'show_validator' => 1,
+			'levels' => $this->levels,
+			'up_menus' => $up_menus,
 		));
 	}
 
@@ -65,14 +73,17 @@ class application_admin_menu extends application_admin_base {
 		if (!empty($menuid)) {
 			$value = $this->menudb->get_one($menuid);
 			$value_parent = $this->menudb->get_one($value['parentid']);
+			$up_menus = $this->menudb->get_up_menus($value['level']);
 		}
 		if (!empty($_POST['action']) && !empty($_POST['menuid'])) {
 			$data = array(
 				'parentid' => $_POST['parentid'],
+				'level' => $_POST['level'],
 				'model' => $_POST['model'],
 				'ctrl' => $_POST['ctrl'],
 				'act' => $_POST['act'],
-				'name' => $_POST['name'] 
+				'name' => $_POST['name'],
+				'icon' => $_POST['icon'],
 			);
 			if ($this->menudb->update($data, "menuid=" . $_POST['menuid'])) {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("menu", "init"));
@@ -80,12 +91,13 @@ class application_admin_menu extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
-		$show_validator = 1;
 		
 		$this->display('menuform', array(
 			'value' => $value,
 			'value_parent' => $value_parent,
-			'show_validator' => $show_validator 
+			'show_validator' => 1,
+			'levels' => $this->levels,
+			'up_menus' => $up_menus,
 		));
 	}
 

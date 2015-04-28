@@ -78,5 +78,12 @@ class model_menu extends model_base {
             $this->db->query($sql);
         }
     }
+	
+	public function get_up_menus($level) {
+		$level = $level > 1 ? ($level - 1) : 1;
+		$sql = "select * from ".$this->tname($this->_table)." WHERE level = $level";
+		return $this->db->get_list($sql);
+	}
+	
+	
 }
-?>
