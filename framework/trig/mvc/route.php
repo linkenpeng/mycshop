@@ -21,7 +21,7 @@ class trig_mvc_route {
 	public function route_m() {
 		$m = isset($_GET[M]) && !empty($_GET[M]) ? $_GET[M] : (isset($_POST[M]) && !empty($_POST[M]) ? $_POST[M] : '');
 		// 允许的模块
-		$m = in_array($m, $this->_mconfig) ? $m : "admin";
+		$m = !empty($m) && in_array($m, $this->_mconfig) ? $m : "";
 		if (empty($m)) {
 			return $this->_config[M];
 		} else {
@@ -33,7 +33,7 @@ class trig_mvc_route {
 	 * 获取控制器
 	 */
 	public function route_c() {
-		$c = isset($_GET[C]) && !empty($_GET[C]) ? $_GET[C] : (isset($_POST[C]) && !empty($_POST[C]) ? $_POST[C] : 'index');
+		$c = isset($_GET[C]) && !empty($_GET[C]) ? $_GET[C] : (isset($_POST[C]) && !empty($_POST[C]) ? $_POST[C] : '');
 		if (empty($c)) {
 			return $this->_config[C];
 		} else {
@@ -45,7 +45,7 @@ class trig_mvc_route {
 	 * 获取事件
 	 */
 	public function route_a() {
-		$a = isset($_GET[A]) && !empty($_GET[A]) ? $_GET[A] : (isset($_POST[A]) && !empty($_POST[A]) ? $_POST[A] : 'init');
+		$a = isset($_GET[A]) && !empty($_GET[A]) ? $_GET[A] : (isset($_POST[A]) && !empty($_POST[A]) ? $_POST[A] : '');
 		if (empty($a)) {
 			return $this->_config[A];
 		} else {

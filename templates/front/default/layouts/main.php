@@ -22,7 +22,7 @@
     <div class="layout bg-black bg-inverse">
       <div class="container height-large">
         <span class="float-right text-small text-gray hidden-l">
-          <a class="text-main" href="http://www.pintuer.com">注册</a><span> | </span><a class="text-main" href="http://www.pintuer.com">登录</a><span> | </span><a class="text-main" href="http://www.pintuer.com">积分兑换</a><span> | </span><a class="text-main" href="http://www.pintuer.com">帮助中心</a>
+          <a class="text-main" href="/">注册</a><span> | </span><a class="text-main" href="/">登录</a><span> | </span><a class="text-main" href="/">积分兑换</a><span> | </span><a class="text-main" href="/">帮助中心</a>
         </span>
         <a href="/"></a>
       </div>
@@ -33,27 +33,27 @@
     <div class="container padding-top padding-bottom">
     
       <div class="line">
-        <div class="xl12 xs3 xm3 xb2"><button class="button icon-navicon float-right" data-target="#header-demo"></button><a target="_blank" href="http://www.pintuer.com"><img src="<?php echo TEMPLATE_URL?>/images/logo.png" alt="前端CCS框架" /></a></div>
+        <div class="xl12 xs3 xm3 xb2"><button class="button icon-navicon float-right" data-target="#header-demo"></button><a  href="/"><img src="<?php echo TEMPLATE_URL?>/images/logo.png" alt="前端CCS框架" /></a></div>
         <div class=" xl12 xs9 xm9 xb10 nav-navicon" id="header-demo">
     
           <div class="xs8 xm6 xb5 padding-small">
             <ul class="nav nav-menu nav-inline nav-big">
-              <li><a href="http://www.pintuer.com">首页</a></li>
-              <li><a href="http://www.pintuer.com">CSS</a></li>
-              <li class="active"><a href="http://www.pintuer.com">元件<span class="arrow"></span></a>
+              <li><a href="/">首页</a></li>
+              <li><a href="/">CSS</a></li>
+              <li class="active"><a href="/">元件<span class="arrow"></span></a>
                 <ul class="drop-menu">
-                  <li><a href="http://www.pintuer.com">概述</a></li>
-                  <li><a href="http://www.pintuer.com">网格系统<span class="arrow"></span></a>
-                    <ul><li><a href="http://www.pintuer.com">响应式布局</a></li><li><a href="http://www.pintuer.com">非响应式布局</a></li></ul>
+                  <li><a href="/">概述</a></li>
+                  <li><a href="/">网格系统<span class="arrow"></span></a>
+                    <ul><li><a href="/">响应式布局</a></li><li><a href="/">非响应式布局</a></li></ul>
                   </li>
-                  <li><a href="http://www.pintuer.com">图标</a></li>
+                  <li><a href="/">图标</a></li>
                 </ul>
               </li>
-              <li><a href="http://www.pintuer.com">更多<span class="arrow"></span></a>
+              <li><a href="/">更多<span class="arrow"></span></a>
                 <ul class="drop-menu">
-                  <li><a href="http://www.pintuer.com">组件</a></li>
-                  <li><a href="http://www.pintuer.com">模块<span class="arrow"></span></a>
-                    <ul><li><a href="http://www.pintuer.com">头部</a></li><li><a href="http://www.pintuer.com">导航</a></li><li><a href="http://www.pintuer.com">底部</a></li></ul>
+                  <li><a href="/">组件</a></li>
+                  <li><a href="/">模块<span class="arrow"></span></a>
+                    <ul><li><a href="/">头部</a></li><li><a href="/">导航</a></li><li><a href="/">底部</a></li></ul>
                   </li>
                 </ul>
               </li>
@@ -88,11 +88,11 @@
         <div class="line">
           <div class="hidden-l xs9 table-responsive">
             <ul class="nav nav-sitemap">
-              <li><a href="http://www.pintuer.com">起步</a><ul><li><a href="http://www.pintuer.com">下载前端框架</a></li><li><a href="http://www.pintuer.com">框架包含的文件</a></li><li><a href="http://www.pintuer.com">基本页面</a></li></ul></li>
-              <li><a href="http://www.pintuer.com">CSS</a><ul><li><a href="http://www.pintuer.com">文本</a></li><li><a href="http://www.pintuer.com">图片</a></li><li><a href="http://www.pintuer.com">水平线</a></li></ul></li>
-              <li><a href="http://www.pintuer.com">元件</a><ul><li><a href="http://www.pintuer.com">网格系统</a></li><li><a href="http://www.pintuer.com">图标</a></li><li><a href="http://www.pintuer.com">标签</a></li></ul></li>
-              <li><a href="http://www.pintuer.com">JS组件</a><ul><li><a href="http://www.pintuer.com">窗口工具</a></li><li><a href="http://www.pintuer.com">选项标签</a></li><li><a href="http://www.pintuer.com">进度及区间值</a></li></ul></li>
-              <li><a href="http://www.pintuer.com">模块</a><ul><li><a href="http://www.pintuer.com">框架</a></li><li><a href="http://www.pintuer.com">头部</a></li><li><a href="http://www.pintuer.com">导航条</a></li></ul></li>
+              <li><a href="/">起步</a><ul><li><a href="/">下载前端框架</a></li><li><a href="/">框架包含的文件</a></li><li><a href="/">基本页面</a></li></ul></li>
+              <li><a href="/">CSS</a><ul><li><a href="/">文本</a></li><li><a href="/">图片</a></li><li><a href="/">水平线</a></li></ul></li>
+              <li><a href="/">元件</a><ul><li><a href="/">网格系统</a></li><li><a href="/">图标</a></li><li><a href="/">标签</a></li></ul></li>
+              <li><a href="/">JS组件</a><ul><li><a href="/">窗口工具</a></li><li><a href="/">选项标签</a></li><li><a href="/">进度及区间值</a></li></ul></li>
+              <li><a href="/">模块</a><ul><li><a href="/">框架</a></li><li><a href="/">头部</a></li><li><a href="/">导航条</a></li></ul></li>
             </ul>
           </div>
           <div class="xl12 xs3 padding-top">
@@ -112,10 +112,10 @@
     <div class="layout bg-black bg-inverse">
       <div class="container">
         <div class="navbar">
-          <div class="navbar-head"><button class="button bg-gray icon-navicon" data-target="#navbar-footer"></button><a href="http://www.pintuer.com" target="_blank"><img class="logo" src="<?php echo TEMPLATE_URL?>/images/24-white.png" alt="拼图前端CSS框架" /></a></div>
+          <div class="navbar-head"><button class="button bg-gray icon-navicon" data-target="#navbar-footer"></button><a href="/" target="_blank"><img class="logo" src="<?php echo TEMPLATE_URL?>/images/24-white.png" alt="拼图前端CSS框架" /></a></div>
           <div class="navbar-body nav-navicon" id="navbar-footer">
-            <div class="navbar-text navbar-left hidden-s hidden-l">版权所有 &copy; <a href="http://www.pintuer.com" target="_blank">Pintuer.com</a> All Rights Reserved，图ICP备：380959609</div>
-            <ul class="nav nav-inline navbar-right"><li><a href="http://www.pintuer.com">首页</a></li><li><a href="http://www.pintuer.com">CSS</a></li><li><a href="http://www.pintuer.com">元件</a></li><li><a href="http://www.pintuer.com">更多</a></li></ul>
+            <div class="navbar-text navbar-left hidden-s hidden-l">版权所有 &copy; <a href="/" target="_blank">Pintuer.com</a> All Rights Reserved，图ICP备：380959609</div>
+            <ul class="nav nav-inline navbar-right"><li><a href="/">首页</a></li><li><a href="/">CSS</a></li><li><a href="/">元件</a></li><li><a href="/">更多</a></li></ul>
           </div>
         </div>
       </div>
