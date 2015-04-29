@@ -190,6 +190,12 @@ padding-bottom:30px;
 #navbar ul.menubar li.active a {
 	color: #000;
 }
+#navbar ul.sub-menu {	
+	list-style: none;
+	width: 100%;
+	
+}
+
 .button {
   width: 80px;
   color:#FFFFFF;

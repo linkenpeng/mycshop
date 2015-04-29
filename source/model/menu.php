@@ -35,13 +35,7 @@ class model_menu extends model_base {
 	function get_top_menus($menuids="") {
 		$list = array();
 		if(!empty($menuids)) {
-			$menuids = explode(",",$menuids);
-			$list = $this->get_all($field = 'menuid,model,ctrl,act,name', "WHERE parentid=0 ","sort_order ASC");
-			foreach ($list as $k=>$v) {
-				if(!in_array($v['menuid'],$menuids)) {
-					unset($list[$k]);
-				}
-			}
+			$list = $this->get_all($field = 'menuid,parentid,level,model,ctrl,act,name,icon', "WHERE menuid IN($menuids) ","sort_order ASC");			
 		}
 		return $list;
 	}

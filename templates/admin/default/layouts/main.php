@@ -100,6 +100,18 @@ $().ready(function(){
 					<img src="<?php echo TEMPLATE_URL?>/images/icon-<?php echo $v['ctrl']; ?>.gif" /> 
 					<a href="<?php echo trig_mvc_route::get_uri($v['ctrl'],$v['act']);?>" ><?php echo $v['name']; ?></a>
 					</li>
+					<?php if(!empty($v['subs'])) { 
+					?>
+					<ul class="sub-menu">
+					<?php	foreach($v['subs'] as $v2) {
+						
+					?>
+						<li <?php if($_GET[C]==$v2['ctrl']) {?> class="active"<?php }?>>
+						<a href="<?php echo trig_mvc_route::get_uri($v2['ctrl'],$v2['act']);?>" ><?php echo $v2['name']; ?></a>
+						</li>
+					<?php 	} ?>
+					</ul>
+					<?php }?>
 				<?php } ?>			
 			</ul>
 		</div>

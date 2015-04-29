@@ -20,7 +20,7 @@ class application_admin_menu extends application_admin_base {
 		// 获取分页后的数据
 		$list = $this->menudb->get_list($p->perpage, $p->offset, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
 		$list = $this->menudb->make_tree_list($list);
-		
+		//trig_func_common::debug_arr($list);
 		$this->display('menu', array(
 			'p' => $p,
 			'list' => $list

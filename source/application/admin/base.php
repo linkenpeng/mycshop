@@ -36,6 +36,8 @@ class application_admin_base extends trig_mvc_controller {
 		
 		// 获得用户组分配的主菜单
 		$check_modules = array('admin');
-		$topmenus = $menudb->get_top_menus($menuids, $check_modules);
+		$menus = $menudb->get_top_menus($menuids, $check_modules);
+		$topmenus = $menudb->make_tree_list($menus);
+		//trig_func_common::debug_arr($topmenus);
 	}
 }
