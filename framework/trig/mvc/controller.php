@@ -113,7 +113,7 @@ class trig_mvc_controller {
 	public function renderApi($data, $msg = 'success') {
 		$format = strtolower(trig_http_request::getParameter('format', 'json'));
 		$result = array(
-			'code' => 0,
+			'code' => 200,
 			'msg' => $msg,
 			'data' => $data 
 		);
