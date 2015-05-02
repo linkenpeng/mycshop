@@ -96,7 +96,7 @@ $().ready(function(){
 				//一定要全局才行
 				global $topmenus;
 				foreach ($topmenus as $k=>$v) { ?>
-					<li <?php if($_GET[C]==$v['ctrl']) {?> class="active"<?php }?>>
+					<li <?php if($v['is_active']) {?> class="active"<?php }?>>
 					<img src="<?php echo TEMPLATE_URL?>/images/icon-<?php echo $v['ctrl']; ?>.gif" /> 
 					<a href="<?php echo trig_mvc_route::get_uri($v['ctrl'],$v['act']);?>" ><?php echo $v['name']; ?></a>
 					</li>
@@ -106,7 +106,7 @@ $().ready(function(){
 					<?php	foreach($v['subs'] as $v2) {
 						
 					?>
-						<li <?php if($_GET[C]==$v2['ctrl']) {?> class="active"<?php }?>>
+						<li <?php if($v2['is_active']) {?> class="active"<?php }?>>
 						<a href="<?php echo trig_mvc_route::get_uri($v2['ctrl'],$v2['act']);?>" ><?php echo $v2['name']; ?></a>
 						</li>
 					<?php 	} ?>

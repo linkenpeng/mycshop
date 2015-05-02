@@ -14,13 +14,17 @@ class model_menu extends model_base {
      * @param array $datas
      * @return array $list
      */
-    function make_tree_list($datas) {
+    function make_tree_list($datas, $cur_ctrl = '') {
         $list = array();
 		foreach ($datas as $k=>$v) {
+			$v['is_active'] = (!empty($cur_ctrl) && $cur_ctrl == $v['ctrl']) ? true : false;
 			$list[$v['menuid']] = $v;
 		}
 		foreach ($list as $k=>$v) {
 			if($v['parentid']) {
+				if(!empty($cur_ctrl) && $cur_ctrl == $v['ctrl']) {
+					$list[$v['parentid']]['is_active'] = true;
+				}
 				$list[$v['parentid']]['subs'][$v['menuid']] = &$list[$k]; 
 				unset($list[$k]);
 			}

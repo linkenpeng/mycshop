@@ -32,14 +32,14 @@
 				//一定要全局才行
 				global $topmenus;
 				foreach ($topmenus as $k=>$v) { ?>
-				<li <?php if($_GET[C]==$v['ctrl']) {?> class="active"<?php }?>>
+				<li <?php if($v['is_active']) {?> class="active"<?php }?>>
 					<a href="<?php echo trig_mvc_route::get_uri($v['ctrl'],$v['act']);?>" class="<?php echo $v['icon']; ?>"> <?php echo $v['name']; ?></a>
 					<?php if(!empty($v['subs'])) {
 					?>
 					<ul>
 					<?php foreach($v['subs'] as $v2) {						
 					?>
-						<li <?php if($_GET[C]==$v2['ctrl']) {?> class="active"<?php }?>>
+						<li <?php if($v2['is_active']) {?> class="active"<?php }?>>
 						<a href="<?php echo trig_mvc_route::get_uri($v2['ctrl'],$v2['act']);?>" ><?php echo $v2['name']; ?></a>
 						</li>
 					<?php 	} ?>
@@ -53,7 +53,7 @@
             <span>欢迎你：<?php echo $_SESSION['admin_username'];?> 你的身份是：<?php echo $_SESSION['usergroupname'];?></span>
             <ul class="bread">
                 <li><a href="<?php echo trig_mvc_route::get_uri('index','init');?>" class="icon-home"> 开始</a></li>
-                <li>后台首页</li>
+                <li><?php echo trig_mvc_template::$title; ?></li>
             </ul>
         </div>
     </div>

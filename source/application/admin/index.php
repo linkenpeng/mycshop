@@ -20,7 +20,7 @@ class application_admin_index extends application_admin_base {
 		
 		$signindb =new model_signin();
 		$signin_list = $signindb->get_list(10,0," * ","","dateline DESC ");
-		
+		//trig_func_common::debug_arr($_SERVER);
         $this->display('index', array(
         	'user_info' => $user_info,
         	'scene_list' => $scene_list,
@@ -28,6 +28,7 @@ class application_admin_index extends application_admin_base {
         	'comment_list' => $comment_list,
         	'signin_list' => $signin_list
         ));
+        
     }
 }
 ?>

@@ -193,7 +193,11 @@ padding-bottom:30px;
 #navbar ul.sub-menu {	
 	list-style: none;
 	width: 100%;
-	
+	margin: 0 0 1px 0;
+	padding: 0;
+}
+#navbar ul.sub-menu li a {
+	margin-left: 26px;
 }
 
 .button {
