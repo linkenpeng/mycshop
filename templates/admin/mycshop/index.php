@@ -38,10 +38,22 @@ trig_mvc_template::$description = "后台首页";
 			<div class="panel-head"><strong>系统信息</strong></div>
 			<table class="table">
 				<tr><th colspan="2">服务器信息</th><th colspan="2">系统信息</th></tr>
-				<tr><td width="110" align="right">操作系统：</td><td>Windows 2008</td><td width="90" align="right">系统开发：</td><td><a href="http://www.pintuer.com" target="_blank">拼图前端框架</a></td></tr>
-				<tr><td align="right">Web服务器：</td><td>Apache</td><td align="right">主页：</td><td><a href="http://www.pintuer.com" target="_blank">http://www.pintuer.com</a></td></tr>
-				<tr><td align="right">程序语言：</td><td>PHP</td><td align="right">演示：</td><td><a href="http://demo.pintuer.com" target="_blank">http://demo.pintuer.com</a></td></tr>
-				<tr><td align="right">数据库：</td><td>MySQL</td><td align="right">群交流：</td><td><a href="http://shang.qq.com/wpa/qunwpa?idkey=a08e4d729d15d32cec493212f7672a6a312c7e59884a959c47ae7a846c3fadc1" target="_blank">201916085</a> (点击加入)</td></tr>
+				<tr>
+				<td width="110" align="right">Web服务器/操作系统：</td><td><?php echo $_SERVER['SERVER_SOFTWARE'];?></td>
+				<td width="90" align="right">系统开发：</td><td>peng.zhenxian collin_linken@qq.com</td>
+				</tr>
+				<tr>
+				<td align="right">脚本超时时间：</td><td><?php echo get_cfg_var("max_execution_time")?></td>
+				<td align="right">文件最大上传大小：</td><td><?php echo get_cfg_var("upload_max_filesize")?></td>
+				</tr>
+				<tr>
+				<td align="right">程序语言：</td><td>PHP</td>
+				<td align="right">版本：</td><td><?php echo PHP_VERSION;?></td>
+				</tr>
+				<tr>
+				<td align="right">数据库：</td><td>MySQL</td>
+				<td align="right">版本：</td><td><?php echo $mysql_version; ?></td>
+				</tr>
 			</table>
 		</div>
 	</div>

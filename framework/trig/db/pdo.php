@@ -52,7 +52,7 @@ class trig_db_pdo implements trig_db_driver {
 		return 0;
 	}
 
-	function fetch_fields($field = 0) {
+	function fetch_fields($sql, $field = 0) {
 		return $this->execute($sql, 'field', $field);
 	}
 
