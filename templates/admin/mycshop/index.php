@@ -52,7 +52,7 @@ trig_mvc_template::$description = "后台首页";
 				</tr>
 				<tr>
 				<td align="right">数据库：</td><td>MySQL</td>
-				<td align="right">版本：</td><td><?php echo $mysql_version; ?></td>
+				<td align="right">版本：</td><td><?php echo $mysql_version; ?>(<?php echo $dbsize; ?>M)</td>
 				</tr>
 			</table>
 		</div>
