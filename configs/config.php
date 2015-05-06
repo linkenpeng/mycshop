@@ -71,7 +71,7 @@ $config = array(
 		"spider" 
 	),
 	'route' => array(
-		M => 'front',
+		M => 'admin',
 		C => 'index',
 		A => 'init' 
 	) 

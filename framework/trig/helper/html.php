@@ -9,11 +9,14 @@ class trig_helper_html {
 		return $run_info;
 	}
 	
-	public static function page_info($p) {
-		$page_info = trig_func_common::lang("page","total").'<b>'.$p->total.'</b>';
-		$page_info .= trig_func_common::lang("page","item").'<b>'.$p->nowindex.'/'.$p->totalpage.'</b>';
-		$page_info .= trig_func_common::lang("page","page").$p->show();
-		return $page_info;
+	public static function page_info($p, $show_total = false) {
+		$page_info = '';
+		if($show_total) {
+			$page_info .= '<li class="active"><a>'.trig_func_common::lang("page","total").$p->total.trig_func_common::lang("page","item").'</a></li>';
+			$page_info .= '<li class="active"><a>'.$p->nowindex.'/'.$p->totalpage.trig_func_common::lang("page","page").'</a></li>';
+		}
+		$page_info .= $p->show();
+		return !empty($page_info) ? '<ul class="pagination">'.$page_info.'</ul>' : '';
 	}
 	
 	public static function json_success($data, $options = 0)

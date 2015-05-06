@@ -15,7 +15,7 @@ class application_admin_menu extends application_admin_base {
 		$count = $this->menudb->get_count($where);
 		$p = new trig_page(array(
 			'total_count' => $count,
-			'default_page_size' => 100 
+			'default_page_size' => 1000 
 		));
 		// 获取分页后的数据
 		$list = $this->menudb->get_list($p->perpage, $p->offset, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");

@@ -96,7 +96,7 @@ class trig_page {
 		if ($this->nowindex < $this->totalpage) {
 			return $this->_get_link($this->_get_url($this->nowindex + 1), $this->next_page, $style);
 		}
-		return $this->next_page;
+		return '';
 	}
 
 	/**
@@ -109,7 +109,7 @@ class trig_page {
 		if ($this->nowindex > 1) {
 			return $this->_get_link($this->_get_url($this->nowindex - 1), $this->pre_page, $style);
 		}
-		return $this->pre_page;
+		return '';
 	}
 
 	/**
@@ -119,7 +119,7 @@ class trig_page {
 	 */
 	function first_page($style = '') {
 		if ($this->nowindex == 1) {
-			return $this->first_page;
+			return '';
 		}
 		return $this->_get_link($this->_get_url(1), $this->first_page, $style);
 	}
@@ -131,31 +131,35 @@ class trig_page {
 	 */
 	function last_page($style = '') {
 		if ($this->nowindex == $this->totalpage) {
-			return $this->last_page;
+			return '<li><a>'.$this->last_page.'</a></li>';
 		}
 		return $this->_get_link($this->_get_url($this->totalpage), $this->last_page, $style);
 	}
 
 	function nowbar($style = '', $nowindex_style = '') {
 		$plus = ceil($this->pagebarnum / 2);
-		if ($this->pagebarnum - $plus + $this->nowindex > $this->totalpage)
+		if ($this->pagebarnum - $plus + $this->nowindex > $this->totalpage) {
 			$plus = ($this->pagebarnum - $this->totalpage + $this->nowindex);
+		}
 		$begin = $this->nowindex - $plus + 1;
 		$begin = ($begin >= 1) ? $begin : 1;
 		$return = '';
 		for($i = $begin; $i < $begin + $this->pagebarnum; $i ++) {
 			if ($i <= $this->totalpage) {
-				if ($i != $this->nowindex)
+				if ($i != $this->nowindex) {
 					$return .= $this->_get_text($this->_get_link($this->_get_url($i), $i, $style));
-				else
-					$return .= $this->_get_text("<b>" . $i . "</b>");
+				} else {
+					if($this->totalpage > 1) {
+						$return .= $this->_get_text('<li class="active"><a href="">' . $i . '</a></li>');
+					}
+				}
 			} else {
 				break;
 			}
 			$return .= " ";
 		}
 		unset($begin);
-		return $return;
+		return trim($return);
 	}
 
 	/**
@@ -302,9 +306,9 @@ class trig_page {
 		$style = (empty($style)) ? '' : 'class="' . $style . '"';
 		if ($this->is_ajax) {
 			// 如果是使用AJAX模式
-			return '<a ' . $style . ' href="javascript:' . $this->ajax_action_name . '(' . $url . ')">' . $text . '</a>';
+			return '<li><a ' . $style . ' href="javascript:' . $this->ajax_action_name . '(' . $url . ')">' . $text . '</a></li>';
 		} else {
-			return '<a ' . $style . ' href="' . $url . '">' . $text . '</a>';
+			return '<li><a ' . $style . ' href="' . $url . '">' . $text . '</a></li>';
 		}
 	}
 	

@@ -86,18 +86,8 @@ trig_mvc_template::$description = "菜单管理";
 		</tr>        
         </table>
         <div class="panel-foot text-center">
-        	<div class="page"><?= trig_helper_html::page_info($p) ?></div>
-			<div class="run-info"><?= trig_helper_html::run_info(array('startTime' => START_TIME, 'endTime' => trig_func_common::mtime())) ?></div>
-            
-            <ul class="pagination"><li><a href="#">上一页</a></li></ul>
-            <ul class="pagination pagination-group">
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
-            <ul class="pagination"><li><a href="#">下一页</a></li></ul>
+        	<?php echo trig_helper_html::page_info($p); ?>
+			<div class="run-info"><?= trig_helper_html::run_info(array('startTime' => START_TIME, 'endTime' => trig_func_common::mtime())) ?></div>            
         </div>
     </div>
     </form>
