@@ -1,14 +1,14 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
 return array (
-  'site_name' => '花生居ERP系统',
+  'site_name' => '后台管理系统',
   'time_zone' => 'Asia/Shanghai',
   'time_offset' => '8',
   'lang' => 'zh-cn',
   'province' => '广东省',
   'city' => '广州市',
   'template' => 'default',
-  'admin_template' => 'fashome',
+  'admin_template' => 'mycshop',
   'online_time' => '1800',
   'upload_image_file_types' => 'jpg,gif,bmp,png',
   'upload_audio_file_types' => 'mp3',
