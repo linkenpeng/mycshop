@@ -1,6 +1,7 @@
 User-agent: * 
 Disallow: /caches
 Disallow: /configs
+Disallow: /framework
 Disallow: /source
 Disallow: /templates
 Disallow: /uploadfiles
