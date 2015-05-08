@@ -15,7 +15,7 @@ class application_admin_menu extends application_admin_base {
 		$count = $this->menudb->get_count($where);
 		$p = new trig_page(array(
 			'total_count' => $count,
-			'default_page_size' => 1000 
+			'default_page_size' => 100 
 		));
 		// 获取分页后的数据
 		$list = $this->menudb->get_list($p->perpage, $p->offset, " * ", $where, "sort_order,ctrl ASC,menuid ASC ");
@@ -56,7 +56,7 @@ class application_admin_menu extends application_admin_base {
 		$value['parent_name'] = $value_parent['name'];
 		$up_menus = array();
 		if(!empty($value_parent)) {
-			$up_menus = $this->menudb->get_up_menus($value['level']+1);
+			$up_menus = $this->menudb->get_parent_menus($value_parent['parentid']);
 		}
 		
 		$this->display('menuform', array(
@@ -69,12 +69,6 @@ class application_admin_menu extends application_admin_base {
 	}
 
 	public function edit() {
-		$menuid = $_GET['menuid'];
-		if (!empty($menuid)) {
-			$value = $this->menudb->get_one($menuid);
-			$value_parent = $this->menudb->get_one($value['parentid']);
-			$up_menus = $this->menudb->get_up_menus($value['level']);
-		}
 		if (!empty($_POST['action']) && !empty($_POST['menuid'])) {
 			$data = array(
 				'parentid' => $_POST['parentid'],
@@ -91,7 +85,13 @@ class application_admin_menu extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
-		
+
+        $menuid = $_GET['menuid'];
+        if (!empty($menuid)) {
+            $value = $this->menudb->get_one($menuid);
+            $value_parent = $this->menudb->get_one($value['parentid']);
+            $up_menus = $this->menudb->get_up_menus($value['level']);
+        }
 		$this->display('menuform', array(
 			'value' => $value,
 			'value_parent' => $value_parent,

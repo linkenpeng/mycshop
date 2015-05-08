@@ -51,10 +51,6 @@ class application_admin_usergroup extends application_admin_base {
 	}
 
 	public function edit() {
-		$ugid = $_GET['ugid'];
-		if (!empty($ugid)) {
-			$value = $this->usergroupdb->get_one($ugid);
-		}
 		if (!empty($_POST['action']) && !empty($_POST['ugid'])) {
 			$data = array(
 				'name' => $_POST['name'],
@@ -66,6 +62,10 @@ class application_admin_usergroup extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
+        $ugid = $_GET['ugid'];
+        if (!empty($ugid)) {
+            $value = $this->usergroupdb->get_one($ugid);
+        }
 		$this->display('usergroupform', array(
 			'show_validator' => 1,
 			'value' => $value

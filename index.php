@@ -2,7 +2,7 @@
 /**
  * index.php 系统 入口
  */
-define('DEBUG', true);
+define('DEBUG', false);
 DEBUG && error_reporting(E_ALL & ~E_NOTICE); // & ~E_STRICT & ~E_DEPRECATED
 define('ROOT_PATH', __DIR__);
 define('APP_FOLDER', 'application');
@@ -25,4 +25,12 @@ function exceptionCallback($e) {
 	}
 	echo json_encode($ret);
 	exit(0);
+}
+
+function out($value = '', $key = '') {
+    if(!isset($value) || empty($value)) {
+        echo '';
+    } else {
+        echo is_array($value) ? (!empty($key) && isset($value[$key]) ? $value[$key] : '') : $value;
+    }
 }

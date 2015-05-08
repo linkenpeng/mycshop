@@ -31,6 +31,8 @@ class application_admin_user extends application_admin_base {
 		}
 		
 		$this->display('user', array(
+            'keyword' => $keyword,
+            'usertype' => $usertype,
 			'list' => $list,
 			'usergroup_list' => $usergroup_list,
 			'ugroup_list' => $ugroup_list, 
@@ -69,6 +71,7 @@ class application_admin_user extends application_admin_base {
 
 	public function add() {
 		$value = array();
+        global $_G;
 		if (!empty($_POST['action'])) {
 			if (empty($_POST['username']) || empty($_POST['password'])) {
 				trig_func_common::ShowMsg("用户名和密码不能为空!", -1);
@@ -76,7 +79,7 @@ class application_admin_user extends application_admin_base {
 			$_POST['regtime'] = empty($_POST['regtime']) ? time() : strtotime(trim($_POST['regtime']));
 			$data = array(
 				'username' => $_POST['username'],
-				'password' => password($_POST['password']),
+				'password' => trig_func_common::password($_POST['password'], $_G['system']['pass_key']),
 				'realname' => $_POST['realname'],
 				'usertype' => $_POST['usertype'],
 				'province' => $_POST['province'],
@@ -105,10 +108,7 @@ class application_admin_user extends application_admin_base {
 	}
 
 	public function edit() {
-		$uid = $_GET['uid'];
-		if (!empty($uid)) {
-			$value = $this->userdb->get_one($uid);
-		}
+        global $_G;
 		if (!empty($_POST['action']) && !empty($_POST['uid'])) {
 			$_POST['regtime'] = empty($_POST['regtime']) ? time() : strtotime(trim($_POST['regtime']));
 			$data = array(
@@ -123,7 +123,7 @@ class application_admin_user extends application_admin_base {
 				'content' => $_POST['content'] 
 			);
 			if (!empty($_POST['password'])) {
-				$data['password'] = password($_POST['password']);
+				$data['password'] = trig_func_common::password($_POST['password'], $_G['system']['pass_key']);
 			}
 			if ($this->userdb->update($data, "uid=" . $_POST['uid'])) {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_success'), trig_mvc_route::get_uri("user", "init"));
@@ -131,7 +131,10 @@ class application_admin_user extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
-		
+        $uid = $_GET['uid'];
+        if (!empty($uid)) {
+            $value = $this->userdb->get_one($uid);
+        }
 		$where = '';
 		$usergroupdb = new model_usergroup();
 		$ugroup_list = $usergroupdb->get_list(100, 0, " ugid,name ", $where, "uid ASC ");

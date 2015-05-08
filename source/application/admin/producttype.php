@@ -1,25 +1,32 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-
 class application_admin_producttype extends application_admin_base {
 	private $producttypedb;
-
 	function __construct() {
 		parent::__construct();
 		$this->producttypedb = new model_producttype();
 	}
-
 	function init() {
 		$where = " WHERE 1 ";
+		$name = empty($_GET['name']) ? "" : trim($_GET['name']);
+		if (!empty($name)) {
+			$where .= " and `name` like '%" . $name . "%' ";
+		}
 		// 分页
 		$count = $this->producttypedb->get_count($where);
-		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
+		$p = new trig_page(array(
+			'total_count' => $count,
+			'default_page_size' => 15 
+		));
 		// 获取分页后的数据
 		$list = $this->producttypedb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
-		$show_zone = 1;
-		include trig_mvc_template::view_file('producttype');
+		
+		$this->display('producttype', array(
+			'p' => $p,
+			'list' => $list,
+			'show_zone' => 1 
+		));
 	}
-	
 	public function add() {
 		if (!empty($_POST['action'])) {
 			if (empty($_POST['name'])) {
@@ -27,7 +34,6 @@ class application_admin_producttype extends application_admin_base {
 			}
 			$_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
 			if (!empty($_FILES['image']['name'])) {
-				
 				$upfile = new trig_uploadfile("jpg,gif,bmp,png");
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
@@ -47,10 +53,11 @@ class application_admin_producttype extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		include trig_mvc_template::view_file('producttypeform');
+		
+		$this->display('producttypeform', array(
+			'show_validator' => 1 
+		));
 	}
-	
 	public function edit() {
 		$typeid = $_GET['typeid'];
 		if (!empty($typeid)) {
@@ -81,10 +88,11 @@ class application_admin_producttype extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'update_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		include trig_mvc_template::view_file('producttypeform');
+		
+		$this->display('producttypeform', array(
+			'show_validator' => 1 
+		));
 	}
-	
 	public function delete() {
 		$typeid = $_GET['typeid'];
 		if (!empty($typeid)) {

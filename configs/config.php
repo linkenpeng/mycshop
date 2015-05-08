@@ -3,13 +3,13 @@ if (!defined('SYS_IN')) {exit('Access Denied');}
 $config = array(
 	'db' => array(
 		'master' => array(
-			'host' => 'localhost',
-			'dbname' => 'mycshop',
-			'user' => 'mycshop',
-			'password' => 'mycshop123ewq',
+			'host' => '192.168.199.191',
+			'dbname' => 'fashome_erp',
+			'user' => 'fashome_erp',
+			'password' => 'fashome_erp_123',
 			'charset' => 'utf8',
 			'pconnect' => '0',
-			'table_pre' => 'hb_',
+			'table_pre' => 'erp_',
 			'driver' => 'pdo' 
 		) 
 	),
@@ -51,9 +51,9 @@ $config = array(
 		'charset' => 'utf-8', // 网站编码
 		'pass_key' => 'ZmF3dXlvdS5jb20', // 用户加密密匙
 		'gzip' => 1,
-		'cookiepre' => 'mycshop_', // 设置cookie前缀
+		'cookiepre' => 'fashome_', // 设置cookie前缀
 		'cookiepath' => '/', // 设置cookie路径
-		'cookiedomain' => '.mycshop.com', // 设置cookie域名
+		'cookiedomain' => '.fashome.cn', // 设置cookie域名
 		'template' => 'default' 
 	),
 	'autoload' => array(

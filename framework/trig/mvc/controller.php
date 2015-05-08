@@ -23,9 +23,7 @@ class trig_mvc_controller {
 		if (!empty($this->layout)) {
 			$layout_file = trig_mvc_template::view_file($this->layout);
 			$content = trig_mvc_template::render($view_file, $this->_vars, true);
-			echo trig_mvc_template::render($layout_file, array(
-				'content' => $content 
-			), true);
+			echo trig_mvc_template::render($layout_file, array_merge($this->_vars, array('content' => $content)), true);
 		} else {
 			echo trig_mvc_template::render($view_file, $this->_vars, true);
 		}

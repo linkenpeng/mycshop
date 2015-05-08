@@ -96,7 +96,8 @@ class trig_uploadfile {
 		if (!$this->overwrite && file_exists($this->savename)) {
 			$this->halt($this->savename . " 文件名已经存在。");
 		}
-		if ($this->format != "" && !in_array(strtolower($this->ext), explode(",", strtolower($this->format)))) {
+		$exts = explode(",", strtolower($this->format));
+		if ($this->format != "" && !in_array(strtolower($this->ext), $exts)) {
 			$this->halt($this->ext . " 文件格式不允许上传。");
 		}
 		if (!file_exists($this->savepath . "/" . $this->ymd . "/")) {

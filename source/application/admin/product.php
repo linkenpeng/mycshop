@@ -1,6 +1,5 @@
 <?php
 defined('SYS_IN') or exit('Access Denied.');
-
 class application_admin_product extends application_admin_base {
 	private $productdb;
 
@@ -24,18 +23,27 @@ class application_admin_product extends application_admin_base {
 		if (!empty($barcode)) {
 			$where .= " and `barcode` like '%" . $barcode . "%' ";
 		}
-		// 分页		
+		// 分页
 		$count = $this->productdb->get_count($where);
-		$p = new trig_page(array('total_count' => $count,'default_page_size' => 15));
+		$p = new trig_page(array(
+			'total_count' => $count,
+			'default_page_size' => 15 
+		));
 		// 获取分页后的数据
 		$list = $this->productdb->get_list($p->perpage, $p->offset, " * ", $where, "dateline DESC ");
 		// 分类
-		$producttypedb = new model_producttype();
-		$pt_list = $producttypedb->get_list(100, 0, " typeid,name ", "", "typeid ASC ");
+		$producttype = new model_producttype();
+		$pt_list = $producttype->get_all(" typeid,name ", "", "typeid ASC ");
 		foreach ($pt_list as $k => $v) {
 			$producttype_list[$v['typeid']] = $v['name'];
 		}
-		include trig_mvc_template::view_file('product');
+		
+		$this->display('product', array(
+			'p' => $p,
+			'list' => $list,
+			'typeid' => $typeid,
+			'producttype_list' => $producttype_list 
+		));
 	}
 
 	public function add() {
@@ -44,9 +52,9 @@ class application_admin_product extends application_admin_base {
 				trig_func_common::ShowMsg("产品型号不能为空!", -1);
 			}
 			$_POST['dateline'] = empty($_POST['dateline']) ? time() : strtotime(trim($_POST['dateline']));
+			$image = '';
 			if (!empty($_FILES['image']['name'])) {
-				
-				$upfile = new trig_uploadfile(UPLOAD_FILE_TYPES);
+				$upfile = new trig_uploadfile(UPLOAD_IMAGE_FILE_TYPES);
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
 			}
@@ -74,11 +82,14 @@ class application_admin_product extends application_admin_base {
 				trig_func_common::ShowMsg(trig_func_common::lang('message', 'insert_failure'), -1);
 			}
 		}
-		$show_validator = 1;
-		$show_editor = 1;
+		
 		$producttypedb = new model_producttype();
-		$producttype_list = $producttypedb->get_list(100, 0, " typeid,name ", $where, "typeid ASC ");
-		include trig_mvc_template::view_file('productform');
+		$producttype_list = $producttypedb->get_all(" typeid,name ", '', "typeid ASC ");
+		
+		$this->display('productform', array(
+			'show_editor' => 1,
+			'producttype_list' => $producttype_list 
+		));
 	}
 
 	public function edit() {
@@ -87,9 +98,9 @@ class application_admin_product extends application_admin_base {
 			$value = $this->productdb->get_one($productid);
 		}
 		if (!empty($_POST['action']) && !empty($_POST['productid'])) {
+			$image = '';
 			if (!empty($_FILES['image']['name'])) {
-				
-				$upfile = new trig_uploadfile(UPLOAD_FILE_TYPES);
+				$upfile = new trig_uploadfile(UPLOAD_IMAGE_FILE_TYPES);
 				$upfile->savesamll = 1;
 				$image = $upfile->upload($_FILES['image']);
 			}
@@ -122,10 +133,13 @@ class application_admin_product extends application_admin_base {
 			}
 		}
 		$producttypedb = new model_producttype();
-		$producttype_list = $producttypedb->get_list(100, 0, " typeid,name ", $where, "typeid ASC ");
-		$show_validator = 1;
-		$show_editor = 1;
-		include trig_mvc_template::view_file('productform');
+		$producttype_list = $producttypedb->get_all(" typeid,name ", '', "typeid ASC ");
+		
+		$this->display('productform', array(
+			'value' => $value,
+			'show_editor' => 1,
+			'producttype_list' => $producttype_list 
+		));
 	}
 
 	public function delete() {

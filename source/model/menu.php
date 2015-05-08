@@ -82,6 +82,10 @@ class model_menu extends model_base {
 		$sql = "select * from ".$this->tname($this->_table)." WHERE level = $level";
 		return $this->db->get_list($sql);
 	}
-	
+
+    public function get_parent_menus($parentid) {
+        $sql = "select * from ".$this->tname($this->_table)." WHERE parentid = $parentid";
+        return $this->db->get_list($sql);
+    }
 	
 }
